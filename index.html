@@ -37,6 +37,18 @@
 
         a { color: #0000ee; }
         hr { border: 0; border-top: 1px solid #999; }
+
+        /* 追加：操作説明用スタイル */
+        .instruction-box {
+            font-size: 11px;
+            text-align: left;
+            padding: 8px;
+            background: #ffffcc; /* 昭和・平成の付箋色 */
+            border: 1px solid #999;
+            margin-top: 5px;
+            line-height: 1.4;
+            color: #333;
+        }
     </style>
     <script src="https://unpkg.com/three"></script>
     <script src="https://unpkg.com/globe.gl"></script>
@@ -45,6 +57,13 @@
 
 <center>
     <h1>藤本拓 公式サイト</h1>
+
+    <div style="width: 95%; background: #000; color: #00ff00; border: 1px solid #666; margin-bottom: 5px;">
+        <marquee scrollamount="5" style="font-size: 14px; font-weight: bold; padding: 2px;">
+            【最新情報】2026年2月22日（日）「祝日自由市」に出展します。新刊を用意してお待ちしております。
+        </marquee>
+    </div>
+
     <hr width="95%">
 
     <table class="main-table" border="0" width="900" cellpadding="0" cellspacing="0">
@@ -68,7 +87,11 @@
                 <br>
                 <b>■3D地球儀</b><br>
                 <div id="globeViz" style="width: 200px; height: 200px;"></div>
-                <div style="font-size: 10px; text-align: center;">(ドラッグで回転)</div>
+                
+                <div class="instruction-box">
+                    <b>【地球儀の使い方】</b><br>
+                    マウスで地球を掴んで（ドラッグして）回せます。気になる場所をカチッと押す（タップする）と、その国の詳細な地図が開きます。
+                </div>
             </td>
 
             <td class="content-cell">
