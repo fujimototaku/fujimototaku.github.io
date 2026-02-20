@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>藤本拓 公式サイト</title>
     <style>
-        /* 基本設計：全デバイス共通 */
         body { 
             background-color: #f0fff0; 
             font-family: "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; 
@@ -15,20 +14,18 @@
             flex-direction: column;
             align-items: center;
         }
-        h1 { margin: 5px 0; font-size: 24px; }
+        h1 { margin: 5px 0; font-size: 24px; text-align: center; }
         hr { border: 0; border-top: 1px solid #999; margin: 8px 0; width: 100%; max-width: 740px; }
 
-        /* メインコンテナ：PCでは横並び、スマホでは縦並び */
         .main-container {
             background-color: rgba(255, 255, 255, 0.7); 
             border: 1px solid #999;
             width: 100%;
             max-width: 740px;
             display: flex;
-            flex-wrap: wrap; /* ここで折り返しを制御 */
+            flex-wrap: wrap;
         }
 
-        /* 左カラム */
         .side-col {
             width: 220px;
             padding: 8px;
@@ -36,7 +33,6 @@
             box-sizing: border-box;
         }
 
-        /* 右カラム */
         .main-col {
             flex: 1;
             min-width: 300px;
@@ -44,7 +40,6 @@
             box-sizing: border-box;
         }
 
-        /* 共通パーツ */
         .section-bar {
             background-color: #cccccc; 
             border: 1px solid #666;
@@ -67,31 +62,30 @@
             width: 100%;
         }
         .profile-img { width: 100px; border-right: 1px solid #999; padding: 4px; display: flex; align-items: center; justify-content: center; }
+        .profile-img img { width: 90px; height: auto; display: block; }
         .profile-txt { padding: 8px; font-size: 11px; line-height: 1.4; flex: 1; }
 
         #globeViz {
             width: 200px; height: 200px; margin: 0 auto;
             border: 1px inset #ccc; transition: 0.3s; position: relative; z-index: 10;
         }
-        #globeViz:hover { z-index: 100; box-shadow: 0 0 20px rgba(0,0,0,0.3); }
+        #globeViz:hover { z-index: 100; }
 
         .panda-wrapper {
             border: 1px solid #999; background: #000;
             width: 100%; max-width: 460px; margin: 0 auto 5px;
             aspect-ratio: 16 / 9; overflow: hidden;
         }
-        .panda-wrapper iframe { width: 100%; height: 100%; }
+        .panda-wrapper iframe { width: 100%; height: 100%; border: none; }
 
         .utility-box {
             width: 100%; max-width: 460px; margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 5px;
         }
 
-        /* スマホ用（768px未満）の強制上書き */
         @media screen and (max-width: 768px) {
             .side-col { width: 100%; border-right: none; border-bottom: 1px solid #999; }
             .main-col { width: 100%; }
-            #globeViz:hover { width: 300px; height: 300px; }
         }
     </style>
     <script src="https://unpkg.com/three"></script>
@@ -125,7 +119,7 @@
         <b>■3D地球儀</b>
         <div id="globeViz"></div>
         <div style="font-size: 10px; padding: 5px; background: #ffffcc; border: 1px solid #999; margin-top: 5px;">
-            ホバーで拡大。クリックで地図。
+            PC：ホバーで拡大。スマホ：タップで拡大。
         </div>
     </div>
 
@@ -134,7 +128,7 @@
         
         <div class="section-bar">プロフィール</div>
         <div class="profile-box">
-            <div class="profile-img"><img src="profile.jpg" alt="近影" width="90"></div>
+            <div class="profile-img"><img src="profile.jpg" alt="近影"></div>
             <div class="profile-txt">
                 名前：藤本拓<br>
                 好き：石・川・雪、書く、寝る、本当、チャットモンチー、Oasis、緑<br>
@@ -151,7 +145,7 @@
 
         <div class="section-bar">パンダ観測</div>
         <div class="panda-wrapper">
-            <iframe src="https://www.youtube.com/embed/gnEuhfyZPPQ?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/gnEuhfyZPPQ?autoplay=1&mute=1" allowfullscreen></iframe>
         </div>
         
         <div class="utility-box">
@@ -172,24 +166,46 @@
 <div style="font-size: 10px; margin-top: 10px; text-align: center;">Copyright (C) 2026 藤本拓. All Rights Reserved.</div>
 
 <script>
-    // カウントダウン・生存確認
+    // タイマー関連
     const targetDate = new Date("Feb 22, 2026 10:00:00").getTime();
     const lastUpdate = new Date("Feb 20, 2026 18:30:00").getTime();
     setInterval(() => {
         const now = new Date().getTime();
-        const diff1 = targetDate - now;
-        document.getElementById("countdown").innerText = diff1 < 0 ? "開催中" : Math.floor(diff1/86400000) + "日 " + new Date(diff1).toISOString().substr(11, 8);
-        const diff2 = now - lastUpdate;
-        document.getElementById('update-timer').innerText = Math.floor(diff2/60000) + "分" + Math.floor((diff2%60000)/1000) + "秒";
+        const d1 = targetDate - now;
+        document.getElementById("countdown").innerText = d1 < 0 ? "開催中" : Math.floor(d1/86400000) + "日 " + new Date(d1).toISOString().substr(11, 8);
+        const d2 = now - lastUpdate;
+        document.getElementById('update-timer').innerText = Math.floor(d2/60000) + "分" + Math.floor((d2%60000)/1000) + "秒";
     }, 1000);
 
-    // 地球儀
-    const globe = Globe()(document.getElementById('globeViz')).globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg').backgroundColor('rgba(0,0,0,0)').width(200).height(200);
+    // 地球儀本体
+    const globeElement = document.getElementById('globeViz');
+    const globe = Globe()(globeElement)
+        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+        .backgroundColor('rgba(0,0,0,0)').width(200).height(200);
     globe.controls().autoRotate = true;
     globe.controls().enableZoom = false;
-    document.getElementById('globeViz').addEventListener('mouseenter', () => { globe.width(window.innerWidth<768?300:400).height(window.innerWidth<768?300:400); });
-    document.getElementById('globeViz').addEventListener('mouseleave', () => { globe.width(200).height(200); });
-    globe.onGlobeClick(({ lat, lng }) => { window.open(`https://www.google.com/maps?q=${lat},${lng}&z=6`, '_blank'); });
+
+    // サイズ調整関数
+    const setGlobeSize = (size) => { globe.width(size).height(size); };
+
+    // PC: ホバー
+    globeElement.addEventListener('mouseenter', () => { setGlobeSize(window.innerWidth < 768 ? 300 : 400); });
+    globeElement.addEventListener('mouseleave', () => { setGlobeSize(200); });
+
+    // スマホ: タップ
+    globeElement.addEventListener('touchstart', (e) => {
+        if (globe.width() <= 200) {
+            setGlobeSize(300);
+            e.preventDefault(); // 拡大のみ実行
+        } else {
+            setGlobeSize(200);
+        }
+    }, {passive: false});
+
+    // 地図遷移
+    globe.onGlobeClick(({ lat, lng }) => {
+        window.open(`https://www.google.com/maps?q=${lat},${lng}&z=6`, '_blank');
+    });
 </script>
 </body>
 </html>
