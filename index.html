@@ -4,50 +4,50 @@
     <meta charset="UTF-8">
     <title>藤本拓 公式サイト</title>
     <style>
-        /* 1. 色彩設計：薄い緑の背景とシステムフォント */
         body { 
-            background-color: #f0fff0; /* 全体の薄い緑 */
+            background-color: #f0fff0; 
             font-family: "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; 
             margin: 0; 
             padding: 20px;
         }
-
-        /* 2. 緻密な整列のためのレイアウト設定 */
         table.main-table {
-            background-color: rgba(255, 255, 255, 0.6); /* 透明感のある白 */
+            background-color: rgba(255, 255, 255, 0.6); 
             border: 1px solid #999;
         }
-
-        /* 3. 「ダサい」タイトルバーの設定 */
         .section-bar {
-            background-color: #cccccc; /* 絶妙なグレー */
+            background-color: #cccccc; 
             border: 1px solid #666;
             padding: 3px 10px;
             font-size: 14px;
             font-weight: bold;
             margin-bottom: 10px;
-            width: 95%; /* 横幅を綺麗に揃える */
+            width: 95%; 
         }
-
-        /* 各要素の配置 */
         .content-cell {
             padding: 10px;
             vertical-align: top;
         }
-
         a { color: #0000ee; }
         hr { border: 0; border-top: 1px solid #999; }
-
-        /* 追加：操作説明用スタイル */
         .instruction-box {
             font-size: 11px;
             text-align: left;
             padding: 8px;
-            background: #ffffcc; /* 昭和・平成の付箋色 */
+            background: #ffffcc; 
             border: 1px solid #999;
             margin-top: 5px;
             line-height: 1.4;
-            color: #333;
+        }
+        /* 穏やかな挨拶表示エリア */
+        #greeting-area {
+            width: 95%;
+            padding: 5px;
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #444;
+            border: 1px dotted #999;
+            background: #ffffff;
+            text-align: center;
         }
     </style>
     <script src="https://unpkg.com/three"></script>
@@ -58,10 +58,8 @@
 <center>
     <h1>藤本拓 公式サイト</h1>
 
-    <div style="width: 95%; background: #000; color: #00ff00; border: 1px solid #666; margin-bottom: 5px;">
-        <marquee scrollamount="5" style="font-size: 14px; font-weight: bold; padding: 2px;">
-            【最新情報】2026年2月22日（日）「祝日自由市」に出展します。新刊を用意してお待ちしております。
-        </marquee>
+    <div id="greeting-area">
+        <span id="dynamic-greeting">読み込み中...</span>
     </div>
 
     <hr width="95%">
@@ -83,14 +81,25 @@
                 <hr>
                 <b>■次のイベント</b><br>
                 祝日自由市まで：<br>
-                <span id="countdown" style="font-weight: bold; color: #000;">計算中...</span><br>
+                <span id="countdown" style="font-weight: bold;">計算中...</span><br>
                 <br>
+                <b>■生存確認（リアルタイム）</b><br>
+                <div style="font-size: 11px; background: #eee; padding: 5px; border: 1px inset #ccc;">
+                    最終更新：2026/02/20<br>
+                    更新から：<span id="update-timer">0分0秒</span> 経過
+                </div>
+                <br>
+                <b>■サイト内検索</b><br>
+                <form action="https://www.google.co.jp/search" method="get" target="_blank" style="margin:0;">
+                    <input type="hidden" name="q" value="site:fujimototaku.github.io">
+                    <input type="text" name="q_dummy" size="18" style="font-size:10px;" placeholder="Googleでサイト内検索">
+                    <input type="submit" value="検索" style="font-size:10px;">
+                </form>
+                <hr>
                 <b>■3D地球儀</b><br>
                 <div id="globeViz" style="width: 200px; height: 200px;"></div>
-                
                 <div class="instruction-box">
-                    <b>【地球儀の使い方】</b><br>
-                    マウスで地球を掴んで（ドラッグして）回せます。気になる場所をカチッと押す（タップする）と、その国の詳細な地図が開きます。
+                    マウスで地球を掴んで回せます。気になる場所を押すと詳細地図が開きます。
                 </div>
             </td>
 
@@ -101,7 +110,7 @@
                 <table border="1" width="100%" cellspacing="0" cellpadding="5" style="border-color: #999; margin-bottom: 20px;">
                     <tr>
                         <td align="center" width="120" bgcolor="#ffffff">
-                            <img src="profile.jpg" alt="近影" width="110" style="display: block;">
+                            <img src="profile.jpg" alt="近影" width="110">
                         </td>
                         <td bgcolor="#ffffff" style="font-size: 13px;">
                             名前：藤本拓<br>
@@ -138,7 +147,7 @@
 </center>
 
 <script>
-    // 1. カウントダウン機能
+    // 1. カウントダウン
     const targetDate = new Date("Feb 22, 2026 10:00:00").getTime();
     setInterval(function() {
         const distance = targetDate - new Date().getTime();
@@ -153,19 +162,30 @@
         document.getElementById("countdown").innerText = d + "日 " + h + ":" + m + ":" + s;
     }, 1000);
 
-    // 2. 真の3D地球儀（透明背景・操作可能）
-    const globe = Globe()
-        (document.getElementById('globeViz'))
-        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-        .backgroundColor('rgba(0,0,0,0)') // 背景を完全透過
-        .width(200)
-        .height(200);
+    // 2. 生存確認カウンター（更新時刻からの経過時間）
+    const lastUpdate = new Date("Feb 20, 2026 18:30:00").getTime();
+    setInterval(() => {
+        const diff = new Date().getTime() - lastUpdate;
+        const mins = Math.floor(diff / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById('update-timer').innerText = mins + "分" + secs + "秒";
+    }, 1000);
 
+    // 3. 挨拶（時間連動）
+    const hour = new Date().getHours();
+    let greet = "";
+    if (hour >= 5 && hour < 11) greet = "おはようございます。本日も誠実に。";
+    else if (hour >= 11 && hour < 18) greet = "こんにちは。ゆっくりしていってください。";
+    else greet = "こんばんは。夜更かしの友に、パンダと地球儀を。";
+    document.getElementById('dynamic-greeting').innerText = greet;
+
+    // 4. 地球儀
+    const globe = Globe()(document.getElementById('globeViz'))
+        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+        .backgroundColor('rgba(0,0,0,0)').width(200).height(200);
     globe.controls().autoRotate = true;
     globe.controls().autoRotateSpeed = 1.2;
     globe.controls().enableZoom = false;
-
-    // 地球をクリックするとその地点のGoogleマップへ
     globe.onGlobeClick(({ lat, lng }) => {
         window.open(`https://www.google.com/maps/@${lat},${lng},6z`, '_blank');
     });
