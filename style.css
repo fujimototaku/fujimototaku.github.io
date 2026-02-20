@@ -1,0 +1,15 @@
+body { background-color: #ffffff; color: #000000; font-family: "MS PGothic", "Osaka", sans-serif; margin: 20px; display: flex; }
+nav { width: 160px; background-color: #f0fdf0; border: 1px solid #008000; height: fit-content; padding: 15px; flex-shrink: 0; margin-right: 30px; position: sticky; top: 20px; }
+nav b { font-size: 14px; color: #008000; display: block; border-bottom: 1px solid #008000; margin-bottom: 10px; }
+nav a { display: block; color: #0000ee; text-decoration: underline; font-size: 14px; margin-bottom: 8px; }
+nav a:hover { color: #ff0000; background-color: #ffffff; }
+main { flex: 1; max-width: 800px; }
+h1 { background-color: #008000; color: #ffffff; font-size: 20px; padding: 8px; border: 1px solid #000; margin-top: 0; }
+h2 { border-bottom: 2px solid #008000; color: #008000; font-size: 16px; margin-top: 40px; padding-bottom: 3px; }
+table { border-collapse: collapse; width: 100%; border: 1px solid #008000; margin: 10px 0; }
+th, td { border: 1px solid #008000; padding: 10px; font-size: 14px; text-align: left; }
+th { background-color: #e8f5e8; font-weight: bold; width: 100px; }
+.bg-light-green { background-color: #f0fdf0; border: 1px solid #008000; padding: 15px; }
+.contact-box { background-color: #f0fdf0; border: 2px solid #008000; padding: 20px; font-size: 16px; margin-top: 20px; }
+.footer { margin-top: 60px; border-top: 1px solid #ccc; padding-top: 20px; font-size: 12px; color: #666; }
+@media (max-width: 700px) { body { flex-direction: column; } nav { width: 100%; margin-bottom: 30px; position: static; } }
