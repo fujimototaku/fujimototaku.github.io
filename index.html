@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-44TQ3YJ9NH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-44TQ3YJ9NH');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="藤本拓の公式サイト。札幌・北海道を拠点に日記本などの制作活動を行っています。">
-    <meta name="keywords" content="藤本拓,日記本,本,札幌,北海道,ZINE,クリエイター">
+    <meta name="keywords" content="藤本拓,日記本,作家,本,札幌,北海道,ZINE,クリエイター">
     <title>藤本拓 公式サイト</title>
     
     <script type="application/ld+json">
@@ -27,7 +35,7 @@
       ],
       "jobTitle": "作家 / クリエイター",
       "description": "北海道札幌市を拠点に活動。日記本などの本作り、作品制作、パンダ観測を行っています。",
-      "knowsAbout": ["日記本", "本", "ZINE", "札幌", "北海道"]
+      "knowsAbout": ["日記本", "本", "ZINE", "札幌", "北海道", "作家"]
     }
     </script>
 
@@ -150,7 +158,7 @@
     </div>
 
     <div class="main-col">
-        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年2月20日 18:30</div>
+        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年2月20日 21:15</div>
         
         <div class="section-bar">プロフィール</div>
         <div class="profile-box">
@@ -215,7 +223,7 @@
     }, {passive: false});
 
     globe.onGlobeClick(({ lat, lng }) => {
-        window.open(`https://www.google.com/maps?q=${lat},${lng}&z=6`, '_blank');
+        window.open(`https://www.google.com/maps/@${lat},${lng},6z`, '_blank');
     });
 </script>
 </body>
