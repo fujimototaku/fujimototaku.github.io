@@ -33,7 +33,6 @@
         a { color: #0000ee; text-decoration: underline; }
         hr { border: 0; border-top: 1px solid #999; margin: 8px 0; }
 
-        /* メニューの縦並び調整：クリックしやすさを重視 */
         .menu-list {
             list-style-type: none;
             padding-left: 5px;
@@ -43,11 +42,10 @@
         }
         .menu-list li:before { content: "・"; }
 
-        /* プロフィール：二重線を廃止し、はみ出しを修正 */
         .profile-table {
             border-collapse: collapse;
-            border: 1px solid #999; /* 普通の線 */
-            width: 100%; /* セル内での100%に固定 */
+            border: 1px solid #999;
+            width: 100%;
             background: #fff;
             margin-bottom: 15px;
         }
@@ -73,6 +71,17 @@
             background: #000;
             display: inline-block;
             line-height: 0;
+            margin-bottom: 10px;
+        }
+
+        /* パンダ下の機能エリア：整列用 */
+        .utility-box {
+            width: 480px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            margin-top: 5px;
         }
     </style>
     <script src="https://unpkg.com/three"></script>
@@ -106,18 +115,6 @@
                 <hr>
                 <b>■次のイベント</b><br>
                 <span id="countdown" style="font-weight: bold; font-size: 14px;">計算中...</span>
-                <br><br>
-                <b>■生存確認</b><br>
-                <div style="font-size: 10px; background: #eee; padding: 4px; border: 1px inset #ccc;">
-                    更新から：<span id="update-timer">0分0秒</span> 経過
-                </div>
-                <br>
-                <b>■サイト内検索</b><br>
-                <form action="https://www.google.co.jp/search" method="get" target="_blank" style="margin:0;">
-                    <input type="hidden" name="q" value="site:fujimototaku.github.io">
-                    <input type="text" name="q_dummy" size="16" style="font-size:10px;" placeholder="Google検索">
-                    <input type="submit" value="検索" style="font-size:10px;">
-                </form>
                 <hr>
                 <b>■3D地球儀</b>
                 <div id="globeViz"></div>
@@ -155,6 +152,19 @@
                     <div class="panda-wrapper">
                         <iframe width="480" height="270" src="https://www.youtube.com/embed/gnEuhfyZPPQ?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
                     </div>
+                    
+                    <div class="utility-box">
+                        <div style="background: #eee; padding: 5px 10px; border: 1px inset #ccc; text-align: left;">
+                            <b>生存確認</b>：更新から <span id="update-timer">0分0秒</span> 経過
+                        </div>
+                        <div style="padding: 5px; border: 1px solid #999; background: rgba(255,255,255,0.5);">
+                            <form action="https://www.google.co.jp/search" method="get" target="_blank" style="margin:0; display: flex; align-items: center;">
+                                <input type="hidden" name="q" value="site:fujimototaku.github.io">
+                                <input type="text" name="q_dummy" size="14" style="font-size:10px; margin-right: 2px;" placeholder="サイト内検索">
+                                <input type="submit" value="検索" style="font-size:10px;">
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </td>
         </tr>
@@ -188,7 +198,7 @@
     globe.controls().autoRotateSpeed = 1.2;
     globe.controls().enableZoom = false;
     globe.onGlobeClick(({ lat, lng }) => {
-        window.open(`https://www.google.com/maps?q=${lat},${lng}&z=6`, '_blank');
+        window.open(`http://googleusercontent.com/maps.google.com/maps?q=${lat},${lng}&z=6`, '_blank');
     });
 </script>
 
