@@ -3,7 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="藤本拓の公式サイト。札幌・北海道を拠点に日記本などの制作活動を行っています。">
+    <meta name="keywords" content="藤本拓,日記本,本,札幌,北海道,ZINE,クリエイター">
     <title>藤本拓 公式サイト</title>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "藤本拓",
+      "url": "https://fujimototaku.github.io/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "北海道",
+        "addressLocality": "札幌"
+      },
+      "sameAs": [
+        "https://x.com/fujimototaku",
+        "https://note.com/fujimototaku",
+        "https://www.instagram.com/fujimototaku0",
+        "https://10futa20.booth.pm/",
+        "https://github.com/fujimototaku"
+      ],
+      "jobTitle": "作家 / クリエイター",
+      "description": "北海道札幌市を拠点に活動。日記本などの本作り、作品制作、パンダ観測を行っています。",
+      "knowsAbout": ["日記本", "本", "ZINE", "札幌", "北海道"]
+    }
+    </script>
+
     <style>
         body { 
             background-color: #f0fff0; 
@@ -69,7 +96,6 @@
             width: 200px; height: 200px; margin: 0 auto;
             border: 1px inset #ccc; transition: 0.3s; position: relative; z-index: 10;
         }
-        #globeViz:hover { z-index: 100; }
 
         .panda-wrapper {
             border: 1px solid #999; background: #000;
@@ -138,8 +164,8 @@
 
         <div class="section-bar">最新のお知らせ（3件）</div>
         <div style="font-size:12px; padding: 0 5px 15px; line-height: 1.5;">
-            ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20" target="_blank">Indie Books Holiday</a>」（スーパーZINEフェスティバル）出展<br>
-            ・2026/02/22：「<a href="https://x.com/Shukujitsu_lib/status/2023788633053167671?s=20" target="_blank">祝日自由市</a>」（スーパーフリマ）出展<br>
+            ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20" target="_blank">Indie Books Holiday</a>」出展<br>
+            ・2026/02/22：「<a href="https://x.com/Shukujitsu_lib/status/2023788633053167671?s=20" target="_blank">祝日自由市</a>」出展<br>
             ・2026/02/20：公式サイトを開設しました。
         </div>
 
@@ -166,7 +192,6 @@
 <div style="font-size: 10px; margin-top: 10px; text-align: center;">Copyright (C) 2026 藤本拓. All Rights Reserved.</div>
 
 <script>
-    // タイマー関連
     const targetDate = new Date("Feb 22, 2026 10:00:00").getTime();
     const lastUpdate = new Date("Feb 20, 2026 18:30:00").getTime();
     setInterval(() => {
@@ -177,32 +202,18 @@
         document.getElementById('update-timer').innerText = Math.floor(d2/60000) + "分" + Math.floor((d2%60000)/1000) + "秒";
     }, 1000);
 
-    // 地球儀本体
-    const globeElement = document.getElementById('globeViz');
-    const globe = Globe()(globeElement)
-        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-        .backgroundColor('rgba(0,0,0,0)').width(200).height(200);
+    const globeDiv = document.getElementById('globeViz');
+    const globe = Globe()(globeDiv).globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg').backgroundColor('rgba(0,0,0,0)').width(200).height(200);
     globe.controls().autoRotate = true;
     globe.controls().enableZoom = false;
 
-    // サイズ調整関数
-    const setGlobeSize = (size) => { globe.width(size).height(size); };
-
-    // PC: ホバー
-    globeElement.addEventListener('mouseenter', () => { setGlobeSize(window.innerWidth < 768 ? 300 : 400); });
-    globeElement.addEventListener('mouseleave', () => { setGlobeSize(200); });
-
-    // スマホ: タップ
-    globeElement.addEventListener('touchstart', (e) => {
-        if (globe.width() <= 200) {
-            setGlobeSize(300);
-            e.preventDefault(); // 拡大のみ実行
-        } else {
-            setGlobeSize(200);
-        }
+    const setSize = (s) => { globe.width(s).height(s); };
+    globeDiv.addEventListener('mouseenter', () => { setSize(window.innerWidth < 768 ? 300 : 400); });
+    globeDiv.addEventListener('mouseleave', () => { setSize(200); });
+    globeDiv.addEventListener('touchstart', (e) => {
+        if (globe.width() <= 200) { setSize(300); e.preventDefault(); } else { setSize(200); }
     }, {passive: false});
 
-    // 地図遷移
     globe.onGlobeClick(({ lat, lng }) => {
         window.open(`https://www.google.com/maps?q=${lat},${lng}&z=6`, '_blank');
     });
