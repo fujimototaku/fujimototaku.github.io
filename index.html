@@ -1,7 +1,45 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><meta charset="UTF-8"><title>藤本拓 公式サイト</title><link rel="stylesheet" href="style.css"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>藤本拓 公式サイト</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 1. デザイン定義（最先端・美術館基準） */
+        :root { --accent-color: #00ffff; --bg-dark: #ffffff; } /* 既存デザインに合わせ白基調 */
+        
+        .header-countdown {
+            position: sticky; top: 0; background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px); border-bottom: 2px solid #000;
+            padding: 8px 20px; z-index: 1000; display: flex;
+            justify-content: space-between; align-items: center;
+        }
+        #countdown { font-family: 'Courier New', monospace; color: #ff3b3b; font-weight: bold; }
+
+        .earth-widget {
+            position: fixed; right: 20px; top: 80px; z-index: 500;
+            text-align: center;
+        }
+        .earth-inner {
+            width: 180px; height: 180px; border-radius: 50%;
+            overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.1); border: 1px solid #ddd;
+        }
+
+        .panda-frame {
+            max-width: 600px; margin: 40px auto; padding: 15px;
+            background: #f9f9f9; border-radius: 8px; border: 1px solid #eee;
+        }
+
+        @media (max-width: 1000px) { .earth-widget { position: static; margin: 20px auto; } }
+    </style>
+</head>
 <body>
+
+<div class="header-countdown">
+    <span style="font-size: 10px; letter-spacing: 2px; font-weight: bold;">NEXT EVENT:</span>
+    <span id="countdown">LOADING DATA...</span>
+</div>
+
 <nav>
   <b>メニュー</b>
   <a href="index.html">トップ</a>
@@ -15,27 +53,58 @@
   <a href="https://note.com/fujimototaku" target="_blank">note</a>
   <a href="https://10futa20.booth.pm/" target="_blank">通販</a>
 </nav>
+
 <main>
+  <div class="earth-widget">
+    <div class="earth-inner">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10000000!2d138.252924!3d36.204824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp&maptype=satellite" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <p style="font-size: 9px; color: #888; margin-top: 5px;">GLOBAL CONNECTING...</p>
+  </div>
+
   <h1>藤本拓 公式サイト</h1>
   <p style="text-align: right; font-size: 12px;">最終更新：2026年2月20日</p>
+
   <h2>プロフィール</h2>
   <div class="bg-light-green">
     <table style="margin:0;">
       <tr>
         <td align="center" width="130"><img src="profile.jpg" alt="近影" width="110" border="1" style="background:#eee;"></td>
-        <td>名前：藤本拓<br>好きなこと：書く、寝る、せめて誠実であろうとすること、チャットモンチー、Oasis
-<br>嫌いなこと：忖度、運動もろもろ、嘘つき、四則演算、セロリ、緑色</td>
+        <td>名前：藤本拓<br>好きなこと：書く、寝る、せめて誠実であろうとすること、チャットモンチー、Oasis<br>嫌いなこと：忖度、運動もろもろ、嘘つき、四則演算、セロリ、緑色</td>
       </tr>
     </table>
   </div>
+
   <h2>最新のお知らせ</h2>
   <p style="font-size:14px;">
     ・2026/??/??：本を出します。頑張ります。<br>
     ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20">Indie Books Holiday in salon</a>」（自費出版スーパーイベント）に出ます。<br>
     ・2026/02/22：「<a href="https://x.com/Shukujitsu_lib/status/2023788633053167671?s=20">祝日自由市</a>」（「本当の」フリーマーケット）に出ます。<br>
     ・2026/02/20：公式サイトを開設しました。
-　</p>
+  </p>
+
+  <div class="panda-frame">
+    <h3 style="font-size: 11px; margin-bottom: 10px; color: #888; text-align: center; letter-spacing: 2px;">LIVE OBSERVATION</h3>
+    <div style="aspect-ratio: 16/9; border-radius: 4px; overflow: hidden;">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/gnEuhfyZPPQ?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
   <div class="footer">Copyright (C) 2026 藤本拓.</div>
 </main>
+
+<script>
+    const targetDate = new Date("Feb 22, 2026 10:00:00").getTime();
+    setInterval(function() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        const s = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        document.getElementById("countdown").innerHTML = d + "D " + h + ":" + m + ":" + s;
+    }, 1000);
+</script>
+
 </body>
 </html>
