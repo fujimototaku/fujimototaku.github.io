@@ -1,32 +1,195 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-    /* スマホ（画面幅768px以下）用の調整 */
-    @media screen and (max-width: 768px) {
-        body { padding: 5px; }
-        table.main-table {
-            width: 100%; /* 横幅いっぱいに広げる */
-        }
-        tr {
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>藤本拓 公式サイト</title>
+    <style>
+        /* 基本設計：全デバイス共通 */
+        body { 
+            background-color: #f0fff0; 
+            font-family: "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; 
+            margin: 0; 
+            padding: 10px;
             display: flex;
-            flex-direction: column; /* 左メニューと右メインを縦に並べる */
+            flex-direction: column;
+            align-items: center;
         }
-        td {
-            width: 100% !important;
-            border-right: none !important;
-            border-bottom: 1px solid #999;
+        h1 { margin: 5px 0; font-size: 24px; }
+        hr { border: 0; border-top: 1px solid #999; margin: 8px 0; width: 100%; max-width: 740px; }
+
+        /* メインコンテナ：PCでは横並び、スマホでは縦並び */
+        .main-container {
+            background-color: rgba(255, 255, 255, 0.7); 
+            border: 1px solid #999;
+            width: 100%;
+            max-width: 740px;
+            display: flex;
+            flex-wrap: wrap; /* ここで折り返しを制御 */
+        }
+
+        /* 左カラム */
+        .side-col {
+            width: 220px;
+            padding: 8px;
+            border-right: 1px solid #999;
             box-sizing: border-box;
         }
-        .section-bar, .profile-table, .panda-wrapper, .utility-box {
-            width: 100% !important; /* 各要素をスマホ幅に合わせる */
+
+        /* 右カラム */
+        .main-col {
+            flex: 1;
+            min-width: 300px;
+            padding: 8px;
+            box-sizing: border-box;
         }
-        iframe {
-            width: 100% !important;
-            height: auto;
-            aspect-ratio: 16 / 9;
+
+        /* 共通パーツ */
+        .section-bar {
+            background-color: #cccccc; 
+            border: 1px solid #666;
+            padding: 2px 10px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            width: 100%;
+            box-sizing: border-box;
         }
-        #globeViz:hover {
-            width: 300px; /* スマホでは巨大化しすぎないよう抑制 */
-            height: 300px;
+        .menu-list { list-style-type: none; padding-left: 5px; margin: 5px 0; line-height: 1.8; font-size: 13px; }
+        .menu-list li:before { content: "・"; }
+        a { color: #0000ee; text-decoration: underline; }
+
+        .profile-box {
+            border: 1px solid #999;
+            background: #fff;
+            margin-bottom: 15px;
+            display: flex;
+            width: 100%;
         }
-    }
-</style>
+        .profile-img { width: 100px; border-right: 1px solid #999; padding: 4px; display: flex; align-items: center; justify-content: center; }
+        .profile-txt { padding: 8px; font-size: 11px; line-height: 1.4; flex: 1; }
+
+        #globeViz {
+            width: 200px; height: 200px; margin: 0 auto;
+            border: 1px inset #ccc; transition: 0.3s; position: relative; z-index: 10;
+        }
+        #globeViz:hover { z-index: 100; box-shadow: 0 0 20px rgba(0,0,0,0.3); }
+
+        .panda-wrapper {
+            border: 1px solid #999; background: #000;
+            width: 100%; max-width: 460px; margin: 0 auto 5px;
+            aspect-ratio: 16 / 9; overflow: hidden;
+        }
+        .panda-wrapper iframe { width: 100%; height: 100%; }
+
+        .utility-box {
+            width: 100%; max-width: 460px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 5px;
+        }
+
+        /* スマホ用（768px未満）の強制上書き */
+        @media screen and (max-width: 768px) {
+            .side-col { width: 100%; border-right: none; border-bottom: 1px solid #999; }
+            .main-col { width: 100%; }
+            #globeViz:hover { width: 300px; height: 300px; }
+        }
+    </style>
+    <script src="https://unpkg.com/three"></script>
+    <script src="https://unpkg.com/globe.gl"></script>
+</head>
+<body>
+
+<h1>藤本拓 公式サイト</h1>
+<hr>
+
+<div class="main-container">
+    <div class="side-col">
+        <b>■メニュー</b>
+        <ul class="menu-list">
+            <li><a href="index.html">トップページ</a></li>
+            <li><a href="works.html">作品・書店</a></li>
+            <li><a href="info.html">活動履歴</a></li>
+            <li><a href="contact.html">お問い合わせ</a></li>
+        </ul>
+        <b>■外部リンク</b>
+        <ul class="menu-list">
+            <li><a href="https://x.com/fujimototaku" target="_blank">Twitter</a></li>
+            <li><a href="https://note.com/fujimototaku" target="_blank">note</a></li>
+            <li><a href="https://www.instagram.com/fujimototaku0" target="_blank">Instagram</a></li>
+            <li><a href="https://10futa20.booth.pm/" target="_blank">通販</a></li>
+        </ul>
+        <hr>
+        <b>■次のイベント</b><br>
+        <span id="countdown" style="font-weight: bold; font-size: 14px;">計算中...</span>
+        <hr>
+        <b>■3D地球儀</b>
+        <div id="globeViz"></div>
+        <div style="font-size: 10px; padding: 5px; background: #ffffcc; border: 1px solid #999; margin-top: 5px;">
+            ホバーで拡大。クリックで地図。
+        </div>
+    </div>
+
+    <div class="main-col">
+        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年2月20日 18:30</div>
+        
+        <div class="section-bar">プロフィール</div>
+        <div class="profile-box">
+            <div class="profile-img"><img src="profile.jpg" alt="近影" width="90"></div>
+            <div class="profile-txt">
+                名前：藤本拓<br>
+                好き：石・川・雪、書く、寝る、本当、チャットモンチー、Oasis、緑<br>
+                嫌い：忖度、運動、嘘、四則演算、セロリ、臭い人
+            </div>
+        </div>
+
+        <div class="section-bar">最新のお知らせ（3件）</div>
+        <div style="font-size:12px; padding: 0 5px 15px; line-height: 1.5;">
+            ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20" target="_blank">Indie Books Holiday</a>」（スーパーZINEフェスティバル）出展<br>
+            ・2026/02/22：「<a href="https://x.com/Shukujitsu_lib/status/2023788633053167671?s=20" target="_blank">祝日自由市</a>」（スーパーフリマ）出展<br>
+            ・2026/02/20：公式サイトを開設しました。
+        </div>
+
+        <div class="section-bar">パンダ観測</div>
+        <div class="panda-wrapper">
+            <iframe src="https://www.youtube.com/embed/gnEuhfyZPPQ?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
+        </div>
+        
+        <div class="utility-box">
+            <div style="background: #eee; padding: 4px 8px; border: 1px solid #999; font-size: 10px;">
+                生存確認：<span id="update-timer">0分0秒</span> 経過
+            </div>
+            <div style="padding: 3px; border: 1px solid #999; background: #fff;">
+                <form action="https://www.google.co.jp/search" method="get" target="_blank" style="margin:0; display: flex;">
+                    <input type="hidden" name="q" value="site:fujimototaku.github.io">
+                    <input type="text" name="q_dummy" size="10" style="font-size:10px;" placeholder="検索">
+                    <input type="submit" value="Go" style="font-size:10px;">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="font-size: 10px; margin-top: 10px; text-align: center;">Copyright (C) 2026 藤本拓. All Rights Reserved.</div>
+
+<script>
+    // カウントダウン・生存確認
+    const targetDate = new Date("Feb 22, 2026 10:00:00").getTime();
+    const lastUpdate = new Date("Feb 20, 2026 18:30:00").getTime();
+    setInterval(() => {
+        const now = new Date().getTime();
+        const diff1 = targetDate - now;
+        document.getElementById("countdown").innerText = diff1 < 0 ? "開催中" : Math.floor(diff1/86400000) + "日 " + new Date(diff1).toISOString().substr(11, 8);
+        const diff2 = now - lastUpdate;
+        document.getElementById('update-timer').innerText = Math.floor(diff2/60000) + "分" + Math.floor((diff2%60000)/1000) + "秒";
+    }, 1000);
+
+    // 地球儀
+    const globe = Globe()(document.getElementById('globeViz')).globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg').backgroundColor('rgba(0,0,0,0)').width(200).height(200);
+    globe.controls().autoRotate = true;
+    globe.controls().enableZoom = false;
+    document.getElementById('globeViz').addEventListener('mouseenter', () => { globe.width(window.innerWidth<768?300:400).height(window.innerWidth<768?300:400); });
+    document.getElementById('globeViz').addEventListener('mouseleave', () => { globe.width(200).height(200); });
+    globe.onGlobeClick(({ lat, lng }) => { window.open(`https://www.google.com/maps?q=${lat},${lng}&z=6`, '_blank'); });
+</script>
+</body>
+</html>
