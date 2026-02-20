@@ -15,8 +15,14 @@
         table.main-table {
             background-color: rgba(255, 255, 255, 0.7); 
             border: 1px solid #999;
-            width: 920px;
+            width: 740px;
+            border-collapse: collapse;
         }
+        .content-cell {
+            padding: 8px;
+            vertical-align: top;
+        }
+        
         .section-bar {
             background-color: #cccccc; 
             border: 1px solid #666;
@@ -24,12 +30,10 @@
             font-size: 13px;
             font-weight: bold;
             margin-bottom: 8px;
-            width: 95%; 
+            width: 460px;
+            box-sizing: border-box;
         }
-        .content-cell {
-            padding: 8px;
-            vertical-align: top;
-        }
+
         a { color: #0000ee; text-decoration: underline; }
         hr { border: 0; border-top: 1px solid #999; margin: 8px 0; }
 
@@ -45,17 +49,31 @@
         .profile-table {
             border-collapse: collapse;
             border: 1px solid #999;
-            width: 100%;
+            width: 460px;
             background: #fff;
             margin-bottom: 15px;
+            table-layout: fixed;
         }
-        .profile-table td { border: 1px solid #999; }
+        .profile-table td { border: 1px solid #999; padding: 4px; }
 
+        /* 地球儀コンテナの動的拡大設定 */
         #globeViz {
             width: 200px; 
             height: 200px; 
             margin: 0 auto;
             border: 1px inset #ccc;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            z-index: 10;
+            background: rgba(255,255,255,0.2);
+        }
+        /* マウスホバー時に巨大化 */
+        #globeViz:hover {
+            width: 400px;
+            height: 400px;
+            transform: scale(1);
+            z-index: 100;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
         }
 
         .instruction-box {
@@ -69,19 +87,17 @@
         .panda-wrapper {
             border: 1px solid #999;
             background: #000;
-            display: inline-block;
-            line-height: 0;
-            margin-bottom: 10px;
+            width: 460px;
+            height: 260px;
+            overflow: hidden;
+            margin-bottom: 5px;
         }
 
-        /* パンダ下の機能エリア：整列用 */
         .utility-box {
-            width: 480px;
+            width: 460px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 11px;
-            margin-top: 5px;
         }
     </style>
     <script src="https://unpkg.com/three"></script>
@@ -95,7 +111,7 @@
 
     <table class="main-table" border="0" cellpadding="0" cellspacing="0">
         <tr>
-            <td width="210" class="content-cell" style="border-right: 1px solid #999;">
+            <td width="220" class="content-cell" style="border-right: 1px solid #999;">
                 <b>■メニュー</b>
                 <ul class="menu-list">
                     <li><a href="index.html">トップページ</a></li>
@@ -109,7 +125,7 @@
                     <li><a href="https://x.com/fujimototaku" target="_blank">Twitter</a></li>
                     <li><a href="https://note.com/fujimototaku" target="_blank">note</a></li>
                     <li><a href="https://www.instagram.com/fujimototaku0" target="_blank">Instagram</a></li>
-                    <li><a href="https://10futa20.booth.pm/" target="_blank">通信販売</a></li>
+                    <li><a href="https://10futa20.booth.pm/" target="_blank">通販</a></li>
                 </ul>
 
                 <hr>
@@ -119,51 +135,49 @@
                 <b>■3D地球儀</b>
                 <div id="globeViz"></div>
                 <div class="instruction-box">
-                    マウスで地球を掴んで回転、クリックで詳細地図。
+                    マウスを重ねると巨大化します。掴んで回転、クリックで地図。
                 </div>
             </td>
 
-            <td class="content-cell">
+            <td class="content-cell" width="480">
                 <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年2月20日 18:30</div>
 
                 <div class="section-bar">プロフィール</div>
-                <table class="profile-table" cellpadding="4">
+                <table class="profile-table">
                     <tr>
                         <td align="center" width="100" bgcolor="#ffffff">
                             <img src="profile.jpg" alt="近影" width="90" style="display:block;">
                         </td>
-                        <td style="font-size: 12px;" bgcolor="#ffffff">
+                        <td style="font-size: 11px; line-height: 1.4;" bgcolor="#ffffff">
                             名前：藤本拓<br>
-                            好き：石・川・雪、書く、寝る、本当のこと、チャットモンチー、Oasis、緑<br>
-                            嫌い：忖度、運動、嘘つき、四則演算、セロリ、臭い人
+                            好き：石・川・雪、書く、寝る、本当、チャットモンチー、Oasis、緑<br>
+                            嫌い：忖度、運動、嘘、四則演算、セロリ、臭い人
                         </td>
                     </tr>
                 </table>
 
                 <div class="section-bar">最新のお知らせ（3件）</div>
-                <div style="font-size:12px; padding-left: 5px; margin-bottom: 15px; line-height: 1.6;">
-                    ・2026/02/22：「<a href="https://x.com/Shukujitsu_lib/status/2023788633053167671?s=20">祝日自由市</a>」出展<br>
-                    ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20">Indie Books Holiday</a>」出展<br>
+                <div style="font-size:12px; padding: 0 5px; margin-bottom: 15px; line-height: 1.5; width: 460px; box-sizing: border-box;">
+                    ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20" target="_blank">Indie Books Holiday</a>」（スーパーZINEフェスティバル）出展<br>
+                    ・2026/02/22：「<a href="https://x.com/Shukujitsu_lib/status/2023788633053167671?s=20" target="_blank">祝日自由市</a>」（スーパーフリマ）出展<br>
                     ・2026/02/20：公式サイトを開設しました。
                 </div>
 
                 <div class="section-bar">パンダ観測</div>
-                <div align="center">
-                    <div class="panda-wrapper">
-                        <iframe width="480" height="270" src="https://www.youtube.com/embed/gnEuhfyZPPQ?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
+                <div class="panda-wrapper">
+                    <iframe width="460" height="260" src="https://www.youtube.com/embed/gnEuhfyZPPQ?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
+                </div>
+                
+                <div class="utility-box">
+                    <div style="background: #eee; padding: 4px 8px; border: 1px solid #999; font-size: 10px;">
+                        生存確認：更新から <span id="update-timer">0分0秒</span> 経過
                     </div>
-                    
-                    <div class="utility-box">
-                        <div style="background: #eee; padding: 5px 10px; border: 1px inset #ccc; text-align: left;">
-                            <b>生存確認</b>：更新から <span id="update-timer">0分0秒</span> 経過
-                        </div>
-                        <div style="padding: 5px; border: 1px solid #999; background: rgba(255,255,255,0.5);">
-                            <form action="https://www.google.co.jp/search" method="get" target="_blank" style="margin:0; display: flex; align-items: center;">
-                                <input type="hidden" name="q" value="site:fujimototaku.github.io">
-                                <input type="text" name="q_dummy" size="14" style="font-size:10px; margin-right: 2px;" placeholder="サイト内検索">
-                                <input type="submit" value="検索" style="font-size:10px;">
-                            </form>
-                        </div>
+                    <div style="padding: 3px; border: 1px solid #999; background: #fff;">
+                        <form action="https://www.google.co.jp/search" method="get" target="_blank" style="margin:0; display: flex;">
+                            <input type="hidden" name="q" value="site:fujimototaku.github.io">
+                            <input type="text" name="q_dummy" size="12" style="font-size:10px;" placeholder="サイト内検索">
+                            <input type="submit" value="検索" style="font-size:10px;">
+                        </form>
                     </div>
                 </div>
             </td>
@@ -191,14 +205,26 @@
         document.getElementById('update-timer').innerText = Math.floor(diff / 60000) + "分" + Math.floor((diff % 60000) / 1000) + "秒";
     }, 1000);
 
-    const globe = Globe()(document.getElementById('globeViz'))
+    // 地球儀の初期化
+    const globeElement = document.getElementById('globeViz');
+    const globe = Globe()(globeElement)
         .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
         .backgroundColor('rgba(0,0,0,0)').width(200).height(200);
+    
     globe.controls().autoRotate = true;
     globe.controls().autoRotateSpeed = 1.2;
     globe.controls().enableZoom = false;
+    
+    // マウスホバーでサイズを動的に変更するリスナー
+    globeElement.addEventListener('mouseenter', () => {
+        globe.width(400).height(400);
+    });
+    globeElement.addEventListener('mouseleave', () => {
+        globe.width(200).height(200);
+    });
+
     globe.onGlobeClick(({ lat, lng }) => {
-        window.open(`http://googleusercontent.com/maps.google.com/maps?q=${lat},${lng}&z=6`, '_blank');
+        window.open(`https://www.google.com/maps?q=${lat},${lng}&z=6`, '_blank');
     });
 </script>
 
