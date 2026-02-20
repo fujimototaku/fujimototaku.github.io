@@ -3,120 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <title>藤本拓 公式サイト</title>
-    <link rel="stylesheet" href="style.css">
     <style>
-        /* デザインシステム：黒と緑を基調とした視認性重視の設計 */
-        :root { --main-green: #00ff00; --bg-black: #000000; }
-        body { margin: 0; padding: 0; font-family: sans-serif; }
-
-        /* 1. カウントダウン・ヘッダー（最優先情報） */
-        .header-countdown {
-            position: sticky; top: 0; background: var(--bg-black);
-            color: var(--main-green); border-bottom: 2px solid var(--main-green);
-            padding: 12px 20px; z-index: 1000; display: flex;
-            justify-content: center; align-items: center; gap: 20px;
-        }
-        #countdown { font-family: 'Courier New', monospace; font-size: 20px; font-weight: bold; }
-
-        /* 2. インタラクティブ地球儀（右固定：PCのみ） */
-        .earth-container {
-            position: fixed; right: 30px; top: 100px; z-index: 500;
-            width: 220px; text-align: center;
-        }
-        .earth-circle {
-            width: 200px; height: 200px; border-radius: 50%;
-            overflow: hidden; border: 2px solid var(--main-green);
-            box-shadow: 0 0 15px var(--main-green); background: #000;
-        }
-        .earth-circle iframe { border: 0; margin-left: -100px; margin-top: -100px; }
-
-        /* 3. パンダ観測フレーム（コンテンツ末尾） */
-        .panda-container {
-            max-width: 700px; margin: 40px auto; 
-            border: 1px solid #ddd; padding: 10px; background: #fff;
-        }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
-        /* コンテンツ配置 */
-        main { max-width: 800px; margin: 0 auto; padding: 20px; }
-        @media (max-width: 1100px) { .earth-container { position: static; margin: 20px auto; } }
+        /* 徹底的な機能主義に基づく最小限のスタイル */
+        body { font-family: "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; background-color: #ffffff; color: #000000; margin: 15px; line-height: 1.4; }
+        table { border-collapse: collapse; }
+        td { padding: 5px 10px; }
+        a { color: #0000ee; text-decoration: underline; }
+        a:visited { color: #551a8b; }
+        .section-header { background-color: #eeeeee; padding: 2px 5px; font-weight: bold; margin-top: 20px; display: inline-block; border: 1px solid #cccccc; }
+        hr { border: 0; border-top: 1px solid #cccccc; margin: 20px 0; }
     </style>
+    <script src="https://unpkg.com/three"></script>
+    <script src="https://unpkg.com/globe.gl"></script>
 </head>
 <body>
 
-<div class="header-countdown">
-    <span style="font-size: 14px;">[ NEXT EVENT ] 祝日自由市まで</span>
-    <span id="countdown">00D 00:00:00</span>
-</div>
+<h1>藤本拓 公式サイト</h1>
+<hr>
 
-<nav>
-  <b>メニュー</b>
-  <a href="index.html">トップ</a>
-  <a href="works.html">作品・書店</a>
-  <a href="info.html">活動</a>
-  <a href="contact.html">お問い合わせ</a>
-  <br>
-  <b>外部リンク</b>
-  <a href="https://x.com/fujimototaku" target="_blank">Twitter</a>
-  <a href="https://www.instagram.com/fujimototaku0" target="_blank">Instagram</a>
-  <a href="https://note.com/fujimototaku" target="_blank">note</a>
-  <a href="https://10futa20.booth.pm/" target="_blank">通販</a>
-</nav>
+<table border="0" width="100%">
+<tr>
+    <td width="200" valign="top" style="border-right: 1px solid #cccccc;">
+        <b>メニュー</b><br>
+        <a href="index.html">トップ</a><br>
+        <a href="works.html">作品・書店</a><br>
+        <a href="info.html">活動</a><br>
+        <a href="contact.html">お問い合わせ</a><br>
+        <br>
+        <b>外部リンク</b><br>
+        <a href="https://x.com/fujimototaku" target="_blank">Twitter</a><br>
+        <a href="https://www.instagram.com/fujimototaku0" target="_blank">Instagram</a><br>
+        <a href="https://note.com/fujimototaku" target="_blank">note</a><br>
+        <a href="https://10futa20.booth.pm/" target="_blank">通販</a><br>
+        <br>
+        <b>次のイベント</b><br>
+        祝日自由市まで：<br>
+        <span id="countdown" style="font-weight: bold;">計算中...</span><br>
+        <br>
+        <b>3D地球儀</b><br>
+        <span style="font-size: 10px;">ドラッグで回転・タップで地図へ</span>
+        <div id="globeViz" style="width: 160px; height: 160px; cursor: pointer;"></div>
+    </td>
 
-<div class="earth-container">
-    <div class="earth-circle">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15000000!2d138.252924!3d36.204824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp&maptype=satellite" width="400" height="400" loading="lazy"></iframe>
-    </div>
-    <p style="font-size: 10px; color: var(--main-green); margin-top: 10px; font-weight: bold; background: #000;">
-        DRAG TO ROTATE EARTH
-    </p>
-</div>
+    <td valign="top">
+        <div style="text-align: right; font-size: 12px;">最終更新：2026年2月20日</div>
 
-<main>
-  <h1>藤本拓 公式サイト</h1>
-  <p style="text-align: right; font-size: 12px;">最終更新：2026年2月20日</p>
+        <div class="section-header">プロフィール</div>
+        <table border="1" cellpadding="5" style="margin-top: 10px; border: 1px solid #999999;">
+            <tr>
+                <td align="center" width="120"><img src="profile.jpg" alt="近影" width="110"></td>
+                <td>
+                    名前：藤本拓<br>
+                    好きなこと：書く、寝る、まっすぐ、チャットモンチー、Oasis<br>
+                    嫌いなこと：忖度、運動もろもろ、嘘つき、四則演算、セロリ、緑色
+                </td>
+            </tr>
+        </table>
 
-  <h2>プロフィール</h2>
-  <div class="bg-light-green">
-    <table style="margin:0;">
-      <tr>
-        <td align="center" width="130"><img src="profile.jpg" alt="近影" width="110" border="1"></td>
-        <td>名前：藤本拓<br>好きなこと：書く、寝る、せめて誠実であろうとすること、チャットモンチー、Oasis<br>嫌いなこと：忖度、運動もろもろ、嘘つき、四則演算、セロリ、緑色</td>
-      </tr>
-    </table>
-  </div>
+        <div class="section-header">最新のお知らせ</div>
+        <div style="font-size:14px; margin-top: 10px;">
+            ・2026/??/??：本を出します。頑張ります。<br>
+            ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20">Indie Books Holiday in salon</a>」（自費出版スーパーイベント）に出ます。<br>
+            ・2026/02/22：「<a href="https://x.com/Shukujitsu_lib/status/2023788633053167671?s=20">祝日自由市</a>」（「本当の」フリーマーケット）に出ます。<br>
+            ・2026/02/20：公式サイトを開設しました。
+        </div>
 
-  <h2>最新のお知らせ</h2>
-  <p style="font-size:14px;">
-    ・2026/??/??：本を出します。頑張ります。<br>
-    ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20">Indie Books Holiday in salon</a>」（自費出版スーパーイベント）に出ます。<br>
-    ・2026/02/22：「<a href="https://x.com/Shukujitsu_lib/status/2023788633053167671?s=20">祝日自由市</a>」（「本当の」フリーマーケット）に出ます。<br>
-    ・2026/02/20：公式サイトを開設しました。
-  </p>
+        <div class="section-header">パンダ観測（24時間ライブ）</div>
+        <div style="margin-top: 10px;">
+            <iframe width="480" height="270" src="https://www.youtube.com/embed/gnEuhfyZPPQ?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </td>
+</tr>
+</table>
 
-  <div class="panda-container">
-    <p style="font-size: 11px; color: #666; text-align: center; margin-bottom: 8px;">LIVE: PANDA OBSERVATION</p>
-    <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/gnEuhfyZPPQ?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </div>
-
-  <div class="footer">Copyright (C) 2026 藤本拓.</div>
-</main>
+<hr>
+<div style="font-size: 12px; text-align: center;">Copyright (C) 2026 藤本拓.</div>
 
 <script>
-    /* カウントダウン制御スクリプト */
+    // カウントダウン制御（赤色・緑色不使用）
     const targetDate = new Date("Feb 22, 2026 10:00:00").getTime();
     setInterval(function() {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
+        const distance = targetDate - new Date().getTime();
+        if (distance < 0) {
+            document.getElementById("countdown").innerText = "開催中";
+            return;
+        }
         const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-        const s = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-        document.getElementById("countdown").innerHTML = d + "D " + h + ":" + m + ":" + s;
+        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("countdown").innerText = d + "日 " + h + "時間 " + m + "分 " + s + "秒";
     }, 1000);
+
+    // 完全な3D地球儀の制御（Globe.gl）
+    const myGlobe = Globe()
+        (document.getElementById('globeViz'))
+        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-water.png') // 立体感のあるテクスチャ
+        .backgroundColor('rgba(0,0,0,0)') // 枠や背景を完全透明化
+        .width(160)
+        .height(160);
+    
+    // 回転と操作の設定
+    myGlobe.controls().autoRotate = true;       // 自動回転
+    myGlobe.controls().autoRotateSpeed = 2.0;   // 回転速度
+    myGlobe.controls().enableZoom = false;      // スクロール時のレイアウト崩れ防止
+
+    // クリックした地点のGoogleマップを開く
+    myGlobe.onGlobeClick(({ lat, lng }) => {
+        window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`, '_blank');
+    });
 </script>
 
 </body>
