@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <title>藤本拓 公式サイト</title>
     <style>
-        /* 全体：スクロールを最小限にするためのコンパクト設計 */
         body { 
             background-color: #f0fff0; 
             font-family: "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; 
             margin: 0; 
-            padding: 10px 20px; /* 上下余白を圧縮 */
+            padding: 10px 20px;
         }
         h1 { margin: 5px 0; font-size: 24px; }
         
         table.main-table {
             background-color: rgba(255, 255, 255, 0.7); 
             border: 1px solid #999;
-            width: 920px; /* パンダの横幅に合わせ最適化 */
+            width: 920px;
         }
         .section-bar {
             background-color: #cccccc; 
@@ -25,22 +24,40 @@
             font-size: 13px;
             font-weight: bold;
             margin-bottom: 8px;
-            width: 96%; 
+            width: 95%; 
         }
         .content-cell {
             padding: 8px;
             vertical-align: top;
         }
-        a { color: #0000ee; }
-        hr { border: 0; border-top: 1px solid #999; margin: 10px 0; }
+        a { color: #0000ee; text-decoration: underline; }
+        hr { border: 0; border-top: 1px solid #999; margin: 8px 0; }
 
-        /* 地球儀エリア：見切れ防止 */
+        /* メニューの縦並び調整：クリックしやすさを重視 */
+        .menu-list {
+            list-style-type: none;
+            padding-left: 5px;
+            margin: 5px 0;
+            line-height: 1.8;
+            font-size: 13px;
+        }
+        .menu-list li:before { content: "・"; }
+
+        /* プロフィール：二重線を廃止し、はみ出しを修正 */
+        .profile-table {
+            border-collapse: collapse;
+            border: 1px solid #999; /* 普通の線 */
+            width: 100%; /* セル内での100%に固定 */
+            background: #fff;
+            margin-bottom: 15px;
+        }
+        .profile-table td { border: 1px solid #999; }
+
         #globeViz {
             width: 200px; 
             height: 200px; 
             margin: 0 auto;
             border: 1px inset #ccc;
-            background: rgba(0,0,0,0.05);
         }
 
         .instruction-box {
@@ -49,10 +66,8 @@
             background: #ffffcc; 
             border: 1px solid #999;
             margin-top: 5px;
-            line-height: 1.3;
         }
 
-        /* パンダ：縦幅を抑えつつ見切れないよう調整 */
         .panda-wrapper {
             border: 1px solid #999;
             background: #000;
@@ -67,25 +82,27 @@
 
 <center>
     <h1>藤本拓 公式サイト</h1>
-    
     <hr width="95%">
 
     <table class="main-table" border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td width="210" class="content-cell" style="border-right: 1px solid #999;">
-                <b>■メニュー</b><br>
-                <div style="font-size: 13px; line-height: 1.6;">
-                    <a href="index.html">トップ</a> / <a href="works.html">作品・書店</a><br>
-                    <a href="info.html">活動</a> / <a href="contact.html">お問い合わせ</a>
-                </div>
-                <br>
-                <b>■外部リンク</b><br>
-                <div style="font-size: 12px;">
-                    <a href="https://x.com/fujimototaku" target="_blank">Twitter</a> / 
-                    <a href="https://note.com/fujimototaku" target="_blank">note</a><br>
-                    <a href="https://www.instagram.com/fujimototaku0" target="_blank">Instagram</a> / 
-                    <a href="https://10futa20.booth.pm/" target="_blank">通販</a>
-                </div>
+                <b>■メニュー</b>
+                <ul class="menu-list">
+                    <li><a href="index.html">トップページ</a></li>
+                    <li><a href="works.html">作品・書店</a></li>
+                    <li><a href="info.html">活動履歴</a></li>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                </ul>
+                
+                <b>■外部リンク</b>
+                <ul class="menu-list">
+                    <li><a href="https://x.com/fujimototaku" target="_blank">Twitter</a></li>
+                    <li><a href="https://note.com/fujimototaku" target="_blank">note</a></li>
+                    <li><a href="https://www.instagram.com/fujimototaku0" target="_blank">Instagram</a></li>
+                    <li><a href="https://10futa20.booth.pm/" target="_blank">通信販売</a></li>
+                </ul>
+
                 <hr>
                 <b>■次のイベント</b><br>
                 <span id="countdown" style="font-weight: bold; font-size: 14px;">計算中...</span>
@@ -113,12 +130,12 @@
                 <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年2月20日 18:30</div>
 
                 <div class="section-bar">プロフィール</div>
-                <table border="1" width="100%" cellspacing="0" cellpadding="4" style="border-color: #999; margin-bottom: 15px; background: #fff;">
+                <table class="profile-table" cellpadding="4">
                     <tr>
-                        <td align="center" width="100">
-                            <img src="profile.jpg" alt="近影" width="90">
+                        <td align="center" width="100" bgcolor="#ffffff">
+                            <img src="profile.jpg" alt="近影" width="90" style="display:block;">
                         </td>
-                        <td style="font-size: 12px;">
+                        <td style="font-size: 12px;" bgcolor="#ffffff">
                             名前：藤本拓<br>
                             好き：石・川・雪、書く、寝る、本当のこと、チャットモンチー、Oasis、緑<br>
                             嫌い：忖度、運動、嘘つき、四則演算、セロリ、臭い人
@@ -126,10 +143,11 @@
                     </tr>
                 </table>
 
-                <div class="section-bar">最新のお知らせ</div>
-                <div style="font-size:12px; padding-left: 5px; margin-bottom: 15px;">
+                <div class="section-bar">最新のお知らせ（3件）</div>
+                <div style="font-size:12px; padding-left: 5px; margin-bottom: 15px; line-height: 1.6;">
                     ・2026/02/22：「<a href="https://x.com/Shukujitsu_lib/status/2023788633053167671?s=20">祝日自由市</a>」出展<br>
-                    ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20">Indie Books Holiday</a>」出展
+                    ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20">Indie Books Holiday</a>」出展<br>
+                    ・2026/02/20：公式サイトを開設しました。
                 </div>
 
                 <div class="section-bar">パンダ観測</div>
@@ -146,7 +164,6 @@
 </center>
 
 <script>
-    // カウントダウン
     const targetDate = new Date("Feb 22, 2026 10:00:00").getTime();
     setInterval(function() {
         const diff = targetDate - new Date().getTime();
@@ -158,14 +175,12 @@
         document.getElementById("countdown").innerText = d + "日 " + h + ":" + m + ":" + s;
     }, 1000);
 
-    // 生存カウンター
     const lastUpdate = new Date("Feb 20, 2026 18:30:00").getTime();
     setInterval(() => {
         const diff = new Date().getTime() - lastUpdate;
         document.getElementById('update-timer').innerText = Math.floor(diff / 60000) + "分" + Math.floor((diff % 60000) / 1000) + "秒";
     }, 1000);
 
-    // 地球儀：サイズ調整
     const globe = Globe()(document.getElementById('globeViz'))
         .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
         .backgroundColor('rgba(0,0,0,0)').width(200).height(200);
@@ -173,7 +188,7 @@
     globe.controls().autoRotateSpeed = 1.2;
     globe.controls().enableZoom = false;
     globe.onGlobeClick(({ lat, lng }) => {
-        window.open(`http://googleusercontent.com/maps.google.com/maps?q=${lat},${lng}&z=6`, '_blank');
+        window.open(`https://www.google.com/maps?q=${lat},${lng}&z=6`, '_blank');
     });
 </script>
 
