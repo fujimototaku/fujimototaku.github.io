@@ -109,8 +109,9 @@
             border: 1px solid #999; background: #000;
             width: 100%; max-width: 460px; margin: 0 auto 5px;
             aspect-ratio: 16 / 9; overflow: hidden;
+            position: relative; cursor: pointer;
         }
-        .panda-wrapper iframe { width: 100%; height: 100%; border: none; }
+        .panda-wrapper img { width: 100%; height: 100%; object-fit: cover; }
 
         .utility-box {
             width: 100%; max-width: 460px; margin: 0 auto;
@@ -158,7 +159,7 @@
     </div>
 
     <div class="main-col">
-        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年2月26日 19:30</div>
+        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年2月26日 20:40</div>
         
         <div class="section-bar">プロフィール</div>
         <div class="profile-box">
@@ -178,12 +179,11 @@
         </div>
 
         <div class="section-bar">パンダ観測</div>
-        <div class="panda-wrapper" style="position: relative; cursor: pointer;" onclick="window.open('https://www.youtube.com/watch?v=DP9hbJmwbNU', '_blank')">
-    <img src="https://img.youtube.com/vi/DP9hbJmwbNU/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="パンダ観測">
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; background: rgba(0,0,0,0.6); padding: 10px; border-radius: 5px; font-size: 12px; text-align: center; white-space: nowrap;">
-        ▶ パンダ観測（YouTubeで開く）
-    </div>
-</div>
+        <div class="panda-wrapper" onclick="window.open('https://www.youtube.com/watch?v=DP9hbJmwbNU', '_blank')">
+            <img src="https://img.youtube.com/vi/DP9hbJmwbNU/maxresdefault.jpg" alt="パンダ観測">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; background: rgba(0,0,0,0.6); padding: 10px; border-radius: 5px; font-size: 12px; text-align: center; white-space: nowrap;">
+                ▶ パンダ観測（YouTubeで開く）
+            </div>
         </div>
         
         <div class="utility-box">
@@ -237,7 +237,6 @@
         if (globe.width() <= 200) { setSize(300); e.preventDefault(); } else { setSize(200); }
     }, {passive: false});
 
-    // 地点クリックでGoogleマップへ遷移（URLを正確に修正）
     globe.onGlobeClick(({ lat, lng }) => {
         window.open(`https://www.google.com/maps/@${lat},${lng},6z`, '_blank');
     });
