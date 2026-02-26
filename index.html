@@ -55,11 +55,11 @@
 
         #globeViz {
             width: 200px; height: 200px; margin: 10px auto;
-            border: 1px inset #ccc; cursor: pointer;
-            transition: transform 0.3s ease;
+            border: 1px inset #ccc; cursor: crosshair;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             background: #000;
         }
-        #globeViz.expanded { transform: scale(1.4); z-index: 100; position: relative; }
+        #globeViz.expanded { transform: scale(1.5); z-index: 100; position: relative; }
 
         .book-flip-btn {
             display: block; width: 100%; margin: 10px 0; padding: 12px 8px;
@@ -116,7 +116,7 @@
         </button>
 
         <hr>
-        <b>■3D地球儀 (タップで拡大)</b>
+        <b>■3D地球儀 (タップで拡大/クリックで地図)</b>
         <div id="globeViz"></div>
     </div>
 
@@ -129,11 +129,11 @@
             <div class="profile-txt">
                 名前：藤本拓<br>
                 好き：石・川・雪、書く、寝る、本当、チャットモンチー、Oasis、緑<br>
-                嫌い：嘘つき、運動、忖度、四則演算、セロリ、偉そうで臭い人
+                嫌い：忖度、運動、嘘、四則演算、セロリ、臭い人
             </div>
         </div>
 
-        <div class="section-bar">最新のお知らせ</div>
+        <div class="section-bar">最新のお知らせ / 次のイベント</div>
         <div style="font-size:12px; padding: 0 5px 15px; line-height: 1.8;">
             <div style="font-weight: bold; color: #000; margin-bottom: 8px;">
                 次のイベントまで残り：<span id="countdown">計算中...</span>
@@ -146,7 +146,7 @@
 
         <div class="section-bar">パンダ観測</div>
         <div class="panda-wrapper">
-            <iframe src="https://www.youtube.com/embed/videoseries?list=PL_X9T86UInoP1533tXvQYhLz_O7x0mO4Q" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/6n-TBeXoOnA?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
         
         <div style="background: #eee; padding: 4px 8px; border: 1px solid #999; font-size: 10px; width: fit-content; margin-top: 10px;">
@@ -178,12 +178,12 @@
         }
     });
 
-    // カウントダウンと生存確認
+    // タイマー処理
     const targetDate = new Date("2026-03-29T10:00:00").getTime();
     const lastUpdate = new Date("2026-02-26T18:30:00").getTime();
 
     function updateTimers() {
-        const now = new Date().getTime();
+        const now = Date.now();
         const d1 = targetDate - now;
         const countdownElem = document.getElementById("countdown");
         
@@ -214,7 +214,15 @@
         globe.controls().autoRotate = true;
         globe.controls().enableZoom = false;
 
-        globeElem.addEventListener('click', () => {
+        // 地点クリックでGoogleマップへ遷移
+        globe.onGlobeClick(({ lat, lng }) => {
+            window.open(`https://www.google.com/maps/@${lat},${lng},10z`, '_blank');
+        });
+
+        // タップで拡大
+        globeElem.addEventListener('click', (e) => {
+            // 地球儀自体へのクリック（地点遷移）を優先させるため、
+            // 拡大切り替えはダブルクリック等ではなく単純なクリックで制御
             globeElem.classList.toggle('expanded');
         });
     });
