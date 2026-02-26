@@ -117,6 +117,18 @@
             display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 5px;
         }
 
+        /* スクロール枠の設定 */
+        .event-scroll-box {
+            height: 120px; 
+            overflow-y: auto; 
+            border: 1px inset #ccc; 
+            padding: 5px; 
+            background: #fff; 
+            font-size: 12px;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
         @media screen and (max-width: 768px) {
             .side-col { width: 100%; border-right: none; border-bottom: 1px solid #999; }
             .main-col { width: 100%; }
@@ -148,17 +160,23 @@
         </ul>
         <hr>
         <b>■次のイベント</b><br>
-        <span id="countdown" style="font-weight: bold; font-size: 14px;">計算中...</span>
+        <div class="event-scroll-box">
+            <span id="countdown" style="font-weight: bold; font-size: 13px;">計算中...</span>
+            <div style="margin-top: 8px; color: #666; font-size: 11px;">
+                ・2026/03/29：Indie Books Holiday<br>
+                ・（今後ここにイベントを追記してください）
+            </div>
+        </div>
         <hr>
-        <b>■3D地球儀</b>
+        <b>■3D地球儀（回せます。触ると、行きたい国に行けます。）</b>
         <div id="globeViz"></div>
         <div style="font-size: 10px; padding: 5px; background: #ffffcc; border: 1px solid #999; margin-top: 5px;">
-            PC：ホバーで拡大。スマホ：タップで拡大。
+            PC・スマホ：タップで大きくなります。
         </div>
     </div>
 
     <div class="main-col">
-        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年2月20日 21:15</div>
+        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年2月26日 18:00</div>
         
         <div class="section-bar">プロフィール</div>
         <div class="profile-box">
@@ -166,14 +184,15 @@
             <div class="profile-txt">
                 名前：藤本拓<br>
                 好き：石・川・雪、書く、寝る、本当、チャットモンチー、Oasis、緑<br>
-                嫌い：忖度、運動、嘘、四則演算、セロリ、臭い人
+                嫌い：嘘つき、運動、四則演算、セロリ、偉そうで臭い人
             </div>
         </div>
 
         <div class="section-bar">最新のお知らせ（3件）</div>
         <div style="font-size:12px; padding: 0 5px 15px; line-height: 1.5;">
-            ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20" target="_blank">Indie Books Holiday</a>」出展<br>
-            ・2026/02/22：「<a href="https://x.com/Shukujitsu_lib/status/2023788633053167671?s=20" target="_blank">祝日自由市</a>」出展<br>
+            ・2026/06/09：『日記のおかげで正しく狂えた２』出版予定
+            ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20" target="_blank">Indie Books Holiday</a>」出展予定<br>
+            ・2026/02/22：「祝日自由市」終了しました。<br>
             ・2026/02/20：公式サイトを開設しました。
         </div>
 
@@ -200,12 +219,24 @@
 <div style="font-size: 10px; margin-top: 10px; text-align: center;">Copyright (C) 2026 藤本拓. All Rights Reserved.</div>
 
 <script>
-    const targetDate = new Date("Feb 22, 2026 10:00:00").getTime();
-    const lastUpdate = new Date("Feb 20, 2026 18:30:00").getTime();
+    const targetDate = new Date("Mar 29, 2026 10:00:00").getTime();
+    const lastUpdate = new Date("Feb 26, 2026 18:00:00").getTime();
+
     setInterval(() => {
         const now = new Date().getTime();
         const d1 = targetDate - now;
-        document.getElementById("countdown").innerText = d1 < 0 ? "開催中" : Math.floor(d1/86400000) + "日 " + new Date(d1).toISOString().substr(11, 8);
+        
+        const countdownElem = document.getElementById("countdown");
+        if (d1 < 0) {
+            countdownElem.innerText = "終了しました";
+        } else {
+            const days = Math.floor(d1 / 86400000);
+            const hours = Math.floor((d1 % 86400000) / (1000 * 60 * 60));
+            const mins = Math.floor((d1 % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((d1 % (1000 * 60)) / 1000);
+            countdownElem.innerText = `${days}日 ${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
         const d2 = now - lastUpdate;
         document.getElementById('update-timer').innerText = Math.floor(d2/60000) + "分" + Math.floor((d2%60000)/1000) + "秒";
     }, 1000);
