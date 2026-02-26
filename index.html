@@ -11,75 +11,115 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="藤本拓の公式サイト。札幌・北海道を拠点に日記本などの制作活動を行っています。">
+    <meta name="keywords" content="藤本拓,日記本,作家,本,札幌,北海道,ZINE,クリエイター">
     <title>藤本拓 公式サイト</title>
     
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "藤本拓",
+      "url": "https://fujimototaku.github.io/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "北海道",
+        "addressLocality": "札幌"
+      },
+      "sameAs": [
+        "https://x.com/fujimototaku",
+        "https://note.com/fujimototaku",
+        "https://www.instagram.com/fujimototaku0",
+        "https://10futa20.booth.pm/",
+        "https://github.com/fujimototaku"
+      ],
+      "jobTitle": "作家 / クリエイター",
+      "description": "北海道札幌市を拠点に活動。日記本などの本作り、作品制作、パンダ観測を行っています。",
+      "knowsAbout": ["日記本", "本", "ZINE", "札幌", "北海道", "作家"]
+    }
+    </script>
+
     <style>
         body { 
             background-color: #f0fff0; 
             font-family: "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; 
-            margin: 0; padding: 10px;
-            display: flex; flex-direction: column; align-items: center;
-            perspective: 1500px; overflow-x: hidden;
+            margin: 0; 
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
-        .page-flip-animation {
-            animation: flipEffect 0.8s forwards ease-in-out;
-            pointer-events: none;
-        }
-        @keyframes flipEffect {
-            0% { transform: rotateY(0deg); transform-origin: left; opacity: 1; }
-            100% { transform: rotateY(-110deg); transform-origin: left; opacity: 0; }
-        }
-
         h1 { margin: 5px 0; font-size: 24px; text-align: center; }
         hr { border: 0; border-top: 1px solid #999; margin: 8px 0; width: 100%; max-width: 740px; }
 
         .main-container {
             background-color: rgba(255, 255, 255, 0.7); 
             border: 1px solid #999;
-            width: 100%; max-width: 740px;
-            display: flex; flex-wrap: wrap;
+            width: 100%;
+            max-width: 740px;
+            display: flex;
+            flex-wrap: wrap;
         }
 
-        .side-col { width: 220px; padding: 8px; border-right: 1px solid #999; box-sizing: border-box; }
-        .main-col { flex: 1; min-width: 300px; padding: 8px; box-sizing: border-box; }
+        .side-col {
+            width: 220px;
+            padding: 8px;
+            border-right: 1px solid #999;
+            box-sizing: border-box;
+        }
+
+        .main-col {
+            flex: 1;
+            min-width: 300px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
 
         .section-bar {
-            background-color: #cccccc; border: 1px solid #666; padding: 2px 10px;
-            font-size: 13px; font-weight: bold; margin-bottom: 8px; width: 100%; box-sizing: border-box;
+            background-color: #cccccc; 
+            border: 1px solid #666;
+            padding: 2px 10px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            width: 100%;
+            box-sizing: border-box;
         }
-
         .menu-list { list-style-type: none; padding-left: 5px; margin: 5px 0; line-height: 1.8; font-size: 13px; }
         .menu-list li:before { content: "・"; }
         a { color: #0000ee; text-decoration: underline; }
 
-        #globeViz {
-            width: 200px; height: 200px; margin: 10px auto;
-            border: 1px inset #ccc; cursor: crosshair;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: #000;
+        .profile-box {
+            border: 1px solid #999;
+            background: #fff;
+            margin-bottom: 15px;
+            display: flex;
+            width: 100%;
         }
-        #globeViz.expanded { transform: scale(1.5); z-index: 100; position: relative; }
-
-        .book-flip-btn {
-            display: block; width: 100%; margin: 10px 0; padding: 12px 8px;
-            background: #fdf5e6; border: 1px solid #deb887; border-left: 5px solid #8b4513;
-            font-size: 12px; text-align: left; cursor: pointer; color: #5d4037;
-        }
-
-        .profile-box { border: 1px solid #999; background: #fff; margin-bottom: 15px; display: flex; width: 100%; }
         .profile-img { width: 100px; border-right: 1px solid #999; padding: 4px; display: flex; align-items: center; justify-content: center; }
         .profile-img img { width: 90px; height: auto; display: block; }
         .profile-txt { padding: 8px; font-size: 11px; line-height: 1.4; flex: 1; }
 
+        #globeViz {
+            width: 200px; height: 200px; margin: 0 auto;
+            border: 1px inset #ccc; transition: 0.3s; position: relative; z-index: 10;
+        }
+
         .panda-wrapper {
-            border: 1px solid #999; background: #000; width: 100%; max-width: 460px;
-            margin: 0 auto 5px; aspect-ratio: 16 / 9; overflow: hidden;
+            border: 1px solid #999; background: #000;
+            width: 100%; max-width: 460px; margin: 0 auto 5px;
+            aspect-ratio: 16 / 9; overflow: hidden;
         }
         .panda-wrapper iframe { width: 100%; height: 100%; border: none; }
 
+        .utility-box {
+            width: 100%; max-width: 460px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 5px;
+        }
+
         @media screen and (max-width: 768px) {
             .side-col { width: 100%; border-right: none; border-bottom: 1px solid #999; }
+            .main-col { width: 100%; }
         }
     </style>
     <script src="https://unpkg.com/three"></script>
@@ -90,7 +130,7 @@
 <h1>藤本拓 公式サイト</h1>
 <hr>
 
-<div class="main-container" id="main-content">
+<div class="main-container">
     <div class="side-col">
         <b>■メニュー</b>
         <ul class="menu-list">
@@ -99,7 +139,6 @@
             <li><a href="info.html">活動履歴</a></li>
             <li><a href="contact.html">お問い合わせ</a></li>
         </ul>
-
         <b>■外部リンク</b>
         <ul class="menu-list">
             <li><a href="https://x.com/fujimototaku" target="_blank">Twitter</a></li>
@@ -107,21 +146,19 @@
             <li><a href="https://www.instagram.com/fujimototaku0" target="_blank">Instagram</a></li>
             <li><a href="https://10futa20.booth.pm/" target="_blank">通販</a></li>
         </ul>
-
         <hr>
-        <b>■ひまつぶし</b>
-        <button class="book-flip-btn" id="flip-btn">
-            <span id="flip-status">📖 次のページをめくる</span><br>
-            <small style="color:#888;">(Wikipediaへ遷移します)</small>
-        </button>
-
+        <b>■次のイベント</b><br>
+        <span id="countdown" style="font-weight: bold; font-size: 14px;">計算中...</span>
         <hr>
-        <b>■3D地球儀 (タップで拡大/クリックで地図)</b>
+        <b>■3D地球儀</b>
         <div id="globeViz"></div>
+        <div style="font-size: 10px; padding: 5px; background: #ffffcc; border: 1px solid #999; margin-top: 5px;">
+            PC：ホバーで拡大。スマホ：タップで拡大。
+        </div>
     </div>
 
     <div class="main-col">
-        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年2月26日</div>
+        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年2月26日 19:30</div>
         
         <div class="section-bar">プロフィール</div>
         <div class="profile-box">
@@ -133,12 +170,8 @@
             </div>
         </div>
 
-        <div class="section-bar">最新のお知らせ / 次のイベント</div>
-        <div style="font-size:12px; padding: 0 5px 15px; line-height: 1.8;">
-            <div style="font-weight: bold; color: #000; margin-bottom: 8px;">
-                次のイベントまで残り：<span id="countdown">計算中...</span>
-            </div>
-            ・2026/06/09：『日記のおかげで正しく狂えた２』出版予定<br>
+        <div class="section-bar">最新のお知らせ（3件）</div>
+        <div style="font-size:12px; padding: 0 5px 15px; line-height: 1.5;">
             ・2026/03/29：「<a href="https://x.com/Shukujitsu_lib/status/2017200160733053349?s=20" target="_blank">Indie Books Holiday</a>」出展予定<br>
             ・2026/02/22：「祝日自由市」終了しました。<br>
             ・2026/02/20：公式サイトを開設しました。
@@ -149,8 +182,17 @@
             <iframe src="https://www.youtube.com/embed/6n-TBeXoOnA?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
         
-        <div style="background: #eee; padding: 4px 8px; border: 1px solid #999; font-size: 10px; width: fit-content; margin-top: 10px;">
-            生存確認：<span id="update-timer">0分0秒</span> 経過
+        <div class="utility-box">
+            <div style="background: #eee; padding: 4px 8px; border: 1px solid #999; font-size: 10px;">
+                生存確認：<span id="update-timer">0分0秒</span> 経過
+            </div>
+            <div style="padding: 3px; border: 1px solid #999; background: #fff;">
+                <form action="https://www.google.co.jp/search" method="get" target="_blank" style="margin:0; display: flex;">
+                    <input type="hidden" name="q" value="site:fujimototaku.github.io">
+                    <input type="text" name="q_dummy" size="10" style="font-size:10px;" placeholder="検索">
+                    <input type="submit" value="Go" style="font-size:10px;">
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -158,73 +200,42 @@
 <div style="font-size: 10px; margin-top: 10px; text-align: center;">Copyright (C) 2026 藤本拓. All Rights Reserved.</div>
 
 <script>
-    // ページめくり機能
-    document.getElementById('flip-btn').addEventListener('click', async () => {
-        const status = document.getElementById('flip-status');
-        const content = document.getElementById('main-content');
-        status.innerText = "🍃 めくっています...";
-        content.classList.add('page-flip-animation');
-        
-        try {
-            const res = await fetch('https://ja.wikipedia.org/w/api.php?format=json&action=query&origin=*&list=random&rnnamespace=0&rnlimit=1');
-            const data = await res.json();
-            const title = data.query.random[0].title;
-            setTimeout(() => {
-                window.location.href = `https://ja.wikipedia.org/wiki/${encodeURIComponent(title)}`;
-            }, 800);
-        } catch (e) {
-            content.classList.remove('page-flip-animation');
-            status.innerText = "❌ 失敗しました";
-        }
-    });
+    const targetDate = new Date("Mar 29, 2026 10:00:00").getTime();
+    const lastUpdate = new Date("Feb 26, 2026 18:00:00").getTime();
 
-    // タイマー処理
-    const targetDate = new Date("2026-03-29T10:00:00").getTime();
-    const lastUpdate = new Date("2026-02-26T18:30:00").getTime();
-
-    function updateTimers() {
-        const now = Date.now();
+    setInterval(() => {
+        const now = new Date().getTime();
         const d1 = targetDate - now;
-        const countdownElem = document.getElementById("countdown");
         
         if (d1 < 0) {
-            countdownElem.innerText = "終了しました";
+            document.getElementById("countdown").innerText = "開催中、または終了";
         } else {
             const days = Math.floor(d1 / 86400000);
-            const hours = String(Math.floor((d1 % 86400000) / 3600000)).padStart(2, '0');
-            const mins = String(Math.floor((d1 % 3600000) / 60000)).padStart(2, '0');
-            const secs = String(Math.floor((d1 % 60000) / 1000)).padStart(2, '0');
-            countdownElem.innerText = `${days}日 ${hours}:${mins}:${secs}`;
+            const hours = Math.floor((d1 % 86400000) / (1000 * 60 * 60));
+            const mins = Math.floor((d1 % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((d1 % (1000 * 60)) / 1000);
+            document.getElementById("countdown").innerText = `${days}日 ${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
         }
-        
+
         const d2 = now - lastUpdate;
         document.getElementById('update-timer').innerText = Math.floor(d2/60000) + "分" + Math.floor((d2%60000)/1000) + "秒";
-    }
-    setInterval(updateTimers, 1000);
-    updateTimers();
+    }, 1000);
 
-    // 地球儀の初期化
-    window.addEventListener('load', () => {
-        const globeElem = document.getElementById('globeViz');
-        const globe = Globe()(globeElem)
-            .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-            .backgroundColor('rgba(0,0,0,0)')
-            .width(200).height(200);
+    const globeDiv = document.getElementById('globeViz');
+    const globe = Globe()(globeDiv).globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg').backgroundColor('rgba(0,0,0,0)').width(200).height(200);
+    globe.controls().autoRotate = true;
+    globe.controls().enableZoom = false;
 
-        globe.controls().autoRotate = true;
-        globe.controls().enableZoom = false;
+    const setSize = (s) => { globe.width(s).height(s); };
+    globeDiv.addEventListener('mouseenter', () => { setSize(window.innerWidth < 768 ? 300 : 400); });
+    globeDiv.addEventListener('mouseleave', () => { setSize(200); });
+    globeDiv.addEventListener('touchstart', (e) => {
+        if (globe.width() <= 200) { setSize(300); e.preventDefault(); } else { setSize(200); }
+    }, {passive: false});
 
-        // 地点クリックでGoogleマップへ遷移
-        globe.onGlobeClick(({ lat, lng }) => {
-            window.open(`https://www.google.com/maps/@${lat},${lng},10z`, '_blank');
-        });
-
-        // タップで拡大
-        globeElem.addEventListener('click', (e) => {
-            // 地球儀自体へのクリック（地点遷移）を優先させるため、
-            // 拡大切り替えはダブルクリック等ではなく単純なクリックで制御
-            globeElem.classList.toggle('expanded');
-        });
+    // 地点クリックでGoogleマップへ遷移（URLを正確に修正）
+    globe.onGlobeClick(({ lat, lng }) => {
+        window.open(`https://www.google.com/maps/@${lat},${lng},6z`, '_blank');
     });
 </script>
 </body>
