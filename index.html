@@ -53,17 +53,13 @@
         .menu-list li:before { content: "・"; }
         a { color: #0000ee; text-decoration: underline; }
 
-        /* 地球儀の設定 */
         #globeViz {
             width: 200px; height: 200px; margin: 10px auto;
             border: 1px inset #ccc; cursor: pointer;
             transition: transform 0.3s ease;
+            background: #000;
         }
-        #globeViz.expanded {
-            transform: scale(1.4);
-            z-index: 100;
-            position: relative;
-        }
+        #globeViz.expanded { transform: scale(1.4); z-index: 100; position: relative; }
 
         .book-flip-btn {
             display: block; width: 100%; margin: 10px 0; padding: 12px 8px;
@@ -114,9 +110,9 @@
 
         <hr>
         <b>■ひまつぶし</b>
-        <button class="book-flip-btn" onclick="flipPage()">
+        <button class="book-flip-btn" id="flip-btn">
             <span id="flip-status">📖 次のページをめくる</span><br>
-            <small style="color:#888;">(何か出てきます。)</small>
+            <small style="color:#888;">(Wikipediaへ遷移します)</small>
         </button>
 
         <hr>
@@ -137,7 +133,7 @@
             </div>
         </div>
 
-        <div class="section-bar">最新のお知らせ / 次のイベント</div>
+        <div class="section-bar">最新のお知らせ</div>
         <div style="font-size:12px; padding: 0 5px 15px; line-height: 1.8;">
             <div style="font-weight: bold; color: #000; margin-bottom: 8px;">
                 次のイベントまで残り：<span id="countdown">計算中...</span>
@@ -150,7 +146,7 @@
 
         <div class="section-bar">パンダ観測</div>
         <div class="panda-wrapper">
-            <iframe src="https://www.youtube.com/embed/videoseries?list=PL_X9T86UInoP1533tXvQYhLz_O7x0mO4Q&autoplay=1&mute=1" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PL_X9T86UInoP1533tXvQYhLz_O7x0mO4Q" allowfullscreen></iframe>
         </div>
         
         <div style="background: #eee; padding: 4px 8px; border: 1px solid #999; font-size: 10px; width: fit-content; margin-top: 10px;">
@@ -162,6 +158,66 @@
 <div style="font-size: 10px; margin-top: 10px; text-align: center;">Copyright (C) 2026 藤本拓. All Rights Reserved.</div>
 
 <script>
-    async function flipPage() {
+    // ページめくり機能
+    document.getElementById('flip-btn').addEventListener('click', async () => {
         const status = document.getElementById('flip-status');
-        const
+        const content = document.getElementById('main-content');
+        status.innerText = "🍃 めくっています...";
+        content.classList.add('page-flip-animation');
+        
+        try {
+            const res = await fetch('https://ja.wikipedia.org/w/api.php?format=json&action=query&origin=*&list=random&rnnamespace=0&rnlimit=1');
+            const data = await res.json();
+            const title = data.query.random[0].title;
+            setTimeout(() => {
+                window.location.href = `https://ja.wikipedia.org/wiki/${encodeURIComponent(title)}`;
+            }, 800);
+        } catch (e) {
+            content.classList.remove('page-flip-animation');
+            status.innerText = "❌ 失敗しました";
+        }
+    });
+
+    // カウントダウンと生存確認
+    const targetDate = new Date("2026-03-29T10:00:00").getTime();
+    const lastUpdate = new Date("2026-02-26T18:30:00").getTime();
+
+    function updateTimers() {
+        const now = new Date().getTime();
+        const d1 = targetDate - now;
+        const countdownElem = document.getElementById("countdown");
+        
+        if (d1 < 0) {
+            countdownElem.innerText = "終了しました";
+        } else {
+            const days = Math.floor(d1 / 86400000);
+            const hours = String(Math.floor((d1 % 86400000) / 3600000)).padStart(2, '0');
+            const mins = String(Math.floor((d1 % 3600000) / 60000)).padStart(2, '0');
+            const secs = String(Math.floor((d1 % 60000) / 1000)).padStart(2, '0');
+            countdownElem.innerText = `${days}日 ${hours}:${mins}:${secs}`;
+        }
+        
+        const d2 = now - lastUpdate;
+        document.getElementById('update-timer').innerText = Math.floor(d2/60000) + "分" + Math.floor((d2%60000)/1000) + "秒";
+    }
+    setInterval(updateTimers, 1000);
+    updateTimers();
+
+    // 地球儀の初期化
+    window.addEventListener('load', () => {
+        const globeElem = document.getElementById('globeViz');
+        const globe = Globe()(globeElem)
+            .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+            .backgroundColor('rgba(0,0,0,0)')
+            .width(200).height(200);
+
+        globe.controls().autoRotate = true;
+        globe.controls().enableZoom = false;
+
+        globeElem.addEventListener('click', () => {
+            globeElem.classList.toggle('expanded');
+        });
+    });
+</script>
+</body>
+</html>
