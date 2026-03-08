@@ -105,13 +105,29 @@
             border: 1px inset #ccc; transition: 0.3s; position: relative; z-index: 10;
         }
 
+        .obs-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
         .panda-wrapper {
             border: 1px solid #999; background: #000;
-            width: 100%; max-width: 460px; margin: 0 auto 5px;
+            flex: 1;
+            min-width: 140px;
             aspect-ratio: 16 / 9; overflow: hidden;
             position: relative; cursor: pointer;
         }
         .panda-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .obs-label {
+            position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); 
+            color: white; background: rgba(0,0,0,0.6); 
+            padding: 5px; border-radius: 3px; 
+            font-size: 10px; text-align: center; width: 80%;
+        }
 
         .utility-box {
             width: 100%; max-width: 460px; margin: 0 auto;
@@ -159,7 +175,7 @@
     </div>
 
     <div class="main-col">
-        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年3月8日 20:40</div>
+        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年3月8日 20:50</div>
         
         <div class="section-bar">プロフィール</div>
         <div class="profile-box">
@@ -185,27 +201,32 @@
                 <b>【通販】</b><br>
                 ・<a href="https://10futa20.booth.pm/" target="_blank" rel="noopener">公式通販 (BOOTH)</a>
             </div>
-
             <div style="margin-bottom: 8px;">
                 <b>【北海道】</b><br>
                 私設図書館祝日(閲覧) / 本と喫茶 NOMAD BOOKS / 古本とビール アダノンキ / Seesaw Books / 喫茶こん(閲覧) / 珈琲茶寮 こはく堂(閲覧) / よはくの本やさん / 夏森書店
             </div>
-
             <div style="margin-bottom: 8px;">
                 <b>【東京・他】</b><br>
                 そぞろ書房(東京) / カルガモBOOKS(東京) / 日記屋 月日(東京) / yumegiwa books(京都) / エチュードブックス(大阪) / テントセンブックス(福岡)
             </div>
-
             <div style="font-size: 10px; color: #666; margin-top: 5px;">
                 ※在庫状況は各店舗へお問い合わせください。
             </div>
         </div>
 
-        <div class="section-bar">パンダ観測</div>
-        <div class="panda-wrapper" onclick="window.open('https://www.youtube.com/watch?v=DP9hbJmwbNU', '_blank')">
-            <img src="https://img.youtube.com/vi/DP9hbJmwbNU/maxresdefault.jpg" alt="パンダ観測">
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; background: rgba(0,0,0,0.6); padding: 10px; border-radius: 5px; font-size: 12px; text-align: center; white-space: nowrap;">
-                ▶ パンダ観測（YouTubeで開く）
+        <div class="section-bar">観測（パンダ・宇宙・水中）</div>
+        <div class="obs-container">
+            <div class="panda-wrapper" onclick="window.open('https://www.youtube.com/watch?v=DP9hbJmwbNU', '_blank')">
+                <img src="https://img.youtube.com/vi/DP9hbJmwbNU/maxresdefault.jpg" alt="パンダ観測">
+                <div class="obs-label">パンダ</div>
+            </div>
+            <div class="panda-wrapper" onclick="window.open('https://www.youtube.com/watch?v=P9C25Un7xaM', '_blank')">
+                <img src="https://img.youtube.com/vi/P9C25Un7xaM/maxresdefault.jpg" alt="宇宙観測">
+                <div class="obs-label">宇宙</div>
+            </div>
+            <div class="panda-wrapper" onclick="window.open('https://www.youtube.com/watch?v=mY7f7SNoitI', '_blank')">
+                <img src="https://img.youtube.com/vi/mY7f7SNoitI/maxresdefault.jpg" alt="水中観測">
+                <div class="obs-label">水中</div>
             </div>
         </div>
         
@@ -228,7 +249,7 @@
 
 <script>
     const targetDate = new Date("Mar 29, 2026 10:00:00").getTime();
-    const lastUpdate = new Date("Mar 8, 2026 20:40:00").getTime();
+    const lastUpdate = new Date("Mar 8, 2026 20:50:00").getTime();
 
     setInterval(() => {
         const now = new Date().getTime();
