@@ -44,12 +44,12 @@
             background-color: #f0fff0; 
             font-family: "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; 
             margin: 0; 
-            padding: 10px;
+            padding: 0; /* 上部余白カット */
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        h1 { margin: 5px 0; font-size: 24px; text-align: center; }
+        h1 { margin: 10px 0 5px; font-size: 24px; text-align: center; }
         hr { border: 0; border-top: 1px solid #999; margin: 8px 0; width: 100%; max-width: 740px; }
 
         .main-container {
@@ -105,28 +105,37 @@
             border: 1px inset #ccc; transition: 0.3s; position: relative; z-index: 10;
         }
 
+        /* 定点観測セクションの修正 */
         .obs-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
+            width: 100%;
             margin-bottom: 15px;
         }
-
-        .panda-wrapper {
-            border: 1px solid #999; background: #000;
-            flex: 1;
-            min-width: 140px;
-            aspect-ratio: 16 / 9; overflow: hidden;
-            position: relative; cursor: pointer;
+        .obs-item {
+            width: 100%;
+            max-width: 100%;
+            aspect-ratio: 16 / 9;
+            border: 1px solid #999;
+            background: #000;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
         }
-        .panda-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-
-        .obs-label {
-            position: absolute; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); 
-            color: white; background: rgba(0,0,0,0.6); 
-            padding: 5px; border-radius: 3px; 
-            font-size: 10px; text-align: center; width: 80%;
+        .obs-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 枠内に収める */
+            display: block;
+        }
+        .obs-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 11px;
+            padding: 4px;
+            text-align: center;
         }
 
         .utility-box {
@@ -175,7 +184,7 @@
     </div>
 
     <div class="main-col">
-        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年3月8日 20:40</div>
+        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年4月15日 16:40</div>
         
         <div class="section-bar">プロフィール</div>
         <div class="profile-box">
@@ -189,8 +198,8 @@
 
         <div class="section-bar">最新のお知らせ</div>
         <div style="font-size:12px; padding: 0 5px 15px; line-height: 1.5;">
-            ・2026/06/中旬：新刊『日記のおかげで正しく狂えた２』予定
-            ・2026/03/29：「Indie Books Holiday」終了しました。
+            ・2026/06/中旬：新刊『日記のおかげで正しく狂えた２』予定<br>
+            ・2026/03/29：「Indie Books Holiday」終了しました。<br>
             ・2026/02/22：「祝日自由市」終了しました。
         </div>
 
@@ -216,15 +225,13 @@
             </div>
         </div>
 
-       <h2>定点観測</h2>
-<div class="section-bar">定点観測（宇宙）</div>
-<div class="obs-container">
-    <div class="obs-item" onclick="window.open('https://www.youtube.com/watch?v=vytmBNhc9ig', '_blank')">
-        <img src="https://img.youtube.com/vi/vytmBNhc9ig/maxresdefault.jpg" alt="宇宙観測">
-        <div class="obs-overlay">ISS Live Earth View</div>
-    </div>
-</div>
-</div>
+        <div class="section-bar">定点観測（宇宙）</div>
+        <div class="obs-container">
+            <div class="obs-item" onclick="window.open('https://www.youtube.com/watch?v=vytmBNhc9ig', '_blank')">
+                <img src="https://img.youtube.com/vi/vytmBNhc9ig/maxresdefault.jpg" alt="宇宙観測">
+                <div class="obs-overlay">ISS Live Earth View</div>
+            </div>
+        </div>
         
         <div class="utility-box">
             <div style="background: #eee; padding: 4px 8px; border: 1px solid #999; font-size: 10px;">
