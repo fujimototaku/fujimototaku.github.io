@@ -163,6 +163,7 @@
             <li><a href="index.html">トップページ</a></li>
             <li><a href="works.html">作品・書店</a></li>
             <li><a href="info.html">活動履歴</a></li>
+            <li><a href="diary/">日記</a></li>
             <li><a href="contact.html">お問い合わせ</a></li>
         </ul>
         <b>■外部リンク</b>
@@ -257,7 +258,6 @@
     setInterval(() => {
         const now = new Date().getTime();
         const d1 = targetDate - now;
-        
         if (d1 < 0) {
             document.getElementById("countdown").innerText = "開催中、または終了";
         } else {

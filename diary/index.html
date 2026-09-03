@@ -1,0 +1,14 @@
+---
+layout: diary
+title: 日記
+---
+<h1 style="font-size:20px; margin-top:0;">日記</h1>
+{% if site.posts.size > 0 %}
+<ul class="post-list">
+  {% for post in site.posts %}
+  <li><span class="date">{{ post.date | date: "%Y/%m/%d" }}</span><a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>まだ何もありません。</p>
+{% endif %}
