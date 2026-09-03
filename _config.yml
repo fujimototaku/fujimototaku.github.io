@@ -1,0 +1,11 @@
+title: 藤本拓 公式サイト
+url: https://fujimototaku.github.io
+baseurl: ""
+timezone: Asia/Tokyo
+permalink: /diary/:year/:month/:day/:title/
+markdown: kramdown
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
