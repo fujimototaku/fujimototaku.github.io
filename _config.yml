@@ -5,6 +5,13 @@ timezone: Asia/Tokyo
 permalink: /diary/:year/:month/:day/:title/
 markdown: kramdown
 
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
 exclude:
   - README.md
   - Gemfile
