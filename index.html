@@ -16,7 +16,7 @@ home: true
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="{{ site.data.site.description | strip_newlines }}">
   <meta name="keywords" content="{{ site.data.site.keywords | join: ',' }}">
-  <meta name="theme-color" content="#000033">
+  <meta name="theme-color" content="#e9e8df">
   <title>{{ site.data.site.title }}</title>
   <link rel="stylesheet" href="/style.css">
 
@@ -51,7 +51,7 @@ home: true
         <h2>★ ようこそ ★</h2>
         <p>{{ site.data.home.retro.intro | newline_to_br }}</p>
         <p>{{ site.data.home.retro.subtext | newline_to_br }}</p>
-        <p class="warning"><span class="blink">NEW!</span> 見た目は平成、更新方法だけ令和です。</p>
+        <p class="warning">見た目は平成、更新方法だけ令和です。</p>
       </section>
 
       <section class="panel">
@@ -74,7 +74,6 @@ home: true
           {% for item in site.data.home.announcements %}
           <li>
             <span class="entry-date">{{ item.date }}</span>
-            {% if forloop.first %}<span class="blink">NEW!</span>{% endif %}
             {{ item.text }}
           </li>
           {% endfor %}
@@ -173,9 +172,9 @@ home: true
         const globe = Globe()(globeDiv)
           .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
           .backgroundColor("rgba(0,0,0,0)")
-          .width(165)
-          .height(165);
-        globe.controls().autoRotate = true;
+          .width(150)
+          .height(150);
+        globe.controls().autoRotate = false;
         globe.controls().enableZoom = false;
         globe.onGlobeClick(({ lat, lng }) => {
           window.open(`https://www.google.com/maps/@${lat},${lng},6z`, "_blank", "noopener");
