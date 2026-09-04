@@ -10,9 +10,11 @@ table { border-collapse: collapse; width: 100%; border: 1px solid #008000; margi
 th, td { border: 1px solid #008000; padding: 10px; font-size: 14px; text-align: left; }
 th { background-color: #e8f5e8; font-weight: bold; width: 100px; }
 .bg-light-green { background-color: #f0fdf0; border: 1px solid #008000; padding: 15px; }
-.contact-box { background-color: #f0fdf0; border: 2px solid #008000; padding: 20px; font-size: 16px; margin-top: 20px; }
+.contact-box { background-color: #f0fdf0; border: 2px solid #008000; padding: 20px; font-size: 16px; margin-top: 20px; overflow-wrap: anywhere; }
+.contact-email { font-size: 20px; color: #008000; }
+.contact-note { font-size: 13px; color: #666; }
 .footer { margin-top: 60px; border-top: 1px solid #ccc; padding-top: 20px; font-size: 12px; color: #666; }
-@media (max-width: 700px) { body { flex-direction: column; } nav { width: 100%; margin-bottom: 30px; position: static; } }
+@media (max-width: 700px) { body { flex-direction: column; margin: 10px; } nav { width: auto; margin: 0 0 30px; position: static; } table { display: block; overflow-x: auto; } }
 /* 観測セクション用追加スタイル */
 .obs-container {
     display: flex;
