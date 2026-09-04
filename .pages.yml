@@ -1,4 +1,10 @@
 media:
+  - name: site_images
+    label: サイト画像
+    input: media/site
+    output: /media/site
+    categories: [image]
+    rename: safe
   - name: diary_images
     label: 日記画像
     input: media/diary
@@ -7,6 +13,240 @@ media:
     rename: safe
 
 content:
+  - name: fixed_pages
+    label: 固定ページ
+    type: group
+    items:
+      - name: site
+        label: サイト基本設定
+        type: file
+        path: _data/site.yml
+        format: yaml
+        fields:
+          - name: title
+            label: サイト名
+            type: string
+            required: true
+          - name: description
+            label: サイト説明
+            type: text
+            required: true
+          - name: keywords
+            label: 検索キーワード
+            type: string
+            list: true
+          - name: external_links
+            label: 外部リンク
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label}"
+            fields:
+              - name: label
+                label: 表示名
+                type: string
+                required: true
+              - name: url
+                label: URL
+                type: string
+                required: true
+          - name: footer
+            label: フッター
+            type: string
+            required: true
+
+      - name: home
+        label: トップページ
+        type: file
+        path: _data/home.yml
+        format: yaml
+        fields:
+          - name: updated_at
+            label: 最終更新日時
+            type: date
+            required: true
+            options:
+              time: true
+              format: "yyyy-MM-dd'T'HH:mm:ssXXX"
+          - name: profile
+            label: プロフィール
+            type: object
+            required: true
+            fields:
+              - name: name
+                label: 名前
+                type: string
+                required: true
+              - name: image
+                label: 写真
+                type: image
+                options:
+                  media: site_images
+              - name: likes
+                label: 好き
+                type: text
+              - name: dislikes
+                label: 嫌い
+                type: text
+          - name: announcements
+            label: お知らせ
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{date} {text}"
+            fields:
+              - name: date
+                label: 日付
+                type: date
+                required: true
+                options:
+                  format: yyyy/MM/dd
+              - name: text
+                label: 内容
+                type: string
+                required: true
+          - name: stores
+            label: 取扱店
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{area}"
+            fields:
+              - name: area
+                label: 地域
+                type: string
+                required: true
+              - name: names
+                label: 店名
+                type: text
+                required: true
+          - name: shop
+            label: 通販
+            type: object
+            fields:
+              - name: label
+                label: 表示名
+                type: string
+              - name: url
+                label: URL
+                type: string
+          - name: event
+            label: 次のイベント
+            type: object
+            fields:
+              - name: label
+                label: 見出し
+                type: string
+              - name: datetime
+                label: 開催日時
+                type: date
+                options:
+                  time: true
+                  format: "yyyy-MM-dd'T'HH:mm:ssXXX"
+          - name: observatory
+            label: 定点観測
+            type: object
+            fields:
+              - name: title
+                label: 見出し
+                type: string
+              - name: youtube_id
+                label: YouTube動画ID
+                type: string
+              - name: caption
+                label: 表示名
+                type: string
+
+      - name: works
+        label: 作品・書店
+        type: file
+        path: _data/works.yml
+        format: yaml
+        fields:
+          - name: title
+            label: ページ見出し
+            type: string
+            required: true
+          - name: items
+            label: 作品
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: 作品名
+                type: string
+                required: true
+              - name: image
+                label: 写真
+                type: image
+                options:
+                  media: site_images
+              - name: description
+                label: 説明
+                type: text
+              - name: stores
+                label: 取扱書店
+                type: text
+
+      - name: activity
+        label: 活動履歴
+        type: file
+        path: _data/activity.yml
+        format: yaml
+        fields:
+          - name: title
+            label: ページ見出し
+            type: string
+            required: true
+          - name: items
+            label: 活動
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: 題名
+                type: string
+                required: true
+              - name: date
+                label: 日付・著者・編集
+                type: string
+              - name: detail
+                label: 内容
+                type: text
+
+      - name: contact
+        label: お問い合わせ
+        type: file
+        path: _data/contact.yml
+        format: yaml
+        fields:
+          - name: title
+            label: ページ見出し
+            type: string
+            required: true
+          - name: heading
+            label: 小見出し
+            type: string
+          - name: intro
+            label: 説明
+            type: text
+          - name: email
+            label: 表示するメールアドレス
+            type: string
+            required: true
+          - name: note
+            label: 注意書き
+            type: text
+
   - name: diary
     label: 日記
     type: collection
@@ -18,6 +258,7 @@ content:
       field: false
     view:
       primary: title
+      sort: [title]
     fields:
       - name: title
         label: タイトル
@@ -33,9 +274,11 @@ content:
           switcher: true
 
 settings:
+  content:
+    merge: true
   commit:
     templates:
-      create: "日記を追加: {filename}"
-      update: "日記を更新: {filename}"
-      delete: "日記を削除: {filename}"
-      rename: "日記を改名: {oldPath} -> {newPath}"
+      create: "追加: {filename}"
+      update: "更新: {filename}"
+      delete: "削除: {filename}"
+      rename: "改名: {oldPath} -> {newPath}"

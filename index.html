@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,9 +13,9 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="藤本拓の公式サイト">
-    <meta name="keywords" content="藤本拓,日記本,作家,本,札幌,北海道,ZINE,クリエイター">
-    <title>藤本拓 公式サイト</title>
+    <meta name="description" content="{{ site.data.site.description }}">
+    <meta name="keywords" content="{{ site.data.site.keywords | join: ',' }}">
+    <title>{{ site.data.site.title }}</title>
     
     <script type="application/ld+json">
     {
@@ -153,7 +155,7 @@
 </head>
 <body>
 
-<h1>藤本拓 公式サイト</h1>
+<h1>{{ site.data.site.title }}</h1>
 <hr>
 
 <div class="main-container">
@@ -168,13 +170,12 @@
         </ul>
         <b>■外部リンク</b>
         <ul class="menu-list">
-            <li><a href="https://x.com/fujimototaku" target="_blank" rel="noopener">Twitter</a></li>
-            <li><a href="https://note.com/fujimototaku" target="_blank" rel="noopener">note</a></li>
-            <li><a href="https://www.instagram.com/fujimototaku0" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="https://10futa20.booth.pm/" target="_blank" rel="noopener">通販</a></li>
+            {% for link in site.data.site.external_links %}
+            <li><a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a></li>
+            {% endfor %}
         </ul>
         <hr>
-        <b>■次のイベント</b><br>
+        <b>■{{ site.data.home.event.label }}</b><br>
         <span id="countdown" style="font-weight: bold; font-size: 14px;">計算中...</span>
         <hr>
         <b>■3D地球儀</b>
@@ -185,52 +186,49 @@
     </div>
 
     <div class="main-col">
-        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：2026年4月15日 16:40</div>
+        <div style="text-align: right; font-size: 10px; margin-bottom: 5px;">最終更新：{{ site.data.home.updated_at | date: "%Y年%-m月%-d日 %H:%M" }}</div>
         
         <div class="section-bar">プロフィール</div>
         <div class="profile-box">
-            <div class="profile-img"><img src="profile.jpg" alt="近影"></div>
+            <div class="profile-img"><img src="{{ site.data.home.profile.image }}" alt="近影"></div>
             <div class="profile-txt">
-                名前：藤本拓<br>
-                好き：石・川・雪、書く、寝る、本当、チャットモンチー、Oasis、緑<br>
-                嫌い：嘘つき、四則演算、セロリ、臭い人、運動
+                名前：{{ site.data.home.profile.name }}<br>
+                好き：{{ site.data.home.profile.likes }}<br>
+                嫌い：{{ site.data.home.profile.dislikes }}
             </div>
         </div>
 
         <div class="section-bar">最新のお知らせ</div>
         <div style="font-size:12px; padding: 0 5px 15px; line-height: 1.5;">
-            ・2026/06/28：　日記のおかげで正しく狂えた２　発売<br>
-            ・2026/03/29：「Indie Books Holiday」終了しました。<br>
-            ・2026/02/22：「祝日自由市」終了しました。
+            {% for item in site.data.home.announcements %}
+            ・{{ item.date }}：{{ item.text }}{% unless forloop.last %}<br>{% endunless %}
+            {% endfor %}
         </div>
 
-    <div class="section-bar">取扱店・通販</div>
-<div style="font-size:11px; padding: 0 5px 15px; line-height: 1.7;">
-    <div style="margin-bottom: 8px;">
-        <b>【北海道】</b><br>
-        私設図書館祝日(閲覧・販売) / 本と喫茶 NOMAD BOOKS / 古本とビール アダノンキ / Seesaw Books / 喫茶こん(閲覧) / 珈琲茶寮 こはく堂(閲覧) / よはくの本やさん / 夏森書店
-    </div>
+        <div class="section-bar">取扱店・通販</div>
+        <div style="font-size:11px; padding: 0 5px 15px; line-height: 1.7;">
+            {% for store in site.data.home.stores %}
+            <div style="margin-bottom: 8px;">
+                <b>【{{ store.area }}】</b><br>
+                {{ store.names | newline_to_br }}
+            </div>
+            {% endfor %}
 
-    <div style="margin-bottom: 8px;">
-        <b>【東京・他】</b><br>
-        そぞろ書房(東京) / カルガモBOOKS(東京) / 日記屋 月日(東京) / yumegiwa books(京都) / エチュードブックス(大阪) / テントセンブックス(福岡)
-    </div>
+            <div style="margin-bottom: 8px;">
+                <b>【通販】</b><br>
+                ・<a href="{{ site.data.home.shop.url }}" target="_blank" rel="noopener">{{ site.data.home.shop.label }}</a>
+            </div>
 
-    <div style="margin-bottom: 8px;">
-        <b>【通販】</b><br>
-        ・<a href="https://10futa20.booth.pm/" target="_blank" rel="noopener">通販</a>
-    </div>
+            <div style="font-size: 10px; color: #666; margin-top: 5px;">
+                ※在庫状況は各店舗へお問い合わせください。
+            </div>
+        </div>
 
-    <div style="font-size: 10px; color: #666; margin-top: 5px;">
-        ※在庫状況は各店舗へお問い合わせください。
-    </div>
-</div>
-
-        <div class="section-bar">定点観測（宇宙）</div>
+        <div class="section-bar">{{ site.data.home.observatory.title }}</div>
         <div class="obs-container">
-            <div class="obs-item" onclick="window.open('https://www.youtube.com/watch?v=vytmBNhc9ig', '_blank')">
-                <img src="https://img.youtube.com/vi/vytmBNhc9ig/maxresdefault.jpg" alt="宇宙観測">
-                <div class="obs-overlay">ISS Live Earth View</div>
+            <div class="obs-item" onclick="window.open('https://www.youtube.com/watch?v={{ site.data.home.observatory.youtube_id }}', '_blank')">
+                <img src="https://img.youtube.com/vi/{{ site.data.home.observatory.youtube_id }}/maxresdefault.jpg" alt="宇宙観測">
+                <div class="obs-overlay">{{ site.data.home.observatory.caption }}</div>
             </div>
         </div>
         
@@ -249,16 +247,18 @@
     </div>
 </div>
 
-<div style="font-size: 10px; margin-top: 10px; text-align: center;">Copyright (C) 2026 藤本拓. All Rights Reserved.</div>
+<div style="font-size: 10px; margin-top: 10px; text-align: center;">{{ site.data.site.footer }}</div>
 
 <script>
-    const targetDate = new Date("Mar 29, 2026 10:00:00").getTime();
-    const lastUpdate = new Date("Mar 8, 2026 20:40:00").getTime();
+    const targetDate = new Date({{ site.data.home.event.datetime | jsonify }}).getTime();
+    const lastUpdate = new Date({{ site.data.home.updated_at | jsonify }}).getTime();
 
     setInterval(() => {
         const now = new Date().getTime();
         const d1 = targetDate - now;
-        if (d1 < 0) {
+        if (Number.isNaN(targetDate)) {
+            document.getElementById("countdown").innerText = "未定";
+        } else if (d1 < 0) {
             document.getElementById("countdown").innerText = "開催中、または終了";
         } else {
             const days = Math.floor(d1 / 86400000);
@@ -269,7 +269,9 @@
         }
 
         const d2 = now - lastUpdate;
-        document.getElementById('update-timer').innerText = Math.floor(d2/60000) + "分" + Math.floor((d2%60000)/1000) + "秒";
+        document.getElementById('update-timer').innerText = Number.isNaN(lastUpdate)
+            ? "不明"
+            : Math.floor(d2/60000) + "分" + Math.floor((d2%60000)/1000) + "秒";
     }, 1000);
 
     const globeDiv = document.getElementById('globeViz');
