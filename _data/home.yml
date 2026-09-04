@@ -1,32 +1,36 @@
-updated_at: "2026-04-15T16:40:00+09:00"
+updated_at: 2026-04-15T07:40:00Z
 retro:
-  eyebrow: 個人ホームページ
-  ticker: お知らせ：このサイトは、ゆっくり更新されます。
+  ticker: お知らせ：このサイトは、ゆっくり更新されるかもしれません。
   intro: ここは日記、制作物、活動記録を置いておく個人サイトです。
-  subtext: いいね、フォロー、アルゴリズムはありません。たまたま来た人だけ見てください。
+  subtext: いいね、フォロー、アルゴリズムはありません。
 profile:
   name: 藤本拓
   image: /profile.jpg
   likes: 石・川・雪、書く、寝る、本当、チャットモンチー、Oasis、緑
   dislikes: 嘘つき、四則演算、セロリ、臭い人、運動
 announcements:
-  - date: "2026/06/28"
+  - date: 2026/06/28
     text: 日記のおかげで正しく狂えた２　発売
-  - date: "2026/03/29"
+  - date: 2026/03/29
     text: 「Indie Books Holiday」終了しました。
-  - date: "2026/02/22"
-    text: 「祝日自由市」終了しました。
+  - date: 2026/02/22
+    text: 祝日自由市
+  - date: 2025/05/11
+    text: 文学フリマ東京40
+  - date: 2025/05/11
+    text: 日記のおかげで正しく狂えた　発売
 stores:
   - area: 北海道
-    names: 私設図書館祝日(閲覧・販売) / 本と喫茶 NOMAD BOOKS / 古本とビール アダノンキ / Seesaw Books / 喫茶こん(閲覧) / 珈琲茶寮 こはく堂(閲覧) / よはくの本やさん / 夏森書店
+    names: 私設図書館祝日(閲覧・販売) / 本と喫茶 NOMAD BOOKS / 古本とビール アダノンキ / Seesaw Books /
+      喫茶こん(閲覧) / 珈琲茶寮 こはく堂(閲覧) / よはくの本やさん / 夏森書店
   - area: 東京・他
-    names: そぞろ書房(東京) / カルガモBOOKS(東京) / 日記屋 月日(東京) / yumegiwa books(京都) / エチュードブックス(大阪) / テントセンブックス(福岡)
+    names: そぞろ書房(東京) / カルガモBOOKS(東京) / 日記屋 月日(東京) / yumegiwa books(京都) /
+      エチュードブックス(大阪) / テントセンブックス(福岡)
 shop:
-  label: 通販
+  label: online shoping center
   url: https://10futa20.booth.pm/
 event:
-  label: 次のイベント
-  datetime: "2026-03-29T10:00:00+09:00"
+  label: next
 observatory:
   title: 定点観測（宇宙）
   youtube_id: vytmBNhc9ig
