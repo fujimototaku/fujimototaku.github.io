@@ -1,13 +1,46 @@
-<nav>
-  <b>メニュー</b>
-  <a href="/">トップ</a>
-  <a href="/works.html">作品・書店</a>
-  <a href="/info.html">活動</a>
-  <a href="/diary/">日記</a>
-  <a href="/contact.html">お問い合わせ</a>
-  <br>
-  <b>外部リンク</b>
-  {% for link in site.data.site.external_links %}
-  <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>
-  {% endfor %}
-</nav>
+<aside class="sidebar" aria-label="サイトメニュー">
+  <section class="panel menu-panel">
+    <h2>めにゅー</h2>
+    <nav>
+      <a href="/">■ とっぷ</a>
+      <a href="/works.html">■ 作品・書店</a>
+      <a href="/info.html">■ 活動履歴</a>
+      <a href="/diary/">■ 日記</a>
+      <a href="/contact.html">■ お問い合わせ</a>
+    </nav>
+  </section>
+
+  <section class="panel menu-panel">
+    <h2>外部りんく</h2>
+    <nav>
+      {% for link in site.data.site.external_links %}
+      <a href="{{ link.url }}" target="_blank" rel="noopener">◇ {{ link.label }}</a>
+      {% endfor %}
+    </nav>
+  </section>
+
+  {% if page.home %}
+  <section class="panel mini-panel">
+    <h2>{{ site.data.home.event.label }}</h2>
+    <p id="countdown" class="digital">計算中...</p>
+  </section>
+
+  <section class="panel mini-panel">
+    <h2>3D地球儀</h2>
+    <div id="globeViz" aria-label="回転する地球儀"></div>
+    <p class="small-note">地球を押すと地図が開きます</p>
+  </section>
+  {% endif %}
+
+  <div class="construction" aria-label="工事中">
+    <span aria-hidden="true">🚧</span>
+    <strong>永久に工事中</strong>
+    <span aria-hidden="true">🚧</span>
+  </div>
+
+  <div class="button-stack" aria-label="推奨環境風の装飾">
+    <span class="web-button cyan">NO<br>ALGORITHM</span>
+    <span class="web-button magenta">BEST<br>VIEWED</span>
+    <span class="web-button yellow">WITH<br>HUMAN</span>
+  </div>
+</aside>

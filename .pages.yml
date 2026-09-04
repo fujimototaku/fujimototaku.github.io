@@ -69,6 +69,23 @@ content:
             options:
               time: true
               format: "yyyy-MM-dd'T'HH:mm:ssXXX"
+          - name: retro
+            label: 太古HP表示
+            type: object
+            required: true
+            fields:
+              - name: eyebrow
+                label: 最上部の一言
+                type: string
+              - name: ticker
+                label: 流れる文字
+                type: text
+              - name: intro
+                label: 最初の説明
+                type: text
+              - name: subtext
+                label: その下の説明
+                type: text
           - name: profile
             label: プロフィール
             type: object

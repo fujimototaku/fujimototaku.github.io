@@ -3,9 +3,9 @@ layout: page
 title: 活動
 ---
   <h1>{{ site.data.activity.title }}</h1>
-  <ul style="font-size:14px; padding:0;">
+  <ul class="activity-list">
     {% for item in site.data.activity.items %}
-    <li class="bg-light-green" style="margin-bottom:15px; list-style:none; padding:10px;">
+    <li class="activity-item">
       <b>{{ item.title }}</b>{% if item.date %}（{{ item.date }}）{% endif %}<br>
       └ {{ item.detail | newline_to_br }}
     </li>

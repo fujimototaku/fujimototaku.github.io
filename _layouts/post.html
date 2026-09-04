@@ -4,43 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>{{ page.title }} | 藤本拓</title>
-  <style>
-    body { background:#f0fff0; font-family:"ＭＳ Ｐゴシック","MS PGothic",sans-serif; margin:0; color:#111; }
-    a { color:#0000ee; text-decoration:underline; }
-    .wrap { width:94%; max-width:740px; margin:10px auto 30px; }
-    .title { text-align:center; font-size:24px; font-weight:bold; margin:8px 0; }
-    .box { border:1px solid #999; background:rgba(255,255,255,.75); }
-    .bar { background:#ccc; border-bottom:1px solid #666; padding:3px 8px; font-size:13px; font-weight:bold; }
-    .menu { padding:8px; font-size:13px; line-height:1.8; border-bottom:1px solid #999; }
-    article { padding:12px; font-size:14px; line-height:1.9; }
-    article h1 { font-size:20px; margin:0 0 4px; }
-    article img { max-width:100%; height:auto; }
-    .date { color:#666; font-size:11px; margin-bottom:18px; }
-    .footer { text-align:center; font-size:10px; margin-top:12px; }
-  </style>
+  <meta name="theme-color" content="#000033">
+  <title>{{ page.title }} | {{ site.data.site.title }}</title>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div class="wrap">
-    <div class="title">藤本拓のホームページ</div>
-    <div class="box">
-      <div class="bar">■ 日記</div>
-      <div class="menu">
-        ・<a href="/">トップページ</a>
-        ・<a href="/works.html">作品・書店</a>
-        ・<a href="/info.html">活動履歴</a>
-        ・<a href="/diary/">日記一覧</a>
-        ・<a href="/contact.html">お問い合わせ</a>
-      </div>
-      <article>
-        <h1>{{ page.title }}</h1>
+  {% include header.html %}
+  <div class="page-shell">
+    {% include navigation.html %}
+    <main id="main" class="content">
+      <article class="panel page-content post-body">
+        <h1 class="article-title">{{ page.title }}</h1>
         <div class="date">{{ page.date | date: "%Y年%m月%d日" }}</div>
         {{ content }}
-        <hr>
-        <p style="font-size:12px;">← <a href="/diary/">日記一覧へ戻る</a></p>
+        <p class="back-link">← <a href="/diary/">日記一覧へ戻る</a></p>
       </article>
-    </div>
-    <div class="footer">Copyright (C) 2026 藤本拓. All Rights Reserved.</div>
+    </main>
   </div>
+  {% include footer.html %}
 </body>
 </html>

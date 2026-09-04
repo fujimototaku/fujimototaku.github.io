@@ -1,0 +1,16 @@
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <p class="eyebrow">{{ site.data.home.retro.eyebrow }}</p>
+  <h1><span class="rainbow">{{ site.data.site.title }}</span></h1>
+  <p class="site-description">{{ site.data.site.description | newline_to_br }}</p>
+  <p class="counter" aria-label="アクセスカウンター">
+    あなたは たぶん
+    <span id="counter-number" class="counter-digits">00000042</span>
+    人目のお客様です
+  </p>
+  <p class="small-note">※キリ番を踏んでも特に何も起きません</p>
+</header>
+
+<div class="ticker" aria-label="お知らせ">
+  <div class="ticker-track">{{ site.data.home.retro.ticker }}</div>
+</div>
