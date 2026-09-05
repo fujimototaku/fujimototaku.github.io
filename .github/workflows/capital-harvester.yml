@@ -1,0 +1,37 @@
+name: Capital Harvester
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */3 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: capital-harvester
+  cancel-in-progress: true
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests beautifulsoup4 openai
+      - name: Collect capital giveaways
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-5.6-luna
+        run: |
+          if [ -n "$OPENAI_API_KEY" ]; then
+            python capital-harvest/harvest.py --ai --ai-query-count 12
+          else
+            python capital-harvest/harvest.py
+          fi
+      - name: Commit updated radar
+        run: |
+          git config user.name "capital-harvester[bot]"
+          git config user.email "capital-harvester[bot]@users.noreply.github.com"
+          git add capital-harvest/data.json capital-harvest/data.csv
+          git diff --cached --quiet && exit 0
+          git commit -m "Update capital harvest radar"
+          git push
