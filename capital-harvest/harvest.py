@@ -62,7 +62,7 @@ def now(): return dt.datetime.now(dt.timezone.utc).astimezone().isoformat(timesp
 def canon(u):
  try:
   p=urlparse(u.strip()); q=[(k,v) for k,v in parse_qsl(p.query,keep_blank_values=True) if not k.lower().startswith('utm_') and k.lower() not in {'fbclid','gclid','yclid','ref','referrer','scid'}]
-  return urlunparse((p.scheme.lower(),p.netloc.lower(),p.path.rstrip('/'),' ',urlencode(q),'')).replace('| ','|').replace(':// ','://').replace('  ',' ').replace(' /','/').replace(' ','')
+  return urlunparse((p.scheme.lower(),p.netloc.lower(),p.path.rstrip('/'),'',urlencode(q),''))
  except: return u.strip()
 def iid(t,u): return hashlib.sha1((re.sub(r'\s+',' ',t.lower()).strip()+'|'+canon(u)).encode()).hexdigest()[:16]
 def fetch(u):
