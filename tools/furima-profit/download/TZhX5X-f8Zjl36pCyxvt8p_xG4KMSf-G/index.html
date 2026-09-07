@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>フリマ利益計算機 PRO</title>
+<style>
+:root{--bg:#f6f4ee;--ink:#222;--muted:#666;--line:#c9c6bc;--card:#fff;--accent:#1b4d3e;--bad:#a22}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic",sans-serif}
+main{max-width:1100px;margin:auto;padding:22px}.hero{padding:20px 0}.hero h1{font-size:clamp(28px,5vw,44px);margin:0 0 6px}.hero p{color:var(--muted);margin:4px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}input,select,button{width:100%;font:inherit;padding:10px;border:1px solid #aaa;border-radius:7px;background:white}
+button{cursor:pointer;background:var(--accent);color:white;border:0;font-weight:700}button.secondary{background:#eee;color:#222;border:1px solid #aaa}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{border-bottom:1px solid #ddd;padding:8px;text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
+.wrap{overflow:auto}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.kpi{background:#f1f0ea;border-radius:9px;padding:12px}.kpi b{display:block;font-size:21px}
+.good{color:#126b3a}.bad{color:var(--bad)}.small{font-size:12px;color:var(--muted)}.notice{padding:10px;border-left:4px solid var(--accent);background:#eef5f1}
+@media(max-width:800px){.grid,.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}@media(max-width:520px){.grid,.kpis{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main>
+<section class="hero">
+<h1>フリマ利益計算機 PRO</h1>
+<p>CSV一括計算・3社比較・目標利益逆算・結果CSV出力。データはブラウザ内だけで処理します。</p>
+<p class="small">買い切りオフライン版 / 2026年9月版</p>
+</section>
+<section class="card">
+<h2>一括計算</h2>
+<div class="grid">
+<div><label>ラクマ手数料</label><select id="rakuma"><option value=".10">10%</option><option value=".09">9%</option><option value=".08">8%</option><option value=".07">7%</option><option value=".06">6%</option><option value=".045">4.5%</option></select></div>
+<div><label>Yahoo!フリマ手数料</label><select id="yahoo"><option value=".05">5%</option><option value="0">0%（対象者のみ）</option></select></div>
+<div><label>目標利益（円）</label><input id="target" type="number" min="0" value="2000"></div>
+<div><label>&nbsp;</label><button id="sample">サンプルCSVを入れる</button></div>
+</div>
+<p class="small">CSV列: 商品名,販売価格,仕入れ,送料,その他費用</p>
+<div class="grid2"><div><input id="file" type="file" accept=".csv,text/csv"></div><div><button id="export" class="secondary">結果CSVを保存</button></div></div>
+</section>
+<section class="card">
+<div class="kpis">
+<div class="kpi"><span>商品数</span><b id="count">0</b></div>
+<div class="kpi"><span>合計売上</span><b id="sales">0円</b></div>
+<div class="kpi"><span>最適配置の利益</span><b id="bestProfit">0円</b></div>
+<div class="kpi"><span>手数料差の節約</span><b id="saving">0円</b></div>
+</div>
+</section>
+<section class="card"><h2>結果</h2><div class="wrap"><table><thead><tr><th>商品</th><th>価格</th><th>メルカリ利益</th><th>Yahoo利益</th><th>ラクマ利益</th><th>最適</th><th>最適利益</th><th>必要販売価格</th></tr></thead><tbody id="rows"></tbody></table></div></section>
+<section class="card notice"><strong>計算前提</strong><div class="small"><p>メルカリ販売手数料10%。Yahoo!フリマ5%（対象者は0%選択可）。楽天ラクマは販売実績に応じて10% / 9% / 8% / 7% / 6% / 4.5%。送料・振込手数料・キャンペーン等は利用状況で変わるため、販売前に各社公式表示を確認してください。</p></div></section>
+<script>
+const yen=n=>Math.round(n).toLocaleString('ja-JP')+'円';let data=[];const $=id=>document.getElementById(id);
+function csvParse(text){const lines=text.replace(/\r/g,'').split('\n').filter(x=>x.trim());if(!lines.length)return [];const parseLine=line=>{const out=[];let s='',q=false;for(let i=0;i<line.length;i++){const c=line[i];if(c=='"'){if(q&&line[i+1]=='"'){s+='"';i++;}else q=!q;}else if(c==','&&!q){out.push(s);s='';}else s+=c;}out.push(s);return out;};const a=lines.map(parseLine),header=a[0].map(x=>x.trim());const idx=n=>header.indexOf(n);return a.slice(1).map(r=>({name:r[idx('商品名')]||'',price:+(r[idx('販売価格')]||0),cost:+(r[idx('仕入れ')]||0),ship:+(r[idx('送料')]||0),other:+(r[idx('その他費用')]||0)})).filter(x=>x.name||x.price);}
+function calcRow(x){const rr=+$('rakuma').value,yr=+$('yahoo').value,mr=.10,target=+$('target').value||0;const p=x.price,c=x.cost,s=x.ship,o=x.other;const profit=rate=>p-p*rate-c-s-o;const m=profit(mr),y=profit(yr),r=profit(rr);const opts=[['メルカリ',m,mr],['Yahoo!フリマ',y,yr],['ラクマ',r,rr]].sort((a,b)=>b[1]-a[1]);const [best,bp,br]=opts[0];const need=Math.ceil((target+c+s+o)/(1-br));return {...x,m,y,r,best,bp,need,worst:Math.min(m,y,r)};}
+function render(){const rs=data.map(calcRow);$('count').textContent=rs.length;$('sales').textContent=yen(rs.reduce((a,x)=>a+x.price,0));$('bestProfit').textContent=yen(rs.reduce((a,x)=>a+x.bp,0));$('saving').textContent=yen(rs.reduce((a,x)=>a+(x.bp-x.worst),0));$('rows').innerHTML=rs.map(x=>`<tr><td>${escapeHtml(x.name)}</td><td>${yen(x.price)}</td><td class="${x.m>=0?'good':'bad'}">${yen(x.m)}</td><td class="${x.y>=0?'good':'bad'}">${yen(x.y)}</td><td class="${x.r>=0?'good':'bad'}">${yen(x.r)}</td><td>${x.best}</td><td class="${x.bp>=0?'good':'bad'}">${yen(x.bp)}</td><td>${yen(x.need)}</td></tr>`).join('');window._rows=rs;}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+$('file').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{data=csvParse(r.result);render()};r.readAsText(f,'UTF-8')});['rakuma','yahoo','target'].forEach(id=>$(id).addEventListener('input',render));
+$('sample').onclick=()=>{data=[{name:'ワイヤレスイヤホン',price:6500,cost:2000,ship:750,other:0},{name:'ゲームソフト',price:4200,cost:1800,ship:230,other:0},{name:'古着',price:3200,cost:500,ship:750,other:100}];render()};
+$('export').onclick=()=>{const rs=window._rows||[];if(!rs.length){alert('先にCSVを読み込んでください');return}const head=['商品名','販売価格','仕入れ','送料','その他費用','メルカリ利益','Yahoo利益','ラクマ利益','最適プラットフォーム','最適利益','目標利益に必要な販売価格'];const esc=v=>`"${String(v).replace(/"/g,'""')}"`;const body=rs.map(x=>[x.name,x.price,x.cost,x.ship,x.other,Math.round(x.m),Math.round(x.y),Math.round(x.r),x.best,Math.round(x.bp),x.need].map(esc).join(','));const blob=new Blob(['\uFEFF'+[head.join(','),...body].join('\n')],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='furima-profit-result.csv';a.click();URL.revokeObjectURL(a.href);};$('sample').click();
+</script>
+</main></body></html>
