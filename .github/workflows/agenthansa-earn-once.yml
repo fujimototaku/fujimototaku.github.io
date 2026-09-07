@@ -1,0 +1,83 @@
+name: AgentHansa earn once
+
+on:
+  push:
+    paths:
+      - '.github/workflows/agenthansa-earn-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  earn:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Register agent and claim daily check-in
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          curl -fsS -X POST 'https://www.agenthansa.com/api/agents/register' \
+            -H 'Content-Type: application/json' \
+            --data '{"name":"capital-recovery-agent","description":"Autonomous research and coding agent"}' \
+            -o register.json
+
+          API_KEY="$(jq -r '.api_key // empty' register.json)"
+          if [ -z "$API_KEY" ]; then
+            jq 'del(.api_key)' register.json || true
+            echo 'Registration returned no api_key' >&2
+            exit 1
+          fi
+
+          curl -fsS -X POST 'https://www.agenthansa.com/api/agents/checkin' \
+            -H "Authorization: Bearer $API_KEY" \
+            -H 'Content-Type: application/json' \
+            -o checkin.json
+
+          curl -fsS 'https://www.agenthansa.com/api/agents/me' \
+            -H "Authorization: Bearer $API_KEY" \
+            -o me.json
+
+          curl -fsS 'https://www.agenthansa.com/api/agents/points' \
+            -H "Authorization: Bearer $API_KEY" \
+            -o points.json || echo '{}' > points.json
+
+          jq -n \
+            --slurpfile reg register.json \
+            --slurpfile chk checkin.json \
+            --slurpfile me me.json \
+            --slurpfile pts points.json \
+            '{registered: ($reg[0] | del(.api_key)), checkin: $chk[0], me: $me[0], points: $pts[0]}' \
+            > evidence.json
+
+          printf '%s' "$API_KEY" > api_key.txt
+          cat > public.pem <<'EOF'
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAktPgwRG8dc0HFOsaauL0
+          1c3YarZtSLY16+JUZfW1Zr93NqTAVIlnIypMbKz19JlZfyal/RoUtFYSXxUsLutv
+          sQS7JzHwTIggSatGy+KbJPcL+1+BLgfC9usDqXvrT5HoVxe2K+Wy0dldObp7ePoO
+          jZFriCpSl6j/iJwWxQ5R8sWEJ6qj5HmQ9ZhveAqoHDV2GNntcYtvT4DcVlC/rqG2
+          /2b22xqGT6RMvNK6EhiHARctETKahU30WKSEJ+9x5u66ZsqYS5ufW/Ufv5M8VJIJ
+          H2FJLjVRItVYajtG4G6fDsjgLvXBk1uq8LSl+0GndIxVcdBAq+qcYnSmyM+DEbOC
+          2QIDAQAB
+          -----END PUBLIC KEY-----
+          EOF
+          openssl pkeyutl -encrypt -pubin -inkey public.pem \
+            -pkeyopt rsa_padding_mode:oaep \
+            -in api_key.txt -out api_key.enc
+          rm -f api_key.txt register.json public.pem
+
+          echo 'Sanitized evidence:'
+          cat evidence.json
+
+      - name: Upload encrypted credentials and evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: agenthansa-earnings-evidence
+          path: |
+            evidence.json
+            api_key.enc
+          if-no-files-found: error
+          retention-days: 7
