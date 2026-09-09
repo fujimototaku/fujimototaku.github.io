@@ -80,12 +80,15 @@ content:
               - name: ticker
                 label: 流れる文字
                 type: text
-              - name: intro
-                label: 最初の説明
-                type: text
-              - name: subtext
-                label: その下の説明
-                type: text
+              - name: welcome_title
+                label: ようこそ欄の見出し
+                type: string
+              - name: welcome_body
+                label: ようこそ欄の本文（自由編集）
+                type: rich-text
+                options:
+                  format: markdown
+                  switcher: true
           - name: profile
             label: プロフィール
             type: object
