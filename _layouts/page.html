@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#e9e8df">
   <title>{{ page.title }} | {{ site.data.site.title }}</title>
   <link rel="stylesheet" href="/style.css">
+  {% if page.extra_css %}<link rel="stylesheet" href="{{ page.extra_css }}">{% endif %}
 </head>
 <body>
   {% include header.html %}
@@ -19,5 +20,6 @@
     </main>
   </div>
   {% include footer.html %}
+  {% if page.extra_js %}<script type="module" src="{{ page.extra_js }}"></script>{% endif %}
 </body>
 </html>
