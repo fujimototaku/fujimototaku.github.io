@@ -53,21 +53,21 @@ home: true
       </section>
 
       <section class="panel">
-        <h2>━━ 管理人 ━━</h2>
+        <h2>{{ site.data.ui.home.profile_heading }}</h2>
         <div class="profile-box">
           <div class="profile-img">
             <img src="{{ site.data.home.profile.image }}" alt="{{ site.data.home.profile.name }}の近影">
           </div>
           <div class="profile-txt">
             <div class="profile-name">{{ site.data.home.profile.name }}</div>
-            <div>好き：{{ site.data.home.profile.likes }}</div>
-            <div>嫌い：{{ site.data.home.profile.dislikes }}</div>
+            <div>{{ site.data.ui.home.likes_label }}：{{ site.data.home.profile.likes }}</div>
+            <div>{{ site.data.ui.home.dislikes_label }}：{{ site.data.home.profile.dislikes }}</div>
           </div>
         </div>
       </section>
 
       <section class="panel">
-        <h2>━━ 最新のお知らせ ━━</h2>
+        <h2>{{ site.data.ui.home.announcements_heading }}</h2>
         <ul class="announcement-list">
           {% for item in site.data.home.announcements %}
           <li>
@@ -79,7 +79,7 @@ home: true
       </section>
 
       <section class="panel">
-        <h2>━━ 取扱店・通販 ━━</h2>
+        <h2>{{ site.data.ui.home.stores_heading }}</h2>
         {% for store in site.data.home.stores %}
         <div class="store-group">
           <strong>【{{ store.area }}】</strong><br>
@@ -87,33 +87,28 @@ home: true
         </div>
         {% endfor %}
         <div class="store-group">
-          <strong>【通販】</strong><br>
+          <strong>【{{ site.data.ui.home.shop_area_label }}】</strong><br>
           → <a href="{{ site.data.home.shop.url }}" target="_blank" rel="noopener">{{ site.data.home.shop.label }}</a>
         </div>
-        <p class="small-note">※在庫状況は各店舗へお問い合わせください。</p>
+        <p class="small-note">{{ site.data.ui.home.store_note }}</p>
       </section>
 
+      {% if site.data.home.observatory.enabled %}
       <section class="panel">
         <h2>━━ {{ site.data.home.observatory.title }} ━━</h2>
-        <div class="obs-item" role="link" tabindex="0" data-youtube-id="{{ site.data.home.observatory.youtube_id }}">
-          <div class="obs-fallback" aria-hidden="true">
-            <span>● ISS LIVE</span>
-            <small>NASA公式配信を開く</small>
-          </div>
-          <img src="https://i.ytimg.com/vi/{{ site.data.home.observatory.youtube_id }}/hqdefault.jpg" alt="宇宙観測" onerror="this.remove()">
-          <div class="obs-overlay">{{ site.data.home.observatory.caption }}</div>
-        </div>
+        <p><a href="{{ site.data.home.observatory.url }}" target="_blank" rel="noopener">{{ site.data.home.observatory.caption }}</a></p>
       </section>
+      {% endif %}
 
       <section class="panel utility-box">
         <div class="utility-chip">
-          最終更新：{{ site.data.home.updated_at | date: "%Y年%-m月%-d日 %H:%M" }}<br>
-          生存確認から <span id="update-timer">計算中...</span>
+          {{ site.data.ui.home.updated_label }}：{{ site.data.home.updated_at | date: "%Y年%-m月%-d日 %H:%M" }}<br>
+          {{ site.data.ui.home.alive_label }} <span id="update-timer">{{ site.data.ui.home.loading_text }}</span>
         </div>
         <div class="search-box">
           <form action="https://www.google.co.jp/search" method="get" target="_blank">
-            <input type="text" name="q" value="site:fujimototaku.github.io " size="20" aria-label="サイト内検索">
-            <button type="submit">検索</button>
+            <input type="text" name="q" value="site:fujimototaku.github.io " size="20" aria-label="{{ site.data.ui.home.search_aria_label }}">
+            <button type="submit">{{ site.data.ui.home.search_button }}</button>
           </form>
         </div>
       </section>
@@ -130,6 +125,8 @@ home: true
       const lastUpdate = new Date({{ site.data.home.updated_at | jsonify }}).getTime();
       const countdown = document.querySelector("#countdown");
       const updateTimer = document.querySelector("#update-timer");
+      const finishedText = {{ site.data.ui.home.event_finished_text | jsonify }};
+      const unknownText = {{ site.data.ui.home.unknown_text | jsonify }};
 
       function updateClocks() {
         const now = Date.now();
@@ -137,9 +134,9 @@ home: true
 
         if (countdown) {
           if (Number.isNaN(targetDate)) {
-            countdown.textContent = "未定";
+            countdown.textContent = unknownText;
           } else if (distance < 0) {
-            countdown.textContent = "開催中、または終了";
+            countdown.textContent = finishedText;
           } else {
             const days = Math.floor(distance / 86400000);
             const hours = Math.floor((distance % 86400000) / 3600000);
@@ -152,22 +149,13 @@ home: true
         if (updateTimer) {
           const elapsed = now - lastUpdate;
           updateTimer.textContent = Number.isNaN(lastUpdate)
-            ? "不明"
+            ? unknownText
             : `${Math.floor(elapsed / 60000)}分${Math.floor((elapsed % 60000) / 1000)}秒`;
         }
       }
 
       updateClocks();
       window.setInterval(updateClocks, 1000);
-
-      const observation = document.querySelector(".obs-item");
-      if (observation) {
-        const openVideo = () => window.open(`https://www.youtube.com/watch?v=${observation.dataset.youtubeId}`, "_blank", "noopener");
-        observation.addEventListener("click", openVideo);
-        observation.addEventListener("keydown", (event) => {
-          if (event.key === "Enter" || event.key === " ") openVideo();
-        });
-      }
 
       const globeDiv = document.querySelector("#globeViz");
       if (globeDiv && window.Globe) {
