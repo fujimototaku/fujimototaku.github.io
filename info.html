@@ -7,7 +7,7 @@ title: 活動
     {% for item in site.data.activity.items %}
     <li class="activity-item">
       <b>{{ item.title }}</b>{% if item.date %}（{{ item.date }}）{% endif %}<br>
-      └ {{ item.detail | newline_to_br }}
+      {{ site.data.ui.activity.detail_prefix }} {{ item.detail | newline_to_br }}
     </li>
     {% endfor %}
   </ul>
