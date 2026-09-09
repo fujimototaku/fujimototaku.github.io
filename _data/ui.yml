@@ -1,0 +1,48 @@
+header:
+  skip_link: 本文へ移動
+  ticker_aria_label: お知らせ
+navigation:
+  menu_title: めにゅー
+  items:
+    - label: ■ とっぷ
+      url: /
+    - label: ■ 作品・書店
+      url: /works/
+    - label: ■ 活動履歴
+      url: /info/
+    - label: ■ 日記
+      url: /diary/
+    - label: ■ お問い合わせ
+      url: /contact/
+  external_title: 外部りんく
+  external_prefix: ◇
+home:
+  profile_heading: ━━ 管理人 ━━
+  likes_label: 好き
+  dislikes_label: 嫌い
+  announcements_heading: ━━ 最新のお知らせ ━━
+  stores_heading: ━━ 取扱店・通販 ━━
+  shop_area_label: 通販
+  store_note: ※在庫状況は各店舗へお問い合わせください。
+  updated_label: 最終更新
+  alive_label: 生存確認から
+  loading_text: 計算中...
+  unknown_text: 不明
+  event_finished_text: 開催中、または終了
+  search_aria_label: サイト内検索
+  search_button: 検索
+  globe_title: 3D地球儀
+  globe_aria_label: 地球儀
+  globe_note: 地球を押すと地図が開きます
+works:
+  section_heading: 主要作品
+  image_header: 写真
+  detail_header: 詳細
+  stores_header: 取扱書店
+activity:
+  detail_prefix: └
+diary:
+  page_title: 日記
+  notice: ここは検索結果に出さない設定の日記置き場です。いいね・コメント・フォロー機能はありません。
+  empty_text: まだ何もありません。
+  back_label: 日記一覧へ戻る

@@ -57,7 +57,7 @@ content:
             required: true
 
       - name: home
-        label: トップページ
+        label: トップページ内容
         type: file
         path: _data/home.yml
         format: yaml
@@ -70,7 +70,7 @@ content:
               time: true
               format: "yyyy-MM-dd'T'HH:mm:ssXXX"
           - name: retro
-            label: 太古HP表示
+            label: 最上部・ようこそ欄
             type: object
             required: true
             fields:
@@ -84,7 +84,7 @@ content:
                 label: ようこそ欄の見出し
                 type: string
               - name: welcome_body
-                label: ようこそ欄の本文（自由編集）
+                label: ようこそ欄の本文
                 type: rich-text
                 options:
                   format: markdown
@@ -170,14 +170,155 @@ content:
             label: 定点観測
             type: object
             fields:
+              - name: enabled
+                label: 表示する
+                type: boolean
               - name: title
                 label: 見出し
                 type: string
-              - name: youtube_id
-                label: YouTube動画ID
+              - name: url
+                label: リンク先
                 type: string
               - name: caption
-                label: 表示名
+                label: リンク表示名
+                type: string
+
+      - name: ui
+        label: 全体の表示文言・メニュー
+        type: file
+        path: _data/ui.yml
+        format: yaml
+        fields:
+          - name: header
+            label: ヘッダー
+            type: object
+            fields:
+              - name: skip_link
+                label: 本文ジャンプ文言
+                type: string
+              - name: ticker_aria_label
+                label: 流れる文字の説明
+                type: string
+          - name: navigation
+            label: メニュー
+            type: object
+            fields:
+              - name: menu_title
+                label: メニュー見出し
+                type: string
+              - name: items
+                label: メニュー項目
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{label}"
+                fields:
+                  - name: label
+                    label: 表示名
+                    type: string
+                  - name: url
+                    label: リンク先
+                    type: string
+              - name: external_title
+                label: 外部リンク見出し
+                type: string
+              - name: external_prefix
+                label: 外部リンク先頭記号
+                type: string
+          - name: home
+            label: トップページの固定文言
+            type: object
+            fields:
+              - name: profile_heading
+                label: 管理人欄見出し
+                type: string
+              - name: likes_label
+                label: 好きのラベル
+                type: string
+              - name: dislikes_label
+                label: 嫌いのラベル
+                type: string
+              - name: announcements_heading
+                label: お知らせ見出し
+                type: string
+              - name: stores_heading
+                label: 取扱店見出し
+                type: string
+              - name: shop_area_label
+                label: 通販ラベル
+                type: string
+              - name: store_note
+                label: 在庫注意書き
+                type: text
+              - name: updated_label
+                label: 最終更新ラベル
+                type: string
+              - name: alive_label
+                label: 生存確認ラベル
+                type: string
+              - name: loading_text
+                label: 読み込み中の文言
+                type: string
+              - name: unknown_text
+                label: 不明時の文言
+                type: string
+              - name: event_finished_text
+                label: イベント終了時の文言
+                type: string
+              - name: search_aria_label
+                label: 検索欄の説明
+                type: string
+              - name: search_button
+                label: 検索ボタン
+                type: string
+              - name: globe_title
+                label: 地球儀の見出し
+                type: string
+              - name: globe_aria_label
+                label: 地球儀の説明
+                type: string
+              - name: globe_note
+                label: 地球儀の注意書き
+                type: text
+          - name: works
+            label: 作品ページの固定文言
+            type: object
+            fields:
+              - name: section_heading
+                label: 作品一覧見出し
+                type: string
+              - name: image_header
+                label: 写真列
+                type: string
+              - name: detail_header
+                label: 詳細列
+                type: string
+              - name: stores_header
+                label: 取扱書店列
+                type: string
+          - name: activity
+            label: 活動ページ
+            type: object
+            fields:
+              - name: detail_prefix
+                label: 内容の先頭記号
+                type: string
+          - name: diary
+            label: 日記ページ
+            type: object
+            fields:
+              - name: page_title
+                label: 日記一覧の見出し
+                type: string
+              - name: notice
+                label: 日記上部の注意書き
+                type: text
+              - name: empty_text
+                label: 記事がない時の文言
+                type: string
+              - name: back_label
+                label: 一覧へ戻る文言
                 type: string
 
       - name: works

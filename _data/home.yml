@@ -1,4 +1,4 @@
-updated_at: 0202-09-15T07:40:00Z
+updated_at: 2026-09-09T20:47:59+09:00
 retro:
   ticker: お知らせ：このサイトは、ゆっくり更新されるかもしれません。
   welcome_title: ★ ようこそ ★
@@ -30,6 +30,7 @@ event:
   label: next
   datetime: 2026-09-04T22:08:00Z
 observatory:
+  enabled: true
   title: 定点観測（宇宙）
-  youtube_id: H999s0P1Er0
-  caption: ISS Live Earth View (NASA)
+  url: https://www.nasa.gov/live/
+  caption: Space Station Views（NASA公式）
