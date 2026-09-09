@@ -408,6 +408,95 @@ content:
             label: 注意書き
             type: text
 
+  - name: advanced_editing
+    label: 高度な編集（HTML/CSS・壊せます）
+    type: group
+    items:
+      - name: advanced_css
+        label: style.css
+        type: file
+        path: style.css
+        format: code
+        operations:
+          delete: false
+      - name: advanced_index
+        label: トップ index.html
+        type: file
+        path: index.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_header
+        label: ヘッダー
+        type: file
+        path: _includes/header.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_navigation
+        label: メニュー
+        type: file
+        path: _includes/navigation.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_footer
+        label: フッター
+        type: file
+        path: _includes/footer.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_page_layout
+        label: 通常ページレイアウト
+        type: file
+        path: _layouts/page.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_diary_layout
+        label: 日記一覧レイアウト
+        type: file
+        path: _layouts/diary.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_post_layout
+        label: 日記記事レイアウト
+        type: file
+        path: _layouts/post.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_works
+        label: 作品ページHTML
+        type: file
+        path: works.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_info
+        label: 活動ページHTML
+        type: file
+        path: info.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_contact
+        label: 問い合わせページHTML
+        type: file
+        path: contact.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_diary_index
+        label: 日記一覧HTML
+        type: file
+        path: diary/index.html
+        format: code
+        operations:
+          delete: false
+
   - name: diary
     label: 日記
     type: collection
