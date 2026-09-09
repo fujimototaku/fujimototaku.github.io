@@ -43,11 +43,11 @@ extra_js: /assets/time-machine.js
   <div id="tm-results" class="tm-results" aria-live="polite"></div>
 </div>
 
-<script id="tm-manual-data" type="application/json">{{ site.data.timeline.entries | default: empty | jsonify }}</script>
+<script id="tm-manual-data" type="application/json">{{ site.data.timeline.entries | jsonify }}</script>
 <script id="tm-announcement-data" type="application/json">[
 {% for item in site.data.home.announcements %}
   {
-    "date": {{ item.date | date: "%Y-%m-%d" | jsonify }},
+    "date": {{ item.date | replace: "/", "-" | jsonify }},
     "type": "announcement",
     "source": "site",
     "title": {{ item.text | jsonify }},
