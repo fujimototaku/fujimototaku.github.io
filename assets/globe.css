@@ -1,0 +1,96 @@
+.globe-panel {
+  overflow: hidden;
+}
+
+.globe-frame {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, #172018 0 42%, #080b09 68%, #020302 100%);
+  border: 1px solid #777b76;
+}
+
+#globeViz {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  outline: none;
+}
+
+#globeViz:active {
+  cursor: grabbing;
+}
+
+#globeViz:focus-visible {
+  outline: 1px dotted var(--green);
+  outline-offset: -3px;
+}
+
+#globeViz canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#globeViz.globe-error {
+  display: grid;
+  place-items: center;
+  min-height: 140px;
+  color: #c9cec9;
+  font-family: monospace;
+  font-size: 0.72rem;
+}
+
+.globe-status {
+  min-height: 2.7em;
+  margin: 0.35rem 0 0.25rem !important;
+  color: var(--muted);
+  font-family: monospace;
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+.globe-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3rem;
+  margin: 0.35rem 0;
+}
+
+.globe-buttons button {
+  min-height: 30px;
+  padding: 0.2rem 0.35rem;
+  color: #202320;
+  background: #e7e7e2;
+  border: 1px outset #b7b8b2;
+  font: inherit;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.globe-buttons button:active {
+  border-style: inset;
+}
+
+.globe-buttons button:focus-visible {
+  outline: 1px dotted var(--green);
+  outline-offset: 2px;
+}
+
+@media (max-width: 680px) {
+  .globe-frame {
+    max-width: 320px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #globeViz {
+    scroll-behavior: auto;
+  }
+}
