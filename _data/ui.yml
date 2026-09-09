@@ -42,6 +42,7 @@ works:
 activity:
   detail_prefix: └
 diary:
+  page_title: 日記
   notice: ここは検索結果に出さない設定の日記置き場です。いいね・コメント・フォロー機能はありません。
   empty_text: まだ何もありません。
   back_label: 日記一覧へ戻る
