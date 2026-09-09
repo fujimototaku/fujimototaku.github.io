@@ -12,6 +12,8 @@ navigation:
       url: /info/
     - label: ■ 日記
       url: /diary/
+    - label: ■ 人生タイムマシン
+      url: /time-machine/
     - label: ■ お問い合わせ
       url: /contact/
   external_title: 外部りんく
