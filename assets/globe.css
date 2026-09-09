@@ -1,8 +1,9 @@
 .globe-panel {
-  overflow: hidden;
+  overflow: visible;
 }
 
 .globe-frame {
+  position: relative;
   width: 100%;
   max-width: 280px;
   aspect-ratio: 1;
@@ -11,6 +12,24 @@
   background:
     radial-gradient(circle at 50% 50%, #172018 0 42%, #080b09 68%, #020302 100%);
   border: 1px solid #777b76;
+  transition:
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.globe-frame.is-expanded {
+  position: fixed;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  width: min(78vw, 78vh, 700px);
+  max-width: none;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  border-color: #b9c5ba;
+  box-shadow:
+    0 0 0 100vmax rgba(11, 14, 12, 0.72),
+    0 18px 60px rgba(0, 0, 0, 0.55);
 }
 
 #globeViz {
@@ -21,6 +40,10 @@
   cursor: grab;
   touch-action: pan-y;
   outline: none;
+}
+
+.globe-frame.is-expanded #globeViz {
+  touch-action: none;
 }
 
 #globeViz:active {
@@ -87,9 +110,17 @@
   .globe-frame {
     max-width: 320px;
   }
+
+  .globe-frame.is-expanded {
+    width: min(94vw, 78vh, 700px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .globe-frame {
+    transition: none;
+  }
+
   #globeViz {
     scroll-behavior: auto;
   }

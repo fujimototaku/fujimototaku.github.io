@@ -5,9 +5,59 @@ if (root) {
     const status = document.querySelector('#globe-status');
     const spinButton = document.querySelector('#globe-spin');
     const homeButton = document.querySelector('#globe-home');
+    const frame = root.closest('.globe-frame');
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
     const setStatus = (text) => {
       if (status) status.textContent = text;
     };
+
+    let collapseTimer = null;
+
+    const setExpanded = (expanded) => {
+      if (!frame) return;
+      frame.classList.toggle('is-expanded', expanded);
+      frame.setAttribute('aria-expanded', String(expanded));
+      root.setAttribute('aria-label', expanded ? '拡大中の3D地球儀' : '3D地球儀');
+      if (expanded) {
+        if (collapseTimer) window.clearTimeout(collapseTimer);
+        window.requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
+      }
+    };
+
+    const scheduleCollapse = () => {
+      if (!finePointer.matches || !frame) return;
+      if (collapseTimer) window.clearTimeout(collapseTimer);
+      collapseTimer = window.setTimeout(() => setExpanded(false), 220);
+    };
+
+    if (frame) {
+      frame.setAttribute('aria-expanded', 'false');
+
+      frame.addEventListener('pointerenter', () => {
+        if (finePointer.matches) setExpanded(true);
+      });
+
+      frame.addEventListener('pointerleave', scheduleCollapse);
+
+      root.addEventListener('pointerdown', () => {
+        if (!finePointer.matches && !frame.classList.contains('is-expanded')) {
+          setExpanded(true);
+        }
+      }, { capture: true });
+
+      document.addEventListener('pointerdown', (event) => {
+        if (!frame.classList.contains('is-expanded')) return;
+        if (frame.contains(event.target)) return;
+        setExpanded(false);
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && frame.classList.contains('is-expanded')) {
+          setExpanded(false);
+          root.focus();
+        }
+      });
+    }
 
     try {
       const { default: Globe } = await import('https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/+esm');
@@ -37,12 +87,12 @@ if (root) {
 
       const controls = world.controls();
       controls.autoRotate = true;
-      controls.autoRotateSpeed = 0.45;
+      controls.autoRotateSpeed = 0.75;
       controls.enableDamping = true;
       controls.dampingFactor = 0.08;
       controls.enableZoom = true;
-      controls.rotateSpeed = 0.65;
-      controls.zoomSpeed = 0.85;
+      controls.rotateSpeed = 0.72;
+      controls.zoomSpeed = 0.9;
 
       let spinEnabled = true;
       let resumeTimer = null;
@@ -82,7 +132,7 @@ if (root) {
         controls.minDistance = radius * 1.15;
         controls.maxDistance = radius * 4.2;
         world.pointOfView({ lat: 35.7, lng: 139.7, altitude: 2.15 }, 0);
-        setStatus('ドラッグで回転 / ホイールでズーム');
+        setStatus('触れると巨大化 / ドラッグで回転 / ホイールでズーム');
       });
 
       world.onGlobeClick(({ lat, lng }) => {
