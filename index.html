@@ -96,7 +96,11 @@ home: true
       <section class="panel">
         <h2>━━ {{ site.data.home.observatory.title }} ━━</h2>
         <div class="obs-item" role="link" tabindex="0" data-youtube-id="{{ site.data.home.observatory.youtube_id }}">
-          <img src="https://img.youtube.com/vi/{{ site.data.home.observatory.youtube_id }}/maxresdefault.jpg" alt="宇宙観測">
+          <div class="obs-fallback" aria-hidden="true">
+            <span>● ISS LIVE</span>
+            <small>NASA公式配信を開く</small>
+          </div>
+          <img src="https://i.ytimg.com/vi/{{ site.data.home.observatory.youtube_id }}/hqdefault.jpg" alt="宇宙観測" onerror="this.remove()">
           <div class="obs-overlay">{{ site.data.home.observatory.caption }}</div>
         </div>
       </section>
