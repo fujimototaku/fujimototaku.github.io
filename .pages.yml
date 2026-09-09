@@ -409,13 +409,27 @@ content:
             type: text
 
   - name: advanced_editing
-    label: 高度な編集（HTML/CSS・壊せます）
+    label: 高度な編集（HTML/CSS/JS・壊せます）
     type: group
     items:
       - name: advanced_css
         label: style.css
         type: file
         path: style.css
+        format: code
+        operations:
+          delete: false
+      - name: advanced_globe_css
+        label: 地球儀CSS
+        type: file
+        path: assets/globe.css
+        format: code
+        operations:
+          delete: false
+      - name: advanced_globe_js
+        label: 地球儀JavaScript
+        type: file
+        path: assets/globe.js
         format: code
         operations:
           delete: false
