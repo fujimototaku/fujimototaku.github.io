@@ -48,10 +48,8 @@ home: true
 
     <main id="main" class="content">
       <section class="panel welcome-panel">
-        <h2>★ ようこそ ★</h2>
-        <p>{{ site.data.home.retro.intro | newline_to_br }}</p>
-        <p>{{ site.data.home.retro.subtext | newline_to_br }}</p>
-        <p class="warning">見た目は平成、更新方法だけ令和です。</p>
+        <h2>{{ site.data.home.retro.welcome_title }}</h2>
+        <div class="welcome-copy">{{ site.data.home.retro.welcome_body | markdownify }}</div>
       </section>
 
       <section class="panel">
