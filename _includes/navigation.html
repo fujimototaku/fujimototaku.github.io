@@ -23,9 +23,16 @@
     <p id="countdown" class="digital">{{ site.data.ui.home.loading_text }}</p>
   </section>
 
-  <section class="panel mini-panel">
+  <section class="panel mini-panel globe-panel">
     <h2>{{ site.data.ui.home.globe_title }}</h2>
-    <div id="globeViz" aria-label="{{ site.data.ui.home.globe_aria_label }}"></div>
+    <div class="globe-frame">
+      <div id="globeViz" tabindex="0" aria-label="{{ site.data.ui.home.globe_aria_label }}" aria-describedby="globe-status"></div>
+    </div>
+    <p id="globe-status" class="globe-status" aria-live="polite">地球儀を起動中...</p>
+    <div class="globe-buttons" aria-label="地球儀操作">
+      <button id="globe-spin" type="button" aria-pressed="true">自転 ON</button>
+      <button id="globe-home" type="button">札幌へ</button>
+    </div>
     <p class="small-note">{{ site.data.ui.home.globe_note }}</p>
   </section>
   {% endif %}
