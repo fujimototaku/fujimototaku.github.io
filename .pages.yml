@@ -183,6 +183,56 @@ content:
                 label: リンク表示名
                 type: string
 
+      - name: timeline
+        label: タイムマシン記録
+        type: file
+        path: _data/timeline.yml
+        format: yaml
+        fields:
+          - name: title
+            label: ページ見出し
+            type: string
+            required: true
+          - name: intro
+            label: 説明
+            type: text
+          - name: entries
+            label: 時系列記録
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{date} {title}"
+            fields:
+              - name: date
+                label: 日付
+                type: date
+                required: true
+                options:
+                  format: yyyy-MM-dd
+              - name: type
+                label: 種類
+                type: string
+                description: photo / movie / note / x / activity / book / place / other など
+              - name: source
+                label: 出典・サービス名
+                type: string
+              - name: title
+                label: 題名
+                type: string
+                required: true
+              - name: text
+                label: 内容
+                type: text
+              - name: url
+                label: リンク先
+                type: string
+              - name: image
+                label: 画像
+                type: image
+                options:
+                  media: site_images
+
       - name: ui
         label: 全体の表示文言・メニュー
         type: file
@@ -430,6 +480,27 @@ content:
         label: 地球儀JavaScript
         type: file
         path: assets/globe.js
+        format: code
+        operations:
+          delete: false
+      - name: advanced_time_machine_css
+        label: タイムマシンCSS
+        type: file
+        path: assets/time-machine.css
+        format: code
+        operations:
+          delete: false
+      - name: advanced_time_machine_js
+        label: タイムマシンJavaScript
+        type: file
+        path: assets/time-machine.js
+        format: code
+        operations:
+          delete: false
+      - name: advanced_time_machine_page
+        label: タイムマシンHTML
+        type: file
+        path: time-machine/index.html
         format: code
         operations:
           delete: false

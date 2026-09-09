@@ -1,0 +1,72 @@
+---
+layout: page
+title: 人生タイムマシン
+permalink: /time-machine/
+extra_css: /assets/time-machine.css
+extra_js: /assets/time-machine.js
+---
+<h1>{{ site.data.timeline.title }}</h1>
+<p>{{ site.data.timeline.intro }}</p>
+<p class="small-note">好きな日付を入れてください。記録がない日でも、その日から最も近い記録を探します。</p>
+
+<div class="time-machine" data-time-machine>
+  <div class="tm-console">
+    <div class="tm-screen" aria-live="polite">
+      <p id="tm-selected-label" class="tm-date-display">----年--月--日</p>
+      <p id="tm-readout" class="tm-readout">ARCHIVE LOADING...</p>
+    </div>
+
+    <div class="tm-controls">
+      <div class="tm-date-row">
+        <input id="tm-date" type="date" aria-label="移動する日付">
+        <span class="small-note">← 自分の誕生日でも可</span>
+      </div>
+
+      <div class="tm-range-wrap">
+        <input id="tm-range" type="range" value="0" aria-label="記録範囲を時間移動">
+        <div class="tm-range-labels">
+          <span id="tm-range-start">----</span>
+          <span>TIME</span>
+          <span id="tm-range-end">----</span>
+        </div>
+      </div>
+
+      <div class="tm-buttons">
+        <button id="tm-prev" type="button">◀ 前の記録</button>
+        <button id="tm-random" type="button">適当な日へ</button>
+        <button id="tm-next" type="button">次の記録 ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <p id="tm-archive-status" class="tm-archive-status">観測範囲を計算中...</p>
+  <div id="tm-results" class="tm-results" aria-live="polite"></div>
+</div>
+
+<script id="tm-manual-data" type="application/json">{{ site.data.timeline.entries | jsonify }}</script>
+<script id="tm-announcement-data" type="application/json">[
+{% for item in site.data.home.announcements %}
+  {
+    "date": {{ item.date | replace: "/", "-" | jsonify }},
+    "type": "announcement",
+    "source": "site",
+    "title": {{ item.text | jsonify }},
+    "text": "サイトのお知らせ",
+    "url": "/",
+    "image": ""
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]</script>
+<script id="tm-post-data" type="application/json">[
+{% for post in site.posts %}
+  {
+    "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+    "type": "diary",
+    "source": "diary",
+    "title": {{ post.title | jsonify }},
+    "text": {{ post.content | strip_html | strip_newlines | truncate: 180 | jsonify }},
+    "url": {{ post.url | jsonify }},
+    "image": ""
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]</script>
