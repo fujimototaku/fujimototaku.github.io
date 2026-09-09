@@ -6,8 +6,6 @@ retro:
     ここは日記、制作物、活動記録を置いておく個人サイトです。
 
     いいね、フォロー、アルゴリズムはありません。
-
-    **見た目は平成、更新方法だけ令和です。**
 profile:
   name: 藤本拓
   image: /media/site/2025-05-25-182954.jpeg
@@ -15,15 +13,9 @@ profile:
   dislikes: 嘘つき、四則演算、セロリ、臭い人、運動
 announcements:
   - date: 2026/06/28
-    text: 日記のおかげで正しく狂えた２　発売
-  - date: 2026/03/29
-    text: 「Indie Books Holiday」終了しました。
-  - date: 2026/02/22
-    text: 祝日自由市
+    text: 日記のおかげで正しく狂えた１（新装版）２
   - date: 2025/05/11
-    text: 文学フリマ東京40
-  - date: 2025/05/11
-    text: 日記のおかげで正しく狂えた　発売
+    text: 日記のおかげで正しく狂えた
 stores:
   - area: 北海道
     names: 私設図書館祝日(閲覧・販売) / 本と喫茶 NOMAD BOOKS / 古本とビール アダノンキ / Seesaw Books /
