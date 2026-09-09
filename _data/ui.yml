@@ -32,8 +32,8 @@ home:
   search_aria_label: サイト内検索
   search_button: 検索
   globe_title: 3D地球儀
-  globe_aria_label: 地球儀
-  globe_note: 地球を押すと地図が開きます
+  globe_aria_label: ドラッグ・ズーム・キーボード操作ができる3D地球儀
+  globe_note: ドラッグで回転 / ホイールでズーム / 地球を押すと座標表示
 works:
   section_heading: 主要作品
   image_header: 写真
