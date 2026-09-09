@@ -2,7 +2,7 @@
 layout: diary
 title: 日記
 ---
-<h1>日記</h1>
+<h1>{{ site.data.ui.navigation.items[3].label | remove: '■ ' }}</h1>
 {% if site.posts.size > 0 %}
 <ul class="post-list">
   {% for post in site.posts %}
@@ -10,5 +10,5 @@ title: 日記
   {% endfor %}
 </ul>
 {% else %}
-<p>まだ何もありません。</p>
+<p>{{ site.data.ui.diary.empty_text }}</p>
 {% endif %}
