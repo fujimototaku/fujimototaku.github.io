@@ -17,7 +17,7 @@
         <h1 class="article-title">{{ page.title }}</h1>
         <div class="date">{{ page.date | date: "%Y年%m月%d日" }}</div>
         {{ content }}
-        <p class="back-link">← <a href="/diary/">日記一覧へ戻る</a></p>
+        <p class="back-link">← <a href="/diary/">{{ site.data.ui.diary.back_label }}</a></p>
       </article>
     </main>
   </div>
