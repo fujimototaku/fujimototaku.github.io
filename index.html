@@ -19,6 +19,7 @@ home: true
   <meta name="theme-color" content="#e9e8df">
   <title>{{ site.data.site.title }}</title>
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/assets/globe.css">
 
   <script type="application/ld+json">
   {
@@ -117,8 +118,6 @@ home: true
 
   {% include footer.html %}
 
-  <script src="https://unpkg.com/three"></script>
-  <script src="https://unpkg.com/globe.gl"></script>
   <script>
     (() => {
       const targetDate = new Date({{ site.data.home.event.datetime | jsonify }}).getTime();
@@ -156,21 +155,8 @@ home: true
 
       updateClocks();
       window.setInterval(updateClocks, 1000);
-
-      const globeDiv = document.querySelector("#globeViz");
-      if (globeDiv && window.Globe) {
-        const globe = Globe()(globeDiv)
-          .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
-          .backgroundColor("rgba(0,0,0,0)")
-          .width(150)
-          .height(150);
-        globe.controls().autoRotate = false;
-        globe.controls().enableZoom = false;
-        globe.onGlobeClick(({ lat, lng }) => {
-          window.open(`https://www.google.com/maps/@${lat},${lng},6z`, "_blank", "noopener");
-        });
-      }
     })();
   </script>
+  <script type="module" src="/assets/globe.js"></script>
 </body>
 </html>
