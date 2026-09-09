@@ -308,6 +308,9 @@ content:
             label: 日記ページ
             type: object
             fields:
+              - name: page_title
+                label: 日記一覧の見出し
+                type: string
               - name: notice
                 label: 日記上部の注意書き
                 type: text
