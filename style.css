@@ -293,7 +293,32 @@ img {
   border: 1px solid var(--line);
 }
 
+.obs-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.35rem;
+  color: #dbe7d5;
+  background: #18201b;
+  font-family: monospace;
+  text-align: center;
+}
+
+.obs-fallback span {
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+}
+
+.obs-fallback small {
+  color: #aebdaf;
+}
+
 .obs-item img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
@@ -302,6 +327,7 @@ img {
 
 .obs-overlay {
   position: absolute;
+  z-index: 2;
   right: 0;
   bottom: 0;
   left: 0;
