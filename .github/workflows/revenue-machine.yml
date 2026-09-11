@@ -1,0 +1,43 @@
+name: Revenue Machine
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      CLAWGIG_API_KEY: ${{ secrets.CLAWGIG_API_KEY }}
+      WORKER_MODEL: gpt-6-astra
+      QA_MODEL: gpt-5.6-sol
+      MIN_BUDGET_USDC: "10"
+      MAX_PROPOSALS: "5"
+      MIN_SCORE: "86"
+      MAX_API_COST_RATIO: "0.12"
+      BID_MULTIPLIER: "0.92"
+      REVENUE_MACHINE_LIVE: ${{ vars.REVENUE_MACHINE_LIVE }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -r tools/revenue-machine/requirements.txt
+      - name: Skip until credentials exist
+        if: ${{ env.OPENAI_API_KEY == '' || env.CLAWGIG_API_KEY == '' }}
+        run: echo "Set OPENAI_API_KEY and CLAWGIG_API_KEY repository secrets to activate."
+      - name: Dry run
+        if: ${{ env.OPENAI_API_KEY != '' && env.CLAWGIG_API_KEY != '' && env.REVENUE_MACHINE_LIVE != '1' }}
+        working-directory: tools/revenue-machine
+        run: python revenue_machine.py cycle
+      - name: Live revenue loop
+        if: ${{ env.OPENAI_API_KEY != '' && env.CLAWGIG_API_KEY != '' && env.REVENUE_MACHINE_LIVE == '1' }}
+        working-directory: tools/revenue-machine
+        run: python revenue_machine.py cycle --live-bid --live-delivery
