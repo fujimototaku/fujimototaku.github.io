@@ -132,12 +132,16 @@ if (root) {
         controls.minDistance = radius * 1.15;
         controls.maxDistance = radius * 4.2;
         world.pointOfView({ lat: 35.7, lng: 139.7, altitude: 2.15 }, 0);
-        setStatus('触れると巨大化 / ドラッグで回転 / ホイールでズーム');
+        setStatus('触れると巨大化 / ドラッグで回転 / タップでGoogleマップ');
       });
 
       world.onGlobeClick(({ lat, lng }) => {
         world.pointsData([{ lat, lng }]);
-        setStatus(`${lat >= 0 ? 'N' : 'S'} ${Math.abs(lat).toFixed(2)}° / ${lng >= 0 ? 'E' : 'W'} ${Math.abs(lng).toFixed(2)}°`);
+        setStatus(`${lat >= 0 ? 'N' : 'S'} ${Math.abs(lat).toFixed(2)}° / ${lng >= 0 ? 'E' : 'W'} ${Math.abs(lng).toFixed(2)}° → Googleマップ`);
+
+        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${lat},${lng}`)}`;
+        const mapWindow = window.open(mapUrl, '_blank', 'noopener');
+        if (!mapWindow) window.location.href = mapUrl;
       });
 
       if (spinButton) {
