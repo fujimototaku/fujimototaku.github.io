@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#e9e2d0">
+<title>私設図書館</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;color:#171713;background:#e9e2d0}
+*{box-sizing:border-box} body{margin:0;background:#e9e2d0;color:#171713;min-height:100dvh}
+header{padding:28px 20px 18px;max-width:780px;margin:auto}.eyebrow{font-size:12px;letter-spacing:.18em;opacity:.48}.title{font-family:Georgia,"Times New Roman",serif;font-size:42px;margin:8px 0 4px;letter-spacing:-.03em}.sub{opacity:.56;margin:0;font-size:14px}
+main{max-width:780px;margin:auto;padding:0 16px 90px}.panel{background:#f7f2e6;border:1px solid rgba(0,0,0,.09);border-radius:22px;padding:16px;margin-bottom:14px;box-shadow:0 8px 24px rgba(50,35,10,.06)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#eee6d4;border-radius:16px;padding:14px;text-align:center}.stat b{display:block;font-size:25px;font-family:Georgia,serif}.stat span{font-size:11px;opacity:.55}
+.row{display:flex;gap:8px}.row>*{flex:1} input,select{width:100%;border:1px solid rgba(0,0,0,.13);background:#fffdf8;border-radius:13px;padding:14px;font:inherit;font-size:16px;outline:none}button{border:0;border-radius:14px;padding:14px 16px;background:#222018;color:#fff;font:inherit;font-weight:700;cursor:pointer}button.secondary{background:#ded4bf;color:#2a281f}.add{width:100%;margin-top:8px}
+.toolbar{display:flex;gap:8px;margin-bottom:12px}.toolbar button{flex:1}.shelf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.book{position:relative;min-height:160px;border-radius:8px 15px 15px 8px;padding:18px 14px 14px;background:linear-gradient(90deg,#6a5338 0 9px,#b69264 9px);color:#fff7e8;box-shadow:inset -12px 0 rgba(255,255,255,.05),0 6px 15px rgba(0,0,0,.12)}.book:nth-child(3n+2){background:linear-gradient(90deg,#4a5d48 0 9px,#6f856a 9px)}.book:nth-child(3n+3){background:linear-gradient(90deg,#6d3f3b 0 9px,#9a5e55 9px)}.book h3{font-family:Georgia,serif;font-size:18px;line-height:1.25;margin:0 0 8px}.author{font-size:12px;opacity:.82}.meta{position:absolute;left:14px;right:12px;bottom:12px;display:flex;justify-content:space-between;align-items:end}.badge{font-size:10px;background:rgba(255,255,255,.18);padding:5px 7px;border-radius:999px}.del{font-size:18px;background:transparent;padding:0;color:#fff;opacity:.65}.empty{text-align:center;padding:32px 10px;opacity:.48;font-size:14px}.oracle{font-family:Georgia,serif;font-size:22px;line-height:1.45;margin:0}.tiny{text-align:center;opacity:.38;font-size:11px;margin-top:18px}.notice{display:none;background:#222018;color:#fff;padding:12px 14px;border-radius:12px;margin-top:10px;font-size:13px}
+@media(min-width:620px){.shelf{grid-template-columns:repeat(3,1fr)}.book{min-height:190px}}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">PRIVATE LIBRARY / SINCE NOW</div><h1 class="title">私設図書館</h1><p class="sub">誰にも貸さず、誰の役にも立たない蔵書管理。</p></header>
+<main>
+<section class="panel stats"><div class="stat"><b id="total">0</b><span>蔵書</span></div><div class="stat"><b id="read">0</b><span>読了</span></div><div class="stat"><b id="dust">0</b><span>積読</span></div></section>
+<section class="panel">
+<div class="row"><input id="title" placeholder="本の題名"><input id="author" placeholder="著者"></div>
+<div class="row" style="margin-top:8px"><select id="status"><option value="unread">積んでいる</option><option value="reading">読んでいる</option><option value="read">読んだ</option></select><input id="note" placeholder="どうでもいいメモ"></div>
+<button class="add" id="add">蔵書に入れる</button><div class="notice" id="notice">収蔵しました。世界には何の影響もありません。</div>
+</section>
+<section class="panel"><p class="oracle" id="oracle">本棚は静かです。</p><div class="toolbar" style="margin-top:14px"><button id="pick">今日の一冊を勝手に決める</button><button class="secondary" id="closed">臨時休館</button></div></section>
+<section class="panel"><div class="toolbar"><button class="secondary" data-filter="all">全部</button><button class="secondary" data-filter="unread">積読</button><button class="secondary" data-filter="read">読了</button></div><div id="shelf" class="shelf"></div></section>
+<div class="tiny">貸出カードはありません。利用者もたぶんいません。</div>
+</main>
+<script>
+const KEY='private-library-v1';let books=JSON.parse(localStorage.getItem(KEY)||'[]');let filter='all';
+const $=s=>document.querySelector(s);const shelf=$('#shelf');
+function save(){localStorage.setItem(KEY,JSON.stringify(books));render()}
+function label(s){return s==='read'?'読了':s==='reading'?'読書中':'積読'}
+function render(){const list=filter==='all'?books:books.filter(b=>b.status===filter);$('#total').textContent=books.length;$('#read').textContent=books.filter(b=>b.status==='read').length;$('#dust').textContent=books.filter(b=>b.status!=='read').length;shelf.innerHTML='';if(!list.length){shelf.innerHTML='<div class="empty" style="grid-column:1/-1">まだ何もありません。<br>図書館なのに。</div>';return}list.slice().reverse().forEach(b=>{const el=document.createElement('article');el.className='book';el.innerHTML=`<h3></h3><div class="author"></div><div class="meta"><span class="badge">${label(b.status)}</span><button class="del" aria-label="削除">×</button></div>`;el.querySelector('h3').textContent=b.title;el.querySelector('.author').textContent=b.author||'著者不明';el.title=b.note||'';el.querySelector('.del').onclick=()=>{books=books.filter(x=>x.id!==b.id);save()};el.onclick=e=>{if(e.target.classList.contains('del'))return;const order=['unread','reading','read'];b.status=order[(order.indexOf(b.status)+1)%3];save()};shelf.appendChild(el)})}
+$('#add').onclick=()=>{const title=$('#title').value.trim();if(!title)return $('#title').focus();books.push({id:Date.now(),title,author:$('#author').value.trim(),status:$('#status').value,note:$('#note').value.trim()});['#title','#author','#note'].forEach(s=>$(s).value='');save();const n=$('#notice');n.style.display='block';setTimeout(()=>n.style.display='none',1800)};
+document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;render()});
+$('#pick').onclick=()=>{if(!books.length)return $('#oracle').textContent='選ぶ本すらありません。';const b=books[Math.floor(Math.random()*books.length)];$('#oracle').textContent=`本日は「${b.title}」を読むことになりました。異議は受け付けません。`};
+$('#closed').onclick=()=>{const msgs=['本日は理由なく休館します。','館長が飽きたため休館します。','蔵書はありますが、開ける理由がありません。','利用者0名のため平常運転です。'];$('#oracle').textContent=msgs[Math.floor(Math.random()*msgs.length)]};
+render();
+</script>
+</body></html>
