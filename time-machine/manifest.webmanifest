@@ -1,0 +1,10 @@
+{
+  "name": "TIME",
+  "short_name": "TIME",
+  "start_url": "/time-machine/",
+  "scope": "/time-machine/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#080808",
+  "description": "自分の時間へ移動する。"
+}
