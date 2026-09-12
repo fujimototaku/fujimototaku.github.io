@@ -1,91 +1,32 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#eee6d7">
-<title>私設図書館</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#eee6d7"><title>私設図書館</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#eee6d7;color:#211d18;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}main{max-width:720px;margin:auto;padding:24px 16px 80px}h1{font-family:Georgia,serif;font-size:42px;margin:8px 0}.sub{opacity:.55;margin:0 0 24px}.card{background:#fffaf0;border:1px solid #d9ccb7;border-radius:20px;padding:16px;margin-bottom:14px}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}input,select,button{font:inherit;font-size:16px}input,select{width:100%;padding:13px;border:1px solid #cfc2ad;border-radius:12px;background:white}button{border:0;border-radius:12px;padding:13px 14px;background:#272018;color:white;font-weight:700}button.alt{background:#ded3c0;color:#272018}.full{width:100%;margin-top:8px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{text-align:center;background:#eee3d0;padding:12px;border-radius:14px}.stat b{font-family:Georgia,serif;font-size:26px;display:block}.toolbar{display:grid;grid-template-columns:1fr 1fr;gap:8px}.shelf{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}.book{background:#71583c;color:#fff8e9;border-radius:8px 14px 14px 8px;padding:14px;min-height:150px;display:flex;flex-direction:column;justify-content:space-between}.book:nth-child(3n+2){background:#52634d}.book:nth-child(3n+3){background:#824d48}.book h3{margin:0;font-family:Georgia,serif;font-size:19px}.author{font-size:12px;opacity:.8;margin-top:6px}.book-actions{display:grid;grid-template-columns:1fr auto;gap:6px;margin-top:18px}.book-actions button{font-size:12px;padding:9px;background:rgba(255,255,255,.18)}.book-actions .delete{width:38px}.message{font-family:Georgia,serif;font-size:20px;line-height:1.5;margin:0}.empty{grid-column:1/-1;text-align:center;padding:30px;opacity:.45}@media(max-width:520px){.row{grid-template-columns:1fr}.shelf{grid-template-columns:1fr 1fr}}
-</style>
-</head>
-<body>
-<main>
-<div style="font-size:12px;letter-spacing:.16em;opacity:.45">PRIVATE LIBRARY</div>
-<h1>私設図書館</h1>
-<p class="sub">誰にも貸さず、誰の役にも立たない。</p>
-
-<section class="card stats">
-<div class="stat"><b id="total">0</b><span>蔵書</span></div>
-<div class="stat"><b id="readingCount">0</b><span>読書中</span></div>
-<div class="stat"><b id="readCount">0</b><span>読了</span></div>
-</section>
-
-<section class="card">
-<div class="row"><input id="title" placeholder="本の題名"><input id="author" placeholder="著者（任意）"></div>
-<button class="full" id="add">蔵書に入れる</button>
-</section>
-
-<section class="card">
-<p class="message" id="message">本棚は静かです。</p>
-<div class="toolbar" style="margin-top:12px"><button id="pick">今日の一冊</button><button class="alt" id="closed">臨時休館</button></div>
-</section>
-
+*{box-sizing:border-box}body{margin:0;background:#eee6d7;color:#211d18;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}main{max-width:760px;margin:auto;padding:24px 16px 80px}h1{font-family:Georgia,serif;font-size:44px;margin:8px 0}.sub{opacity:.58;margin:0 0 20px}.card{background:#fffaf0;border:1px solid #d9ccb7;border-radius:20px;padding:16px;margin-bottom:14px;overflow:hidden}.row,.toolbar{display:grid;grid-template-columns:1fr 1fr;gap:8px}input,button{font:inherit;font-size:16px}input{width:100%;padding:13px;border:1px solid #cfc2ad;border-radius:12px;background:white}button{border:0;border-radius:12px;padding:13px 14px;background:#272018;color:#fff;font-weight:700;cursor:pointer}button.alt{background:#ded3c0;color:#272018}.full{width:100%;margin-top:8px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.stat{text-align:center;background:#eee3d0;padding:12px 6px;border-radius:14px}.stat b{font-family:Georgia,serif;font-size:25px;display:block}.stat span{font-size:11px;opacity:.6}.shelf{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}.book{background:#71583c;color:#fff8e9;border-radius:8px 14px 14px 8px;padding:14px;min-height:158px;display:flex;flex-direction:column;justify-content:space-between;transition:.25s}.book:nth-child(3n+2){background:#52634d}.book:nth-child(3n+3){background:#824d48}.book h3{margin:0;font-family:Georgia,serif;font-size:19px}.author{font-size:12px;opacity:.8;margin-top:6px}.book-actions{display:grid;grid-template-columns:1fr auto;gap:6px;margin-top:18px}.book-actions button{font-size:12px;padding:9px;background:rgba(255,255,255,.18)}.message{font-family:Georgia,serif;font-size:21px;line-height:1.5;margin:0}.empty{grid-column:1/-1;text-align:center;padding:30px;opacity:.45}.madgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.madgrid button{min-height:58px}.danger{background:#6b1616}.weird{background:#403451}.meter{height:14px;background:#e2d6c1;border-radius:999px;overflow:hidden;margin-top:10px}.meter>div{height:100%;width:0;background:#272018;transition:.5s}.stamp{display:inline-block;border:3px solid #8b1e1e;color:#8b1e1e;padding:6px 10px;font-weight:800;transform:rotate(-7deg);margin-top:10px}.shake{animation:shake .45s linear 1}.vanish{opacity:.05;filter:blur(2px);transform:scale(.97)}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px) rotate(-1deg)}75%{transform:translateX(8px) rotate(1deg)}}@media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}.row,.toolbar{grid-template-columns:1fr}.shelf{grid-template-columns:1fr 1fr}.madgrid{grid-template-columns:1fr 1fr}}
+</style></head>
+<body><main id="app">
+<div style="font-size:12px;letter-spacing:.16em;opacity:.45">PRIVATE LIBRARY / NO PUBLIC BENEFIT</div><h1>私設図書館</h1><p class="sub">誰にも貸さず、たまに本棚の方から判断してくる。</p>
+<section class="card stats"><div class="stat"><b id="total">0</b><span>蔵書</span></div><div class="stat"><b id="readingCount">0</b><span>読書中</span></div><div class="stat"><b id="readCount">0</b><span>読了</span></div><div class="stat"><b id="mad">0</b><span>無意味度</span></div></section>
+<section class="card"><div class="row"><input id="title" placeholder="本の題名"><input id="author" placeholder="著者（任意）"></div><button class="full" id="add">蔵書に入れる</button></section>
+<section class="card"><p class="message" id="message">本棚は静かです。今のところは。</p><div id="stamp"></div><div class="meter"><div id="meter"></div></div></section>
+<section class="card"><div class="toolbar"><button id="pick">今日の一冊</button><button class="alt" id="closed">臨時休館</button></div><div class="madgrid"><button class="weird" id="oracle">司書に相談</button><button class="weird" id="curse">禁書指定</button><button class="weird" id="quake">本棚地震</button><button class="weird" id="rename">勝手に改題</button><button class="danger" id="deny">存在を否定</button><button class="danger" id="ritual">深夜の儀式</button></div></section>
 <section class="card"><div id="shelf" class="shelf"></div></section>
 </main>
-<script>
-(function(){
-  var KEY='private-library-v2';
-  var books=[];
-  try { books=JSON.parse(localStorage.getItem(KEY)||'[]'); if(!Array.isArray(books)) books=[]; } catch(e){ books=[]; }
-
-  function el(id){return document.getElementById(id)}
-  function save(){
-    try{ localStorage.setItem(KEY,JSON.stringify(books)); }catch(e){}
-    render();
-  }
-  function statusLabel(s){ return s==='read'?'読了':s==='reading'?'読書中':'積読'; }
-  function nextStatus(s){ return s==='unread'?'reading':s==='reading'?'read':'unread'; }
-  function render(){
-    el('total').textContent=books.length;
-    el('readingCount').textContent=books.filter(function(b){return b.status==='reading'}).length;
-    el('readCount').textContent=books.filter(function(b){return b.status==='read'}).length;
-    var shelf=el('shelf'); shelf.innerHTML='';
-    if(!books.length){ shelf.innerHTML='<div class="empty">まだ一冊もありません。<br>図書館なのに。</div>'; return; }
-    books.slice().reverse().forEach(function(book){
-      var card=document.createElement('div'); card.className='book';
-      var top=document.createElement('div');
-      var h=document.createElement('h3'); h.textContent=book.title;
-      var a=document.createElement('div'); a.className='author'; a.textContent=book.author||'著者不明';
-      top.appendChild(h); top.appendChild(a);
-      var actions=document.createElement('div'); actions.className='book-actions';
-      var state=document.createElement('button'); state.textContent=statusLabel(book.status)+' →';
-      state.addEventListener('click',function(){ book.status=nextStatus(book.status); save(); });
-      var del=document.createElement('button'); del.className='delete'; del.textContent='×';
-      del.addEventListener('click',function(){ books=books.filter(function(x){return x.id!==book.id}); save(); });
-      actions.appendChild(state); actions.appendChild(del);
-      card.appendChild(top); card.appendChild(actions); shelf.appendChild(card);
-    });
-  }
-
-  el('add').addEventListener('click',function(){
-    var title=el('title').value.trim(); if(!title){ el('title').focus(); return; }
-    books.push({id:Date.now()+Math.random(),title:title,author:el('author').value.trim(),status:'unread'});
-    el('title').value=''; el('author').value='';
-    el('message').textContent='収蔵しました。世界には何の影響もありません。';
-    save();
-  });
-  el('pick').addEventListener('click',function(){
-    if(!books.length){el('message').textContent='選ぶ本すらありません。';return;}
-    var b=books[Math.floor(Math.random()*books.length)];
-    el('message').textContent='本日は「'+b.title+'」を読むことになりました。異議は受け付けません。';
-  });
-  el('closed').addEventListener('click',function(){
-    var msgs=['本日は理由なく休館します。','館長が飽きたため休館します。','利用者0名のため平常運転です。'];
-    el('message').textContent=msgs[Math.floor(Math.random()*msgs.length)];
-  });
-  render();
-})();
-</script>
-</body>
-</html>
+<script>(function(){
+var KEY='private-library-v3';var books=[];try{books=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('private-library-v2')||'[]');if(!Array.isArray(books))books=[]}catch(e){books=[]}var madness=0;var $=id=>document.getElementById(id);
+function save(){try{localStorage.setItem(KEY,JSON.stringify(books))}catch(e){}render()}
+function next(s){return s==='unread'?'reading':s==='reading'?'read':'unread'}function label(s){return s==='read'?'読了':s==='reading'?'読書中':'積読'}
+function say(t,stamp){$('message').textContent=t;$('stamp').innerHTML=stamp?'<span class="stamp">'+stamp+'</span>':'';madness=Math.min(100,madness+Math.floor(Math.random()*9)+4);$('mad').textContent=madness;$('meter').style.width=madness+'%'}
+function randomBook(){return books.length?books[Math.floor(Math.random()*books.length)]:null}
+function render(){$('total').textContent=books.length;$('readingCount').textContent=books.filter(b=>b.status==='reading').length;$('readCount').textContent=books.filter(b=>b.status==='read').length;$('mad').textContent=madness;var s=$('shelf');s.innerHTML='';if(!books.length){s.innerHTML='<div class="empty">まだ一冊もありません。<br>にもかかわらず館則だけは存在します。</div>';return}books.slice().reverse().forEach(function(b){var c=document.createElement('div');c.className='book';var top=document.createElement('div');var h=document.createElement('h3');h.textContent=b.title;var a=document.createElement('div');a.className='author';a.textContent=b.author||'著者不明';top.append(h,a);var ac=document.createElement('div');ac.className='book-actions';var st=document.createElement('button');st.textContent=label(b.status)+' →';st.onclick=function(){b.status=next(b.status);save()};var del=document.createElement('button');del.textContent='×';del.onclick=function(){books=books.filter(x=>x.id!==b.id);say('一冊消えました。誰も気づきませんでした。','除籍');save()};ac.append(st,del);c.append(top,ac);s.appendChild(c)})}
+$('add').onclick=function(){var t=$('title').value.trim();if(!t)return $('title').focus();books.push({id:Date.now()+Math.random(),title:t,author:$('author').value.trim(),status:'unread'});$('title').value='';$('author').value='';say('収蔵しました。世界には何の影響もありません。','収蔵');save()};
+$('pick').onclick=function(){var b=randomBook();say(b?'本日は「'+b.title+'」を読むことになりました。異議は受け付けません。':'選ぶ本すらありません。')};
+$('closed').onclick=function(){var m=['本日は理由なく休館します。','館長が空気を読んだため休館します。','開館しても誰も来ないので休館します。','蔵書の気分が乗らないため休館です。'];say(m[Math.floor(Math.random()*m.length)],'休館')};
+$('oracle').onclick=function(){var b=randomBook();var m=b?['司書曰く「'+b.title+'は、あなたを読んでいます。」','司書曰く「今日は'+b.title+'に近づかないでください。」','司書曰く「'+b.title+'はまだこちらを信用していません。」']:['司書は沈黙しています。本がないからです。'];say(m[Math.floor(Math.random()*m.length)])};
+$('curse').onclick=function(){var b=randomBook();if(!b)return say('禁書にする本がありません。');say('「'+b.title+'」を理由なく禁書に指定しました。','禁書');};
+$('quake').onclick=function(){$('app').classList.remove('shake');void $('app').offsetWidth;$('app').classList.add('shake');say('震度0.3。本棚だけが被災しました。')};
+$('rename').onclick=function(){var b=randomBook();if(!b)return say('改題する本がありません。');var old=b.title;var tails=['と無関係な午後','（館長版）','—たぶん完全版—','およびその他の誤解','第0巻'];b.title=old+' '+tails[Math.floor(Math.random()*tails.length)];say('「'+old+'」は勝手に改題されました。');save()};
+$('deny').onclick=function(){var b=randomBook();if(!b)return say('否定する存在がありません。');document.querySelectorAll('.book').forEach(x=>x.classList.toggle('vanish'));say('館は「'+b.title+'」の存在を公式には認めていません。','未確認')};
+$('ritual').onclick=function(){var words=['栞','埃','奥付','沈黙','返却不要','地下書庫','貸出不能'];var chant=Array.from({length:4},()=>words[Math.floor(Math.random()*words.length)]).join('・');say('儀式を開始しました：'+chant+'。特に何も起きません。','儀式済')};
+render();})();</script></body></html>
