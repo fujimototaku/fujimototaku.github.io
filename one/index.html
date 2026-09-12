@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f3ee">
+<title>One</title>
+<style>
+  :root{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#171717;background:#f5f3ee}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100dvh;display:flex;justify-content:center;align-items:center;padding:24px;background:#f5f3ee}
+  main{width:min(100%,560px)}
+  .brand{font-size:14px;letter-spacing:.16em;text-transform:uppercase;opacity:.45;margin-bottom:18px}
+  h1{font-size:clamp(38px,9vw,64px);line-height:1.02;margin:0 0 14px;font-weight:750;letter-spacing:-.04em}
+  .sub{font-size:17px;line-height:1.55;opacity:.58;margin:0 0 32px}
+  .card{background:#fff;border-radius:28px;padding:22px;box-shadow:0 18px 60px rgba(0,0,0,.07)}
+  textarea{width:100%;min-height:112px;border:0;resize:none;outline:none;font:inherit;font-size:24px;line-height:1.4;background:transparent;color:#171717;padding:2px}
+  textarea::placeholder{color:#bbb}
+  button{width:100%;border:0;border-radius:18px;padding:17px 20px;font:inherit;font-weight:700;font-size:18px;background:#171717;color:white;margin-top:16px;cursor:pointer}
+  button:active{transform:scale(.99)}
+  .done{display:none;text-align:center;padding:24px 8px 8px}
+  .done .mark{font-size:58px;margin-bottom:8px}
+  .done h2{font-size:28px;margin:0 0 8px}
+  .done p{opacity:.55;margin:0 0 20px}
+  .ghost{background:#ece9e2;color:#171717}
+  .count{margin-top:18px;text-align:center;font-size:14px;opacity:.4}
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">ONE</div>
+  <section id="entry">
+    <h1>今日は、ひとつだけ。</h1>
+    <p class="sub">いま終わらせたいことを一つ決める。終わったら押す。それだけ。</p>
+    <div class="card">
+      <textarea id="task" maxlength="140" placeholder="例：本を10ページ読む"></textarea>
+      <button id="finish">終わった</button>
+    </div>
+  </section>
+
+  <section id="done" class="card done">
+    <div class="mark">✓</div>
+    <h2>今日のひとつ、完了。</h2>
+    <p id="doneText"></p>
+    <button id="again" class="ghost">もうひとつやる</button>
+  </section>
+  <div class="count" id="count"></div>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const task=$('#task'),entry=$('#entry'),done=$('#done'),doneText=$('#doneText'),count=$('#count');
+const key='one-app-v1';
+let data=JSON.parse(localStorage.getItem(key)||'{"count":0,"draft":""}');
+task.value=data.draft||'';
+function save(){localStorage.setItem(key,JSON.stringify(data)); renderCount();}
+function renderCount(){count.textContent=data.count?`これまで ${data.count} 個 完了`:''}
+renderCount();
+task.addEventListener('input',()=>{data.draft=task.value;save()});
+$('#finish').addEventListener('click',()=>{
+  const text=task.value.trim(); if(!text){task.focus();return;}
+  data.count=(data.count||0)+1; data.draft=''; save();
+  doneText.textContent=text; entry.style.display='none'; done.style.display='block';
+});
+$('#again').addEventListener('click',()=>{
+  task.value=''; done.style.display='none'; entry.style.display='block'; setTimeout(()=>task.focus(),50);
+});
+</script>
+</body>
+</html>
