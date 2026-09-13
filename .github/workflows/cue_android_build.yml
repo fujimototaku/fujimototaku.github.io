@@ -34,15 +34,15 @@ jobs:
         run: gradle :cue_android:assembleDebug --no-daemon
       - name: Prepare APK
         run: cp cue_android/build/outputs/apk/debug/cue_android-debug.apk Cue-Android.apk
-      - name: Publish direct-download APK on this non-Pages branch
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          mkdir -p download
-          cp Cue-Android.apk download/Cue.apk
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add download/Cue.apk
-          git commit -m "Publish Cue Android APK" || exit 0
-          git push origin HEAD:cue-download
+          gh release delete cue-android-latest --cleanup-tag -y || true
+          gh release create cue-android-latest Cue-Android.apk \
+            --title "Cue Android" \
+            --notes "Android版Cue。APKをタップしてインストールしてください。" \
+            --target "$GITHUB_SHA"
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
