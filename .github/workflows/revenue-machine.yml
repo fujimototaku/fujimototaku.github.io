@@ -30,9 +30,18 @@ jobs:
           python-version: "3.12"
       - name: Install
         run: pip install -r tools/revenue-machine/requirements.txt
-      - name: Skip until credentials exist
+      - name: Public market scout
+        working-directory: tools/revenue-machine
+        run: python public_scout.py
+      - name: Upload public scout
+        uses: actions/upload-artifact@v4
+        with:
+          name: revenue-scout-${{ github.run_number }}
+          path: tools/revenue-machine/latest_public_scout.json
+          retention-days: 7
+      - name: Execution lane locked until credentials exist
         if: ${{ env.OPENAI_API_KEY == '' || env.CLAWGIG_API_KEY == '' }}
-        run: echo "Set OPENAI_API_KEY and CLAWGIG_API_KEY repository secrets to activate."
+        run: echo "Public scout is active. Set OPENAI_API_KEY and CLAWGIG_API_KEY repository secrets to enable model scoring, proposals, and delivery."
       - name: Dry run
         if: ${{ env.OPENAI_API_KEY != '' && env.CLAWGIG_API_KEY != '' && env.REVENUE_MACHINE_LIVE != '1' }}
         working-directory: tools/revenue-machine
