@@ -3,7 +3,11 @@ name: Build Cue Android APK
 on:
   push:
     branches:
-      - cue-apk-build-actual
+      - cue-download
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -28,9 +32,18 @@ jobs:
           gradle-version: '8.10.2'
       - name: Build APK
         run: gradle :cue_android:assembleDebug --no-daemon
-      - name: Prepare artifact
+      - name: Prepare APK
         run: cp cue_android/build/outputs/apk/debug/cue_android-debug.apk Cue-Android.apk
-      - name: Upload APK
+      - name: Publish direct-download APK on this non-Pages branch
+        run: |
+          mkdir -p download
+          cp Cue-Android.apk download/Cue.apk
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add download/Cue.apk
+          git commit -m "Publish Cue Android APK" || exit 0
+          git push origin HEAD:cue-download
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: Cue-Android
