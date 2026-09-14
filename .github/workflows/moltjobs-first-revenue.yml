@@ -24,10 +24,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          OWNER="${GITHUB_REPOSITORY_OWNER}"
-          EMAIL=$(curl -fsSL "https://api.github.com/users/${OWNER}" | jq -r '.email // empty')
+          EMAIL=$(git log -1 --format='%ae')
           if [ -z "$EMAIL" ]; then
-            echo 'No public GitHub email available; stopping before registration.'
+            echo 'No commit author email available.'
             exit 2
           fi
 
@@ -69,6 +68,8 @@ jobs:
           if [ -z "${KEY:-}" ]; then
             echo 'Registration did not return an API key.'
             sed -E 's/(mj_live_|api[_-]?key[^\"]*[\": ]+)[A-Za-z0-9._-]+/\1[REDACTED]/Ig' /tmp/molt-register.err || true
+            echo 'Registration response keys:'
+            jq -r 'paths(scalars) | map(tostring) | join(".")' /tmp/molt-register.json 2>/dev/null | grep -viE 'key|token|secret' || true
             exit 3
           fi
           echo "::add-mask::$KEY"
