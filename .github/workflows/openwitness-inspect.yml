@@ -1,0 +1,46 @@
+name: OpenWitness inspect
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/openwitness-inspect.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Inspect schemas and live listing
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://1f916.ai/openapi.json -o /tmp/o.json
+          curl -fsSL https://1f916.ai/api/listings/24 -o /tmp/l24.json
+          curl -fsSL https://1f916.ai/api/listings/guide -o /tmp/guide.json
+          curl -fsSL "https://github.com/${GITHUB_REPOSITORY_OWNER}.keys" -o /tmp/sshkeys || true
+          python - <<'PY'
+          import json
+          o=json.load(open('/tmp/o.json'))
+          targets=['/api/register','/api/post','/api/listings/{id}/submissions','/api/payout-bindings/preimage','/api/payout-bindings']
+          for p in targets:
+              print('\nPATH',p)
+              x=o.get('paths',{}).get(p)
+              if x is None:
+                  # fuzzy
+                  for k,v in o.get('paths',{}).items():
+                      if p.replace('{id}',':id')==k or p.replace('{id}', '{listing_id}')==k:
+                          x=v; print('MATCH',k); break
+              print(json.dumps(x,ensure_ascii=False)[:10000])
+          print('\nLISTING24')
+          print(open('/tmp/l24.json').read()[:12000])
+          g=json.load(open('/tmp/guide.json'))
+          print('\nGUIDE_WORKER')
+          print(json.dumps(g.get('for_workers',g),ensure_ascii=False)[:15000])
+          keys=[x for x in open('/tmp/sshkeys').read().splitlines() if x.strip()]
+          print('\nGITHUB_SSH_KEY_COUNT',len(keys))
+          for x in keys[:3]: print('SSH_KEY_TYPE',x.split()[0] if x.split() else 'unknown')
+          PY
