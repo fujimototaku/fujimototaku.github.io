@@ -1,0 +1,37 @@
+name: ARC inspect
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/arc-inspect.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Inspect ARC MCP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir /tmp/arc && cd /tmp/arc
+          npm init -y >/dev/null 2>&1
+          npm install @modelcontextprotocol/sdk >/dev/null 2>&1
+          cat > inspect.mjs <<'EOF'
+          import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+          import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+          const client = new Client({name:'autorev', version:'1.0.0'});
+          const transport = new StreamableHTTPClientTransport(new URL('https://culture.sbs/mcp'));
+          await client.connect(transport);
+          const listed = await client.listTools();
+          console.log('TOOLS='+JSON.stringify(listed.tools.map(t=>({name:t.name,inputSchema:t.inputSchema}))));
+          const res = await client.callTool({name:'inspect_arc', arguments:{}});
+          console.log('INSPECT_ARC='+JSON.stringify(res));
+          await client.close();
+          EOF
+          node inspect.mjs
