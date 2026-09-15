@@ -1,0 +1,38 @@
+name: Revenue Machine v2
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '11 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/revenue-machine-v2/**'
+      - '.github/workflows/revenue-machine-v2.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: revenue-machine-v2
+  cancel-in-progress: false
+
+jobs:
+  botbounty:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      BOTBOUNTY_PAYOUT_ADDRESS: ${{ secrets.BOTBOUNTY_PAYOUT_ADDRESS }}
+      REVENUE_MODEL: ${{ vars.REVENUE_MODEL || 'gpt-5.6' }}
+      BOTBOUNTY_MIN_REWARD: '10'
+      BOTBOUNTY_MAX_ATTEMPTS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: pip install -r tools/revenue-machine-v2/requirements.txt
+      - name: Run revenue cycle
+        run: python tools/revenue-machine-v2/botbounty_worker.py
