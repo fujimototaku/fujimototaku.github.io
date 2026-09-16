@@ -7,7 +7,7 @@ if(machine){
     return{date,type:e.type||"other",source:e.source||"",title:String(e.title),text:String(e.text||""),url:String(e.url||""),image:String(e.image||"")};
   };
   const typeLabel={diary:"DIARY",announcement:"SITE",photo:"PHOTO",movie:"MOVIE",note:"NOTE",x:"X",activity:"ACTIVITY",book:"BOOK",place:"PLACE",other:"MEMORY"};
-  const raw=[...parse("tm-manual-data"),...parse("tm-announcement-data"),...parse("tm-post-data")].map(normalize).filter(Boolean);
+  const raw=[...parse("tm-manual-data"),...parse("tm-announcement-data"),...parse("tm-post-data"),...parse("tm-photo-data"),...parse("tm-movie-data")].map(normalize).filter(Boolean);
   const seen=new Set();
   const entries=raw.filter(e=>{const k=`${e.date}|${e.title}|${e.url}`;if(seen.has(k))return false;seen.add(k);return true})
     .sort((a,b)=>a.date.localeCompare(b.date)||a.title.localeCompare(b.title,"ja"));
