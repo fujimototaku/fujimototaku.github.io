@@ -6,7 +6,20 @@ if (root) {
     const spinButton = document.querySelector('#globe-spin');
     const homeButton = document.querySelector('#globe-home');
     const frame = root.closest('.globe-frame');
+    const panel = root.closest('.globe-panel');
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const baseAriaLabel = root.getAttribute('aria-label') || '3D地球儀';
+    const copy = {
+      expandedLabel: panel?.dataset.globeExpandedLabel || '拡大中の3D地球儀',
+      ready: panel?.dataset.globeReadyText || '触れると巨大化 / ドラッグで回転 / タップでGoogleマップ',
+      spinOn: panel?.dataset.globeSpinOnLabel || '自転 ON',
+      spinOff: panel?.dataset.globeSpinOffLabel || '自転 OFF',
+      spinStarted: panel?.dataset.globeSpinStartedText || '自転を再開しました',
+      spinStopped: panel?.dataset.globeSpinStoppedText || '自転を止めました',
+      homeStatus: panel?.dataset.globeHomeStatus || '札幌 43.06°N / 141.35°E',
+      error: panel?.dataset.globeErrorText || '地球儀を起動できませんでした',
+      mapSuffix: panel?.dataset.globeMapSuffix || '→ Googleマップ'
+    };
     const setStatus = (text) => {
       if (status) status.textContent = text;
     };
@@ -17,7 +30,7 @@ if (root) {
       if (!frame) return;
       frame.classList.toggle('is-expanded', expanded);
       frame.setAttribute('aria-expanded', String(expanded));
-      root.setAttribute('aria-label', expanded ? '拡大中の3D地球儀' : '3D地球儀');
+      root.setAttribute('aria-label', expanded ? copy.expandedLabel : baseAriaLabel);
       if (expanded) {
         if (collapseTimer) window.clearTimeout(collapseTimer);
         window.requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
@@ -99,7 +112,7 @@ if (root) {
 
       const syncSpinButton = () => {
         if (!spinButton) return;
-        spinButton.textContent = spinEnabled ? '自転 ON' : '自転 OFF';
+        spinButton.textContent = spinEnabled ? copy.spinOn : copy.spinOff;
         spinButton.setAttribute('aria-pressed', String(spinEnabled));
       };
 
@@ -132,12 +145,12 @@ if (root) {
         controls.minDistance = radius * 1.15;
         controls.maxDistance = radius * 4.2;
         world.pointOfView({ lat: 35.7, lng: 139.7, altitude: 2.15 }, 0);
-        setStatus('触れると巨大化 / ドラッグで回転 / タップでGoogleマップ');
+        setStatus(copy.ready);
       });
 
       world.onGlobeClick(({ lat, lng }) => {
         world.pointsData([{ lat, lng }]);
-        setStatus(`${lat >= 0 ? 'N' : 'S'} ${Math.abs(lat).toFixed(2)}° / ${lng >= 0 ? 'E' : 'W'} ${Math.abs(lng).toFixed(2)}° → Googleマップ`);
+        setStatus(`${lat >= 0 ? 'N' : 'S'} ${Math.abs(lat).toFixed(2)}° / ${lng >= 0 ? 'E' : 'W'} ${Math.abs(lng).toFixed(2)}° ${copy.mapSuffix}`);
 
         const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${lat},${lng}`)}`;
         const mapWindow = window.open(mapUrl, '_blank', 'noopener');
@@ -149,7 +162,7 @@ if (root) {
           spinEnabled = !spinEnabled;
           controls.autoRotate = spinEnabled;
           syncSpinButton();
-          setStatus(spinEnabled ? '自転を再開しました' : '自転を止めました');
+          setStatus(spinEnabled ? copy.spinStarted : copy.spinStopped);
         });
       }
 
@@ -158,7 +171,7 @@ if (root) {
           controls.autoRotate = false;
           world.pointOfView({ lat: 43.0618, lng: 141.3545, altitude: 1.75 }, 900);
           world.pointsData([{ lat: 43.0618, lng: 141.3545 }]);
-          setStatus('札幌 43.06°N / 141.35°E');
+          setStatus(copy.homeStatus);
           resumeAfterInteraction();
         });
       }
@@ -189,7 +202,7 @@ if (root) {
     } catch (error) {
       console.error('Globe initialization failed:', error);
       root.classList.add('globe-error');
-      setStatus('地球儀を起動できませんでした');
+      setStatus(copy.error);
     }
   })();
 }
