@@ -23,20 +23,34 @@
     <p id="countdown" class="digital">{{ site.data.ui.home.loading_text }}</p>
   </section>
 
-  <section class="panel mini-panel globe-panel">
+  <section class="panel mini-panel globe-panel"
+    data-globe-expanded-label="{{ site.data.ui.home.globe_expanded_aria_label | escape }}"
+    data-globe-ready-text="{{ site.data.ui.home.globe_ready_text | escape }}"
+    data-globe-spin-on-label="{{ site.data.ui.home.globe_spin_on_label | escape }}"
+    data-globe-spin-off-label="{{ site.data.ui.home.globe_spin_off_label | escape }}"
+    data-globe-spin-started-text="{{ site.data.ui.home.globe_spin_started_text | escape }}"
+    data-globe-spin-stopped-text="{{ site.data.ui.home.globe_spin_stopped_text | escape }}"
+    data-globe-home-status="{{ site.data.ui.home.globe_home_status | escape }}"
+    data-globe-error-text="{{ site.data.ui.home.globe_error_text | escape }}"
+    data-wiki-live-label="{{ site.data.ui.home.wiki_live_label | escape }}"
+    data-wiki-live-connecting="{{ site.data.ui.home.wiki_live_connecting_text | escape }}"
+    data-wiki-live-connected="{{ site.data.ui.home.wiki_live_connected_text | escape }}"
+    data-wiki-live-reconnecting="{{ site.data.ui.home.wiki_live_reconnecting_text | escape }}"
+    data-wiki-live-unsupported="{{ site.data.ui.home.wiki_live_unsupported_text | escape }}"
+    data-wiki-live-template="{{ site.data.ui.home.wiki_live_edit_template | escape }}">
     <h2>{{ site.data.ui.home.globe_title }}</h2>
     <div class="globe-frame">
       <div id="globeViz" tabindex="0" aria-label="{{ site.data.ui.home.globe_aria_label }}" aria-describedby="globe-status"></div>
       <div id="wiki-live-layer" class="wiki-live-layer" aria-hidden="true"></div>
     </div>
     <div class="wiki-live-strip">
-      <span id="wiki-live-state" class="wiki-live-state">WIKIPEDIA LIVE 接続中…</span>
-      <a id="wiki-live-link" class="wiki-live-link" href="https://ja.wikipedia.org/" target="_blank" rel="noopener">世界のどこかで記事が編集されています</a>
+      <span id="wiki-live-state" class="wiki-live-state">{{ site.data.ui.home.wiki_live_connecting_text }}</span>
+      <a id="wiki-live-link" class="wiki-live-link" href="https://ja.wikipedia.org/" target="_blank" rel="noopener">{{ site.data.ui.home.wiki_live_placeholder_text }}</a>
     </div>
-    <p id="globe-status" class="globe-status" aria-live="polite">地球儀を起動中...</p>
-    <div class="globe-buttons" aria-label="地球儀操作">
-      <button id="globe-spin" type="button" aria-pressed="true">自転 ON</button>
-      <button id="globe-home" type="button">札幌へ</button>
+    <p id="globe-status" class="globe-status" aria-live="polite">{{ site.data.ui.home.globe_loading_text }}</p>
+    <div class="globe-buttons" aria-label="{{ site.data.ui.home.globe_controls_aria_label }}">
+      <button id="globe-spin" type="button" aria-pressed="true">{{ site.data.ui.home.globe_spin_on_label }}</button>
+      <button id="globe-home" type="button">{{ site.data.ui.home.globe_home_label }}</button>
     </div>
     <p class="small-note">{{ site.data.ui.home.globe_note }}</p>
   </section>
