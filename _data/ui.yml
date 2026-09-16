@@ -86,8 +86,6 @@ photos:
   empty_text: まだ写真はありません。
 movies:
   no_image_text: NO IMAGE
-  rating_prefix: ★
-  rating_max_text: / 5
   external_link_label: 外部ページを見る →
   empty_text: まだ映画の記録はありません。
 footer:
