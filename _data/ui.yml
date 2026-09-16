@@ -57,6 +57,7 @@ home:
   globe_spin_off_label: 自転 OFF
   globe_home_label: 札幌へ
   globe_ready_text: 触れると巨大化 / ドラッグで回転 / タップでGoogleマップ
+  globe_map_suffix: → Googleマップ
   globe_spin_started_text: 自転を再開しました
   globe_spin_stopped_text: 自転を止めました
   globe_home_status: 札幌 43.06°N / 141.35°E
