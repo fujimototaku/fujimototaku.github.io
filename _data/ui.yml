@@ -1,6 +1,5 @@
 header:
   skip_link: 本文へ移動
-  ticker_aria_label: お知らせ
 navigation:
   menu_title: めにゅー
   items:
@@ -27,6 +26,7 @@ home:
   likes_label: 好き
   dislikes_label: 嫌い
   announcements_heading: ━━ 最新のお知らせ ━━
+  announcements_aria_label: 最新のお知らせ
   stores_heading: ━━ 取扱店・通販 ━━
   shop_area_label: 通販
   store_note: ※在庫状況は各店舗へお問い合わせください。
@@ -37,9 +37,37 @@ home:
   event_finished_text: 開催中、または終了
   search_aria_label: サイト内検索
   search_button: 検索
+  wiki_news_label: ★ 本日のどうでもいいWikipedia
+  wiki_news_refresh_label: 別にどうでもいい記事
+  wiki_news_loading_title: どうでもいい記事を捜索中…
+  wiki_news_loading_text: 百科事典の奥地を徘徊しています。
+  wiki_news_link_label: Wikipediaで無駄に詳しく読む →
+  wiki_news_unknown_title: 題名不明
+  wiki_news_unknown_text: 説明すら特にありません。
+  wiki_news_meta_text: 日本語版Wikipediaから無作為に選出
+  wiki_news_error_title: 本日はどうでもいいニュースなし
+  wiki_news_error_text: Wikipediaとの通信に失敗しました。たぶんどうでもいいです。
   globe_title: 3D地球儀
   globe_aria_label: ドラッグ・ズーム・キーボード操作ができる3D地球儀
+  globe_expanded_aria_label: 拡大中の3D地球儀
   globe_note: ドラッグで回転 / ホイールでズーム / 地球を押すと座標表示
+  globe_loading_text: 地球儀を起動中...
+  globe_controls_aria_label: 地球儀操作
+  globe_spin_on_label: 自転 ON
+  globe_spin_off_label: 自転 OFF
+  globe_home_label: 札幌へ
+  globe_ready_text: 触れると巨大化 / ドラッグで回転 / タップでGoogleマップ
+  globe_spin_started_text: 自転を再開しました
+  globe_spin_stopped_text: 自転を止めました
+  globe_home_status: 札幌 43.06°N / 141.35°E
+  globe_error_text: 地球儀を起動できませんでした
+  wiki_live_label: WIKIPEDIA LIVE
+  wiki_live_connecting_text: WIKIPEDIA LIVE 接続中…
+  wiki_live_connected_text: WIKIPEDIA LIVE ●
+  wiki_live_reconnecting_text: WIKIPEDIA LIVE 再接続中…
+  wiki_live_unsupported_text: WIKIPEDIA LIVE 非対応
+  wiki_live_placeholder_text: 世界のどこかで記事が編集されています
+  wiki_live_edit_template: 「%TITLE%」がいま編集された
 works:
   section_heading: 主要作品
   image_header: 写真
@@ -51,3 +79,18 @@ diary:
   notice: ここは検索結果に出さない設定の日記置き場です。いいね・コメント・フォロー機能はありません。
   empty_text: まだ何もありません。
   back_label: 日記一覧へ戻る
+photos:
+  open_image_aria: 写真を大きく見る
+  default_alt: 写真
+  empty_text: まだ写真はありません。
+movies:
+  no_image_text: NO IMAGE
+  rating_prefix: ★
+  rating_max_text: / 5
+  external_link_label: 外部ページを見る →
+  empty_text: まだ映画の記録はありません。
+footer:
+  visitor_aria_label: だいたいこれくらい来た
+  visitor_label: たぶんこれくらい来た：
+  visitor_badge_label: たぶん
+  visitor_alt: だいたい来た人数
