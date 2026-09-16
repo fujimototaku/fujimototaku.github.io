@@ -1,0 +1,21 @@
+---
+layout: page
+title: ひとこと
+permalink: /shorts/
+extra_css: /assets/mothership.css
+---
+<h1>{{ site.data.shorts.title }}</h1>
+{% if site.data.shorts.intro %}<p class="archive-intro">{{ site.data.shorts.intro }}</p>{% endif %}
+
+{% assign shorts = site.shorts | sort: "path" | reverse %}
+{% if shorts and shorts.size > 0 %}
+<div class="shorts-list">
+  {% for item in shorts %}
+  <article class="short-entry">
+    {{ item.content | markdownify }}
+  </article>
+  {% endfor %}
+</div>
+{% else %}
+<p class="archive-empty">{{ site.data.shorts.empty_text }}</p>
+{% endif %}
