@@ -5,6 +5,10 @@ timezone: Asia/Tokyo
 permalink: /diary/:year/:month/:day/:title/
 markdown: kramdown
 
+collections:
+  shorts:
+    output: false
+
 defaults:
   - scope:
       path: ""
