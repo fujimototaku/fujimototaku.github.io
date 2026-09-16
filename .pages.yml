@@ -758,12 +758,15 @@ content:
     path: _posts
     format: yaml-frontmatter
     exclude: ["README.md"]
-    filename:
-      template: "{year}-{month}-{day}-{primary}.md"
-      field: false
+    filename: "{year}-{month}-{day}-{hour}{minute}{second}.md"
+    operations:
+      create: true
+      rename: false
+      delete: true
     view:
       primary: title
-      sort: [title]
+      fields: [title]
+      search: [title]
     fields:
       - name: title
         label: タイトル
