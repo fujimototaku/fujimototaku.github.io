@@ -70,16 +70,13 @@ content:
               time: true
               format: "yyyy-MM-dd'T'HH:mm:ssXXX"
           - name: retro
-            label: 最上部・ようこそ欄
+            label: ようこそ欄
             type: object
             required: true
             fields:
               - name: eyebrow
                 label: 最上部の一言
                 type: string
-              - name: ticker
-                label: 流れる文字
-                type: text
               - name: welcome_title
                 label: ようこそ欄の見出し
                 type: string
@@ -246,9 +243,6 @@ content:
               - name: skip_link
                 label: 本文ジャンプ文言
                 type: string
-              - name: ticker_aria_label
-                label: 流れる文字の説明
-                type: string
           - name: navigation
             label: メニュー
             type: object
@@ -292,6 +286,9 @@ content:
               - name: announcements_heading
                 label: お知らせ見出し
                 type: string
+              - name: announcements_aria_label
+                label: お知らせ欄の読み上げ名
+                type: string
               - name: stores_heading
                 label: 取扱店見出し
                 type: string
@@ -322,15 +319,103 @@ content:
               - name: search_button
                 label: 検索ボタン
                 type: string
+              - name: wiki_news_label
+                label: どうでもいいWikipedia見出し
+                type: string
+              - name: wiki_news_refresh_label
+                label: Wikipedia引き直しボタン
+                type: string
+              - name: wiki_news_loading_title
+                label: Wikipedia読込中タイトル
+                type: string
+              - name: wiki_news_loading_text
+                label: Wikipedia読込中本文
+                type: string
+              - name: wiki_news_link_label
+                label: Wikipediaリンク文言
+                type: string
+              - name: wiki_news_unknown_title
+                label: Wikipedia題名不明文言
+                type: string
+              - name: wiki_news_unknown_text
+                label: Wikipedia説明なし文言
+                type: string
+              - name: wiki_news_meta_text
+                label: Wikipedia出典文言
+                type: string
+              - name: wiki_news_error_title
+                label: Wikipediaエラー見出し
+                type: string
+              - name: wiki_news_error_text
+                label: Wikipediaエラー本文
+                type: text
               - name: globe_title
                 label: 地球儀の見出し
                 type: string
               - name: globe_aria_label
                 label: 地球儀の説明
                 type: string
+              - name: globe_expanded_aria_label
+                label: 地球儀拡大中の説明
+                type: string
               - name: globe_note
                 label: 地球儀の注意書き
                 type: text
+              - name: globe_loading_text
+                label: 地球儀読込中
+                type: string
+              - name: globe_controls_aria_label
+                label: 地球儀操作欄の読み上げ名
+                type: string
+              - name: globe_spin_on_label
+                label: 自転ONボタン
+                type: string
+              - name: globe_spin_off_label
+                label: 自転OFFボタン
+                type: string
+              - name: globe_home_label
+                label: 地球儀ホームボタン
+                type: string
+              - name: globe_ready_text
+                label: 地球儀準備完了文言
+                type: string
+              - name: globe_map_suffix
+                label: Googleマップ遷移文言
+                type: string
+              - name: globe_spin_started_text
+                label: 自転再開文言
+                type: string
+              - name: globe_spin_stopped_text
+                label: 自転停止文言
+                type: string
+              - name: globe_home_status
+                label: ホーム地点表示
+                type: string
+              - name: globe_error_text
+                label: 地球儀エラー文言
+                type: string
+              - name: wiki_live_label
+                label: Wikipedia LIVE名称
+                type: string
+              - name: wiki_live_connecting_text
+                label: LIVE接続中
+                type: string
+              - name: wiki_live_connected_text
+                label: LIVE接続済み
+                type: string
+              - name: wiki_live_reconnecting_text
+                label: LIVE再接続中
+                type: string
+              - name: wiki_live_unsupported_text
+                label: LIVE非対応文言
+                type: string
+              - name: wiki_live_placeholder_text
+                label: LIVE待機中本文
+                type: string
+              - name: wiki_live_edit_template
+                label: LIVE編集表示テンプレート
+                type: string
+                description: "%TITLE% が記事名に置き換わります"
           - name: works
             label: 作品ページの固定文言
             type: object
@@ -366,6 +451,54 @@ content:
                 type: string
               - name: back_label
                 label: 一覧へ戻る文言
+                type: string
+          - name: photos
+            label: 写真ページ
+            type: object
+            fields:
+              - name: open_image_aria
+                label: 写真拡大リンクの説明
+                type: string
+              - name: default_alt
+                label: 写真の代替文言
+                type: string
+              - name: empty_text
+                label: 写真がない時の文言
+                type: string
+          - name: movies
+            label: 映画ページ
+            type: object
+            fields:
+              - name: no_image_text
+                label: 画像なし表示
+                type: string
+              - name: rating_prefix
+                label: 点数の先頭記号
+                type: string
+              - name: rating_max_text
+                label: 点数の末尾文言
+                type: string
+              - name: external_link_label
+                label: 外部リンク文言
+                type: string
+              - name: empty_text
+                label: 映画記録がない時の文言
+                type: string
+          - name: footer
+            label: フッター
+            type: object
+            fields:
+              - name: visitor_aria_label
+                label: 訪問数の読み上げ名
+                type: string
+              - name: visitor_label
+                label: 訪問数の前置き
+                type: string
+              - name: visitor_badge_label
+                label: 訪問数画像内ラベル
+                type: string
+              - name: visitor_alt
+                label: 訪問数画像の代替文言
                 type: string
 
       - name: works
@@ -477,6 +610,41 @@ content:
         format: code
         operations:
           delete: false
+      - name: advanced_wiki_news_css
+        label: どうでもいいWikipedia CSS
+        type: file
+        path: assets/wiki-news.css
+        format: code
+        operations:
+          delete: false
+      - name: advanced_wiki_news_js
+        label: どうでもいいWikipedia JavaScript
+        type: file
+        path: assets/wiki-news.js
+        format: code
+        operations:
+          delete: false
+      - name: advanced_wiki_live_css
+        label: Wikipedia LIVE CSS
+        type: file
+        path: assets/wiki-live.css
+        format: code
+        operations:
+          delete: false
+      - name: advanced_wiki_live_js
+        label: Wikipedia LIVE JavaScript
+        type: file
+        path: assets/wiki-live.js
+        format: code
+        operations:
+          delete: false
+      - name: advanced_social_archive_css
+        label: 写真・映画 CSS
+        type: file
+        path: assets/social-archive.css
+        format: code
+        operations:
+          delete: false
       - name: advanced_time_machine_css
         label: タイムマシンCSS
         type: file
@@ -572,6 +740,20 @@ content:
         label: 日記一覧HTML
         type: file
         path: diary/index.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_photos
+        label: 写真ページHTML
+        type: file
+        path: photos.html
+        format: code
+        operations:
+          delete: false
+      - name: advanced_movies
+        label: 映画ページHTML
+        type: file
+        path: movies.html
         format: code
         operations:
           delete: false
