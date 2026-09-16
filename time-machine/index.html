@@ -77,6 +77,32 @@ permalink: /time-machine/
     }{% unless forloop.last %},{% endunless %}
   {% endfor %}
   ]</script>
+  <script id="tm-photo-data" type="application/json">[
+  {% for item in site.data.photos.items %}
+    {
+      "date": {{ item.date | jsonify }},
+      "type": "photo",
+      "source": "photos",
+      "title": {{ item.caption | default: "写真" | jsonify }},
+      "text": {{ item.place | default: "" | jsonify }},
+      "url": "/photos/",
+      "image": {{ item.image | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+  ]</script>
+  <script id="tm-movie-data" type="application/json">[
+  {% for item in site.data.movies.items %}
+    {
+      "date": {{ item.date | jsonify }},
+      "type": "movie",
+      "source": "movies",
+      "title": {{ item.title | jsonify }},
+      "text": {{ item.review | default: "" | truncate: 220 | jsonify }},
+      "url": "/movies/",
+      "image": {{ item.image | default: "" | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+  ]</script>
 
   <script src="/assets/time-machine.js"></script>
   <script>
