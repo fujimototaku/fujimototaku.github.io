@@ -7,8 +7,17 @@
 
   if (!frame || !panel || !layer || !state || !link) return;
 
+  const copy = {
+    label: panel.dataset.wikiLiveLabel || 'WIKIPEDIA LIVE',
+    connecting: panel.dataset.wikiLiveConnecting || 'WIKIPEDIA LIVE 接続中…',
+    connected: panel.dataset.wikiLiveConnected || 'WIKIPEDIA LIVE ●',
+    reconnecting: panel.dataset.wikiLiveReconnecting || 'WIKIPEDIA LIVE 再接続中…',
+    unsupported: panel.dataset.wikiLiveUnsupported || 'WIKIPEDIA LIVE 非対応',
+    template: panel.dataset.wikiLiveTemplate || '「%TITLE%」がいま編集された'
+  };
+
   if (!('EventSource' in window)) {
-    state.textContent = 'WIKIPEDIA LIVE 非対応';
+    state.textContent = copy.unsupported;
     return;
   }
 
@@ -43,8 +52,8 @@
     const language = String(change.server_name || '').split('.')[0].toUpperCase() || '??';
     const title = String(change.title || '名称不明');
 
-    state.textContent = `${language} WIKIPEDIA LIVE`;
-    link.textContent = `「${title}」がいま編集された`;
+    state.textContent = `${language} ${copy.label}`;
+    link.textContent = copy.template.replace('%TITLE%', title);
     link.href = articleUrl(change);
     link.classList.add('is-visible');
 
@@ -101,12 +110,12 @@
   const connect = () => {
     if (source || document.hidden) return;
 
-    state.textContent = 'WIKIPEDIA LIVE 接続中…';
+    state.textContent = copy.connecting;
     source = new EventSource(streamUrl);
 
     source.onopen = () => {
       panel.classList.add('wiki-live-connected');
-      state.textContent = 'WIKIPEDIA LIVE ●';
+      state.textContent = copy.connected;
     };
 
     source.onmessage = (event) => {
@@ -120,7 +129,7 @@
 
     source.onerror = () => {
       panel.classList.remove('wiki-live-connected');
-      state.textContent = 'WIKIPEDIA LIVE 再接続中…';
+      state.textContent = copy.reconnecting;
       // EventSource 自身の自動再接続に任せる。
     };
   };
