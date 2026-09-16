@@ -472,12 +472,6 @@ content:
               - name: no_image_text
                 label: 画像なし表示
                 type: string
-              - name: rating_prefix
-                label: 点数の先頭記号
-                type: string
-              - name: rating_max_text
-                label: 点数の末尾文言
-                type: string
               - name: external_link_label
                 label: 外部リンク文言
                 type: string
@@ -803,14 +797,8 @@ content:
         list:
           collapsible:
             collapsed: true
-            summary: "{date} {caption}"
+            summary: "{caption}"
         fields:
-          - name: date
-            label: 日付
-            type: date
-            required: true
-            options:
-              format: yyyy-MM-dd
           - name: image
             label: 写真
             type: image
@@ -843,14 +831,8 @@ content:
         list:
           collapsible:
             collapsed: true
-            summary: "{date} {title}"
+            summary: "{title}"
         fields:
-          - name: date
-            label: 観た日
-            type: date
-            required: true
-            options:
-              format: yyyy-MM-dd
           - name: title
             label: 作品名
             type: string
@@ -863,9 +845,6 @@ content:
             type: image
             options:
               media: site_images
-          - name: rating
-            label: 点数（5点満点）
-            type: number
           - name: review
             label: 感想
             type: text
