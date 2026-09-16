@@ -1,0 +1,116 @@
+.wiki-live-layer {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wiki-live-pulse {
+  position: absolute;
+  width: var(--wiki-live-size, 12px);
+  height: var(--wiki-live-size, 12px);
+  transform: translate(-50%, -50%) scale(0.2);
+  border-radius: 50%;
+  background: rgba(204, 255, 205, 0.95);
+  box-shadow:
+    0 0 10px rgba(185, 255, 194, 0.95),
+    0 0 24px rgba(121, 231, 175, 0.82),
+    0 0 46px rgba(91, 170, 255, 0.5);
+  animation: wiki-live-pulse 1.65s ease-out forwards;
+}
+
+.wiki-live-strip {
+  min-height: 3.1em;
+  margin: 0.35rem 0 0.2rem;
+  padding: 0.3rem 0.35rem;
+  overflow: hidden;
+  background: #111713;
+  border: 1px inset #6f776f;
+  font-family: monospace;
+  font-size: 0.65rem;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.wiki-live-state {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: #8b9b8d;
+  letter-spacing: 0.04em;
+}
+
+.wiki-live-connected .wiki-live-state {
+  color: #9bd4a3;
+}
+
+.wiki-live-link {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  color: #dbe7d5 !important;
+  opacity: 0;
+  text-decoration: none;
+  transition:
+    max-height 180ms ease,
+    opacity 180ms ease;
+}
+
+.wiki-live-link.is-visible {
+  max-height: 4em;
+  opacity: 1;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.wiki-live-flash .globe-frame {
+  animation: wiki-live-frame-flash 900ms ease-out;
+}
+
+@keyframes wiki-live-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  62% {
+    transform: translate(-50%, -50%) scale(1.35);
+    opacity: 0.88;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3.2);
+    opacity: 0;
+  }
+}
+
+@keyframes wiki-live-frame-flash {
+  0% {
+    border-color: #777b76;
+    box-shadow: none;
+  }
+  16% {
+    border-color: #b7f0bb;
+    box-shadow: 0 0 18px rgba(137, 239, 152, 0.72);
+  }
+  100% {
+    border-color: #777b76;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wiki-live-pulse {
+    animation-duration: 300ms;
+  }
+
+  .wiki-live-flash .globe-frame {
+    animation: none;
+    border-color: #9ec9a2;
+  }
+
+  .wiki-live-link {
+    transition: none;
+  }
+}
