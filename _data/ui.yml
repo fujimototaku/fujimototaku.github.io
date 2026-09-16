@@ -11,10 +11,14 @@ navigation:
       url: /info/
     - label: ■ 日記
       url: /diary/
+    - label: ■ ひとこと
+      url: /shorts/
     - label: ■ 写真
       url: /photos/
     - label: ■ 映画
       url: /movies/
+    - label: ■ アプリ
+      url: /apps/
     - label: ■ 人生タイムマシン
       url: /time-machine/
     - label: ■ お問い合わせ

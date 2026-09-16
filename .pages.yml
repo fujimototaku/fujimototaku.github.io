@@ -781,6 +781,39 @@ content:
           media: diary_images
           switcher: true
 
+  - name: shorts
+    label: ひとこと
+    type: collection
+    path: _shorts
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{hour}{minute}{second}.md"
+    operations:
+      create: true
+      rename: false
+      delete: true
+    fields:
+      - name: body
+        label: 本文
+        type: text
+        required: true
+
+  - name: shorts_page
+    label: ひとことページ設定
+    type: file
+    path: _data/shorts.yml
+    format: yaml
+    fields:
+      - name: title
+        label: ページ見出し
+        type: string
+        required: true
+      - name: intro
+        label: 説明
+        type: text
+      - name: empty_text
+        label: 何もない時の文言
+        type: string
+
   - name: photos
     label: 写真
     type: file
@@ -853,6 +886,53 @@ content:
             type: text
           - name: url
             label: 外部リンク
+            type: string
+
+  - name: apps
+    label: アプリ
+    type: file
+    path: _data/apps.yml
+    format: yaml
+    fields:
+      - name: title
+        label: ページ見出し
+        type: string
+        required: true
+      - name: intro
+        label: 説明
+        type: text
+      - name: empty_text
+        label: 何もない時の文言
+        type: string
+      - name: launch_label
+        label: 起動リンクの文言
+        type: string
+      - name: items
+        label: アプリ
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: 名前
+            type: string
+            required: true
+          - name: description
+            label: 一言説明
+            type: text
+          - name: image
+            label: スクリーンショット
+            type: image
+            options:
+              media: site_images
+          - name: status
+            label: 状態
+            type: string
+            description: 公開 / 実験中 / 停止中 など。空欄でもOK
+          - name: url
+            label: 起動URL
             type: string
 
 settings:

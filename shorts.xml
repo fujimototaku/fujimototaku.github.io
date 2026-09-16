@@ -1,0 +1,23 @@
+---
+layout: null
+permalink: /shorts.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ site.data.site.title | xml_escape }} - {{ site.data.shorts.title | xml_escape }}</title>
+    <link>{{ site.url }}/shorts/</link>
+    <description>{{ site.data.shorts.intro | xml_escape }}</description>
+    <language>ja</language>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    {% assign shorts = site.shorts | sort: "path" | reverse %}
+    {% for item in shorts limit:50 %}
+    <item>
+      <title>{{ item.content | strip_html | strip_newlines | truncate: 80 | xml_escape }}</title>
+      <link>{{ site.url }}/shorts/</link>
+      <guid isPermaLink="false">{{ site.url }}/{{ item.path | xml_escape }}</guid>
+      <description>{{ item.content | markdownify | xml_escape }}</description>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>
