@@ -9,7 +9,7 @@ extra_css: /assets/social-archive.css
 
 {% assign photos = site.data.photos.items %}
 {% if photos and photos.size > 0 %}
-{% assign photos = photos | sort: "date" | reverse %}
+{% assign photos = photos | reverse %}
 <div class="photo-grid">
   {% for item in photos %}
   <figure class="photo-post">
@@ -17,7 +17,6 @@ extra_css: /assets/social-archive.css
       <img src="{{ item.image }}" alt="{{ item.caption | default: site.data.ui.photos.default_alt }}" loading="lazy">
     </a>
     <figcaption>
-      {% if item.date %}<div class="archive-date">{{ item.date }}</div>{% endif %}
       {% if item.caption %}<div>{{ item.caption }}</div>{% endif %}
       {% if item.place %}<div class="archive-place">{{ item.place }}</div>{% endif %}
     </figcaption>
