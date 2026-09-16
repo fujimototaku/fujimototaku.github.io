@@ -27,6 +27,11 @@
     <h2>{{ site.data.ui.home.globe_title }}</h2>
     <div class="globe-frame">
       <div id="globeViz" tabindex="0" aria-label="{{ site.data.ui.home.globe_aria_label }}" aria-describedby="globe-status"></div>
+      <div id="wiki-live-layer" class="wiki-live-layer" aria-hidden="true"></div>
+    </div>
+    <div class="wiki-live-strip">
+      <span id="wiki-live-state" class="wiki-live-state">WIKIPEDIA LIVE 接続中…</span>
+      <a id="wiki-live-link" class="wiki-live-link" href="https://ja.wikipedia.org/" target="_blank" rel="noopener">世界のどこかで記事が編集されています</a>
     </div>
     <p id="globe-status" class="globe-status" aria-live="polite">地球儀を起動中...</p>
     <div class="globe-buttons" aria-label="地球儀操作">
