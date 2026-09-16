@@ -1,0 +1,77 @@
+.app-shelf,
+.shorts-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.app-card {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 14px;
+  padding: 10px;
+  border: 1px solid #777;
+  background: #f7f7ef;
+  box-shadow: inset 1px 1px #fff, inset -1px -1px #bbb;
+}
+
+.app-thumb {
+  border: 1px solid #999;
+  background: #ddd;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.app-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.app-body h2 {
+  margin: 3px 0 8px;
+  font-size: 1.08rem;
+}
+
+.app-status {
+  font-family: monospace;
+  font-size: .78rem;
+  opacity: .68;
+}
+
+.app-launch a {
+  display: inline-block;
+  padding: 5px 12px;
+  border: 2px outset #d7d7d7;
+  background: #eee;
+  color: #000080;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.app-launch a:active {
+  border-style: inset;
+}
+
+.short-entry {
+  padding: 12px 14px;
+  border: 1px solid #aaa;
+  background: #fffef7;
+}
+
+.short-entry p {
+  margin: 0;
+  line-height: 1.75;
+}
+
+.short-entry p + p {
+  margin-top: .8em;
+}
+
+@media (max-width: 640px) {
+  .app-card {
+    grid-template-columns: 92px 1fr;
+    gap: 10px;
+  }
+}
