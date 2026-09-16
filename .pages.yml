@@ -344,9 +344,6 @@ content:
               - name: detail_header
                 label: 詳細列
                 type: string
-              - name: stores_header
-                label: 取扱書店列
-                type: string
           - name: activity
             label: 活動ページ
             type: object
@@ -400,9 +397,6 @@ content:
                   media: site_images
               - name: description
                 label: 説明
-                type: text
-              - name: stores
-                label: 取扱書店
                 type: text
 
       - name: activity
@@ -607,6 +601,95 @@ content:
           format: markdown
           media: diary_images
           switcher: true
+
+  - name: photos
+    label: 写真
+    type: file
+    path: _data/photos.yml
+    format: yaml
+    fields:
+      - name: title
+        label: ページ見出し
+        type: string
+        required: true
+      - name: intro
+        label: 説明
+        type: text
+      - name: items
+        label: 写真
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{date} {caption}"
+        fields:
+          - name: date
+            label: 日付
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: image
+            label: 写真
+            type: image
+            required: true
+            options:
+              media: site_images
+          - name: caption
+            label: 一言
+            type: text
+          - name: place
+            label: 場所
+            type: string
+
+  - name: movies
+    label: 映画
+    type: file
+    path: _data/movies.yml
+    format: yaml
+    fields:
+      - name: title
+        label: ページ見出し
+        type: string
+        required: true
+      - name: intro
+        label: 説明
+        type: text
+      - name: items
+        label: 映画記録
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{date} {title}"
+        fields:
+          - name: date
+            label: 観た日
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: title
+            label: 作品名
+            type: string
+            required: true
+          - name: year
+            label: 公開年
+            type: number
+          - name: image
+            label: ポスター・画像
+            type: image
+            options:
+              media: site_images
+          - name: rating
+            label: 点数（5点満点）
+            type: number
+          - name: review
+            label: 感想
+            type: text
+          - name: url
+            label: 外部リンク
+            type: string
 
 settings:
   content:

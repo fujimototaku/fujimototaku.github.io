@@ -5,12 +5,11 @@ title: 作品・書店
   <h1>{{ site.data.works.title }}</h1>
   <h2>{{ site.data.ui.works.section_heading }}</h2>
   <table>
-    <tr><th>{{ site.data.ui.works.image_header }}</th><th>{{ site.data.ui.works.detail_header }}</th><th>{{ site.data.ui.works.stores_header }}</th></tr>
+    <tr><th>{{ site.data.ui.works.image_header }}</th><th>{{ site.data.ui.works.detail_header }}</th></tr>
     {% for item in site.data.works.items %}
     <tr>
       <td align="center" class="bg-light-green"><img src="{{ item.image }}" alt="{{ item.title }}" width="90" border="1" style="background:#eee;"></td>
       <td class="bg-light-green"><b>{{ item.title }}</b><br>{{ item.description | newline_to_br }}</td>
-      <td class="bg-light-green">{{ item.stores | newline_to_br }}</td>
     </tr>
     {% endfor %}
   </table>

@@ -71,14 +71,20 @@ home: true
 
       <section class="panel">
         <h2>{{ site.data.ui.home.announcements_heading }}</h2>
-        <ul class="announcement-list">
-          {% for item in site.data.home.announcements %}
-          <li>
-            <span class="entry-date">{{ item.date }}</span>
-            {{ item.text }}
-          </li>
-          {% endfor %}
-        </ul>
+        <div class="announcement-marquee" aria-label="最新のお知らせ">
+          <div class="announcement-marquee-track">
+            <div class="announcement-marquee-set">
+              {% for item in site.data.home.announcements %}
+              <span class="announcement-marquee-item"><span class="entry-date">{{ item.date }}</span>{{ item.text }}</span>
+              {% endfor %}
+            </div>
+            <div class="announcement-marquee-set" aria-hidden="true">
+              {% for item in site.data.home.announcements %}
+              <span class="announcement-marquee-item"><span class="entry-date">{{ item.date }}</span>{{ item.text }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
 
         <div class="wiki-news" data-wiki-news>
           <div class="wiki-news-head">

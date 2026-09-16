@@ -12,6 +12,10 @@ navigation:
       url: /info/
     - label: ■ 日記
       url: /diary/
+    - label: ■ 写真
+      url: /photos/
+    - label: ■ 映画
+      url: /movies/
     - label: ■ 人生タイムマシン
       url: /time-machine/
     - label: ■ お問い合わせ
@@ -40,7 +44,6 @@ works:
   section_heading: 主要作品
   image_header: 写真
   detail_header: 詳細
-  stores_header: 取扱書店
 activity:
   detail_prefix: └
 diary:

@@ -1,0 +1,28 @@
+---
+layout: page
+title: 写真
+permalink: /photos/
+extra_css: /assets/social-archive.css
+---
+<h1>{{ site.data.photos.title }}</h1>
+<p class="archive-intro">{{ site.data.photos.intro }}</p>
+
+{% assign photos = site.data.photos.items | default: empty | sort: "date" | reverse %}
+{% if photos.size > 0 %}
+<div class="photo-grid">
+  {% for item in photos %}
+  <figure class="photo-post">
+    <a href="{{ item.image }}" target="_blank" rel="noopener" aria-label="写真を大きく見る">
+      <img src="{{ item.image }}" alt="{{ item.caption | default: '写真' }}" loading="lazy">
+    </a>
+    <figcaption>
+      {% if item.date %}<div class="archive-date">{{ item.date }}</div>{% endif %}
+      {% if item.caption %}<div>{{ item.caption }}</div>{% endif %}
+      {% if item.place %}<div class="archive-place">{{ item.place }}</div>{% endif %}
+    </figcaption>
+  </figure>
+  {% endfor %}
+</div>
+{% else %}
+<p class="archive-empty">まだ写真はありません。</p>
+{% endif %}

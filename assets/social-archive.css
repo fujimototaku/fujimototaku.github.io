@@ -1,0 +1,120 @@
+.archive-intro {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.archive-empty {
+  padding: 1rem;
+  color: var(--muted);
+  background: #f7f7f2;
+  border: 1px dotted #b6b7b1;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.photo-post {
+  margin: 0;
+  overflow: hidden;
+  background: #f8f8f3;
+  border: 1px solid #b9bab4;
+}
+
+.photo-post a {
+  display: block;
+  aspect-ratio: 1;
+  background: #ecece6;
+}
+
+.photo-post img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-post figcaption {
+  padding: 0.45rem 0.5rem 0.55rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.archive-date,
+.archive-place,
+.movie-meta {
+  color: var(--muted);
+  font-family: monospace;
+  font-size: 0.7rem;
+}
+
+.movie-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.movie-card {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: 0.7rem;
+  padding: 0.65rem;
+  background: #f8f8f3;
+  border: 1px solid #b9bab4;
+}
+
+.movie-poster {
+  width: 82px;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  background: #e8e8e1;
+  border: 1px solid #bcbdb7;
+  font-size: 0.65rem;
+  text-align: center;
+}
+
+.movie-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.movie-body h2 {
+  margin: 0 0 0.25rem;
+  border: 0;
+  font-size: 1rem;
+}
+
+.movie-rating {
+  margin: 0.15rem 0;
+  color: #655f38;
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+
+.movie-review {
+  margin: 0.4rem 0 0;
+  white-space: pre-line;
+  font-size: 0.84rem;
+}
+
+@media (max-width: 680px) {
+  .photo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .movie-card {
+    grid-template-columns: 68px minmax(0, 1fr);
+  }
+
+  .movie-poster {
+    width: 68px;
+  }
+}
