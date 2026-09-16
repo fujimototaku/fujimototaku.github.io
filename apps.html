@@ -1,0 +1,29 @@
+---
+layout: page
+title: アプリ
+permalink: /apps/
+extra_css: /assets/mothership.css
+---
+<h1>{{ site.data.apps.title }}</h1>
+{% if site.data.apps.intro %}<p class="archive-intro">{{ site.data.apps.intro }}</p>{% endif %}
+
+{% assign apps = site.data.apps.items %}
+{% if apps and apps.size > 0 %}
+<div class="app-shelf">
+  {% for app in apps reversed %}
+  <article class="app-card">
+    {% if app.image %}
+    <div class="app-thumb"><img src="{{ app.image }}" alt="{{ app.title }}" loading="lazy"></div>
+    {% endif %}
+    <div class="app-body">
+      {% if app.status %}<div class="app-status">[ {{ app.status }} ]</div>{% endif %}
+      <h2>{{ app.title }}</h2>
+      {% if app.description %}<p>{{ app.description }}</p>{% endif %}
+      {% if app.url %}<p class="app-launch"><a href="{{ app.url }}" target="_blank" rel="noopener">{{ site.data.apps.launch_label }}</a></p>{% endif %}
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% else %}
+<p class="archive-empty">{{ site.data.apps.empty_text }}</p>
+{% endif %}
