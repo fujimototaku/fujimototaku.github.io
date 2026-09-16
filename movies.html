@@ -17,7 +17,7 @@ extra_css: /assets/social-archive.css
       {% if item.image %}
       <img src="{{ item.image }}" alt="{{ item.title }}" loading="lazy">
       {% else %}
-      NO IMAGE
+      {{ site.data.ui.movies.no_image_text }}
       {% endif %}
     </div>
     <div class="movie-body">
@@ -25,13 +25,13 @@ extra_css: /assets/social-archive.css
       <div class="movie-meta">
         {% if item.date %}{{ item.date }}{% endif %}{% if item.year %} / {{ item.year }}{% endif %}
       </div>
-      {% if item.rating %}<div class="movie-rating">★ {{ item.rating }} / 5</div>{% endif %}
+      {% if item.rating %}<div class="movie-rating">{{ site.data.ui.movies.rating_prefix }} {{ item.rating }} {{ site.data.ui.movies.rating_max_text }}</div>{% endif %}
       {% if item.review %}<p class="movie-review">{{ item.review }}</p>{% endif %}
-      {% if item.url %}<p><a href="{{ item.url }}" target="_blank" rel="noopener">外部ページを見る →</a></p>{% endif %}
+      {% if item.url %}<p><a href="{{ item.url }}" target="_blank" rel="noopener">{{ site.data.ui.movies.external_link_label }}</a></p>{% endif %}
     </div>
   </article>
   {% endfor %}
 </div>
 {% else %}
-<p class="archive-empty">まだ映画の記録はありません。</p>
+<p class="archive-empty">{{ site.data.ui.movies.empty_text }}</p>
 {% endif %}

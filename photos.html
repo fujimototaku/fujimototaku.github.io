@@ -13,8 +13,8 @@ extra_css: /assets/social-archive.css
 <div class="photo-grid">
   {% for item in photos %}
   <figure class="photo-post">
-    <a href="{{ item.image }}" target="_blank" rel="noopener" aria-label="写真を大きく見る">
-      <img src="{{ item.image }}" alt="{{ item.caption | default: '写真' }}" loading="lazy">
+    <a href="{{ item.image }}" target="_blank" rel="noopener" aria-label="{{ site.data.ui.photos.open_image_aria }}">
+      <img src="{{ item.image }}" alt="{{ item.caption | default: site.data.ui.photos.default_alt }}" loading="lazy">
     </a>
     <figcaption>
       {% if item.date %}<div class="archive-date">{{ item.date }}</div>{% endif %}
@@ -25,5 +25,5 @@ extra_css: /assets/social-archive.css
   {% endfor %}
 </div>
 {% else %}
-<p class="archive-empty">まだ写真はありません。</p>
+<p class="archive-empty">{{ site.data.ui.photos.empty_text }}</p>
 {% endif %}

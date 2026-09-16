@@ -71,7 +71,7 @@ home: true
 
       <section class="panel">
         <h2>{{ site.data.ui.home.announcements_heading }}</h2>
-        <div class="announcement-marquee" aria-label="最新のお知らせ">
+        <div class="announcement-marquee" aria-label="{{ site.data.ui.home.announcements_aria_label }}">
           <div class="announcement-marquee-track">
             <div class="announcement-marquee-set">
               {% for item in site.data.home.announcements %}
@@ -86,17 +86,24 @@ home: true
           </div>
         </div>
 
-        <div class="wiki-news" data-wiki-news>
+        <div class="wiki-news" data-wiki-news
+          data-wiki-unknown-title="{{ site.data.ui.home.wiki_news_unknown_title | escape }}"
+          data-wiki-unknown-text="{{ site.data.ui.home.wiki_news_unknown_text | escape }}"
+          data-wiki-meta-text="{{ site.data.ui.home.wiki_news_meta_text | escape }}"
+          data-wiki-loading-title="{{ site.data.ui.home.wiki_news_loading_title | escape }}"
+          data-wiki-loading-text="{{ site.data.ui.home.wiki_news_loading_text | escape }}"
+          data-wiki-error-title="{{ site.data.ui.home.wiki_news_error_title | escape }}"
+          data-wiki-error-text="{{ site.data.ui.home.wiki_news_error_text | escape }}">
           <div class="wiki-news-head">
-            <span class="wiki-news-label">★ 本日のどうでもいいWikipedia</span>
-            <button class="wiki-news-button" type="button" data-wiki-refresh>別にどうでもいい記事</button>
+            <span class="wiki-news-label">{{ site.data.ui.home.wiki_news_label }}</span>
+            <button class="wiki-news-button" type="button" data-wiki-refresh>{{ site.data.ui.home.wiki_news_refresh_label }}</button>
           </div>
           <div class="wiki-news-card" aria-live="polite">
             <div>
-              <h3 class="wiki-news-title" data-wiki-title>どうでもいい記事を捜索中…</h3>
-              <p class="wiki-news-extract" data-wiki-extract>百科事典の奥地を徘徊しています。</p>
+              <h3 class="wiki-news-title" data-wiki-title>{{ site.data.ui.home.wiki_news_loading_title }}</h3>
+              <p class="wiki-news-extract" data-wiki-extract>{{ site.data.ui.home.wiki_news_loading_text }}</p>
               <p class="wiki-news-meta" data-wiki-meta></p>
-              <a data-wiki-link href="https://ja.wikipedia.org/" target="_blank" rel="noopener" hidden>Wikipediaで無駄に詳しく読む →</a>
+              <a data-wiki-link href="https://ja.wikipedia.org/" target="_blank" rel="noopener" hidden>{{ site.data.ui.home.wiki_news_link_label }}</a>
             </div>
             <img class="wiki-news-image" data-wiki-image alt="" hidden>
           </div>

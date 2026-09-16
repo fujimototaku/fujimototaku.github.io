@@ -10,37 +10,47 @@
   const metaEl = box.querySelector('[data-wiki-meta]');
   const cacheKey = 'fujimototaku:useless-wikipedia:v1';
 
+  const text = {
+    unknownTitle: box.dataset.wikiUnknownTitle || '題名不明',
+    unknownText: box.dataset.wikiUnknownText || '説明すら特にありません。',
+    meta: box.dataset.wikiMetaText || '日本語版Wikipediaから無作為に選出',
+    loadingTitle: box.dataset.wikiLoadingTitle || 'どうでもいい記事を捜索中…',
+    loadingText: box.dataset.wikiLoadingText || '百科事典の奥地を徘徊しています。',
+    errorTitle: box.dataset.wikiErrorTitle || '本日はどうでもいいニュースなし',
+    errorText: box.dataset.wikiErrorText || 'Wikipediaとの通信に失敗しました。たぶんどうでもいいです。'
+  };
+
   const todayKey = () => {
     const now = new Date();
     return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
   };
 
-  const trimText = (text, max = 220) => {
-    const clean = String(text || '').replace(/\s+/g, ' ').trim();
+  const trimText = (value, max = 220) => {
+    const clean = String(value || '').replace(/\s+/g, ' ').trim();
     return clean.length > max ? `${clean.slice(0, max).trim()}…` : clean;
   };
 
   const render = (article) => {
-    titleEl.textContent = article.title || '題名不明';
-    extractEl.textContent = trimText(article.extract || '説明すら特にありません。');
+    titleEl.textContent = article.title || text.unknownTitle;
+    extractEl.textContent = trimText(article.extract || text.unknownText);
     linkEl.href = article.fullurl || `https://ja.wikipedia.org/wiki/${encodeURIComponent(article.title || '')}`;
     linkEl.hidden = false;
 
     if (article.thumbnail?.source) {
       imageEl.src = article.thumbnail.source;
-      imageEl.alt = `${article.title}の画像`;
+      imageEl.alt = `${article.title || text.unknownTitle}の画像`;
       imageEl.hidden = false;
     } else {
       imageEl.hidden = true;
       imageEl.removeAttribute('src');
     }
 
-    metaEl.textContent = '日本語版Wikipediaから無作為に選出';
+    metaEl.textContent = text.meta;
   };
 
   const setLoading = () => {
-    titleEl.textContent = 'どうでもいい記事を捜索中…';
-    extractEl.textContent = '百科事典の奥地を徘徊しています。';
+    titleEl.textContent = text.loadingTitle;
+    extractEl.textContent = text.loadingText;
     linkEl.hidden = true;
     imageEl.hidden = true;
     metaEl.textContent = '';
@@ -94,8 +104,8 @@
       } catch (_) {}
     } catch (error) {
       console.error('Wikipedia random article failed:', error);
-      titleEl.textContent = '本日はどうでもいいニュースなし';
-      extractEl.textContent = 'Wikipediaとの通信に失敗しました。たぶんどうでもいいです。';
+      titleEl.textContent = text.errorTitle;
+      extractEl.textContent = text.errorText;
       linkEl.hidden = true;
       imageEl.hidden = true;
       metaEl.textContent = '';
