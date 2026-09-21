@@ -15,7 +15,7 @@
         {% when '/time-machine/' %}{% assign nav_label = site.data.timeline.title %}
         {% when '/contact/' %}{% assign nav_label = site.data.contact.title %}
       {% endcase %}
-      <a href="{{ item.url }}">■ {{ nav_label }}</a>
+      <a href="{{ item.url }}">{{ site.data.ui.navigation.item_prefix }} {{ nav_label }}</a>
       {% endfor %}
     </nav>
   </section>
