@@ -495,6 +495,141 @@ content:
                 label: 訪問数画像の代替文言
                 type: string
 
+      - name: photos
+        label: 写真
+        type: file
+        path: _data/photos.yml
+        format: yaml
+        fields:
+          - name: title
+            label: ページ名
+            type: string
+            required: true
+          - name: intro
+            label: 説明
+            type: text
+          - name: items
+            label: 写真
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+            fields:
+              - name: image
+                label: 画像
+                type: image
+                options:
+                  media: site_images
+              - name: caption
+                label: 一言
+                type: string
+              - name: place
+                label: 場所
+                type: string
+
+      - name: movies
+        label: 映画
+        type: file
+        path: _data/movies.yml
+        format: yaml
+        fields:
+          - name: title
+            label: ページ名
+            type: string
+            required: true
+          - name: intro
+            label: 説明
+            type: text
+          - name: items
+            label: 映画
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: 作品名
+                type: string
+                required: true
+              - name: year
+                label: 公開年
+                type: string
+              - name: image
+                label: ポスター
+                type: image
+                options:
+                  media: site_images
+              - name: review
+                label: 感想
+                type: text
+              - name: url
+                label: 外部リンク
+                type: string
+
+      - name: apps
+        label: アプリ
+        type: file
+        path: _data/apps.yml
+        format: yaml
+        fields:
+          - name: title
+            label: ページ名
+            type: string
+            required: true
+          - name: intro
+            label: 説明
+            type: text
+          - name: empty_text
+            label: アプリがない時の文言
+            type: string
+          - name: launch_label
+            label: 起動リンク文言
+            type: string
+          - name: items
+            label: アプリ
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: アプリ名
+                type: string
+                required: true
+              - name: description
+                label: 説明
+                type: text
+              - name: image
+                label: 画像
+                type: image
+                options:
+                  media: site_images
+              - name: status
+                label: 状態
+                type: string
+              - name: url
+                label: 起動URL
+                type: string
+
+      - name: shorts
+        label: ひとこと
+        type: file
+        path: _data/shorts.yml
+        format: yaml
+        fields:
+          - name: title
+            label: ページ名
+            type: string
+            required: true
+          - name: intro
+            label: 説明
+            type: text
+          - name: empty_text
+            label: 投稿がない時の文言
+            type: string
+
       - name: works
         label: 作品・書店
         type: file
@@ -798,149 +933,3 @@ content:
         required: true
 
   - name: shorts_page
-    label: ひとことページ設定
-    type: file
-    path: _data/shorts.yml
-    format: yaml
-    fields:
-      - name: title
-        label: ページ見出し
-        type: string
-        required: true
-      - name: intro
-        label: 説明
-        type: text
-      - name: empty_text
-        label: 何もない時の文言
-        type: string
-
-  - name: photos
-    label: 写真
-    type: file
-    path: _data/photos.yml
-    format: yaml
-    fields:
-      - name: title
-        label: ページ見出し
-        type: string
-        required: true
-      - name: intro
-        label: 説明
-        type: text
-      - name: items
-        label: 写真
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{caption}"
-        fields:
-          - name: image
-            label: 写真
-            type: image
-            required: true
-            options:
-              media: site_images
-          - name: caption
-            label: 一言
-            type: text
-          - name: place
-            label: 場所
-            type: string
-
-  - name: movies
-    label: 映画
-    type: file
-    path: _data/movies.yml
-    format: yaml
-    fields:
-      - name: title
-        label: ページ見出し
-        type: string
-        required: true
-      - name: intro
-        label: 説明
-        type: text
-      - name: items
-        label: 映画記録
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{title}"
-        fields:
-          - name: title
-            label: 作品名
-            type: string
-            required: true
-          - name: year
-            label: 公開年
-            type: number
-          - name: image
-            label: ポスター・画像
-            type: image
-            options:
-              media: site_images
-          - name: review
-            label: 感想
-            type: text
-          - name: url
-            label: 外部リンク
-            type: string
-
-  - name: apps
-    label: アプリ
-    type: file
-    path: _data/apps.yml
-    format: yaml
-    fields:
-      - name: title
-        label: ページ見出し
-        type: string
-        required: true
-      - name: intro
-        label: 説明
-        type: text
-      - name: empty_text
-        label: 何もない時の文言
-        type: string
-      - name: launch_label
-        label: 起動リンクの文言
-        type: string
-      - name: items
-        label: アプリ
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{title}"
-        fields:
-          - name: title
-            label: 名前
-            type: string
-            required: true
-          - name: description
-            label: 一言説明
-            type: text
-          - name: image
-            label: スクリーンショット
-            type: image
-            options:
-              media: site_images
-          - name: status
-            label: 状態
-            type: string
-            description: 公開 / 実験中 / 停止中 など。空欄でもOK
-          - name: url
-            label: 起動URL
-            type: string
-
-settings:
-  content:
-    merge: true
-  commit:
-    templates:
-      create: "追加: {filename}"
-      update: "更新: {filename}"
-      delete: "削除: {filename}"
-      rename: "改名: {oldPath} -> {newPath}"
