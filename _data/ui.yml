@@ -25,8 +25,13 @@ navigation:
       url: /contact/
   external_title: 外部りんく
   external_prefix: ◇
+  item_prefix: ■
 home:
+  menu_label: とっぷ
   profile_heading: ━━ 管理人 ━━
+  section_prefix: ━━
+  section_suffix: ━━
+  profile_image_alt_suffix: の近影
   likes_label: 好き
   dislikes_label: 嫌い
   announcements_heading: ━━ 最新のお知らせ ━━
@@ -35,6 +40,7 @@ home:
   shop_area_label: 通販
   store_note: ※在庫状況は各店舗へお問い合わせください。
   updated_label: 最終更新
+  updated_at_format: "%Y年%-m月%-d日 %H:%M"
   alive_label: 生存確認から
   loading_text: 計算中...
   unknown_text: 不明

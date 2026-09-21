@@ -5,6 +5,7 @@
       {% for item in site.data.ui.navigation.items %}
       {% assign nav_label = item.label %}
       {% case item.url %}
+        {% when '/' %}{% assign nav_label = site.data.ui.home.menu_label %}
         {% when '/works/' %}{% assign nav_label = site.data.works.title %}
         {% when '/info/' %}{% assign nav_label = site.data.activity.title %}
         {% when '/diary/' %}{% assign nav_label = site.data.ui.diary.page_title %}
@@ -15,7 +16,7 @@
         {% when '/time-machine/' %}{% assign nav_label = site.data.timeline.title %}
         {% when '/contact/' %}{% assign nav_label = site.data.contact.title %}
       {% endcase %}
-      <a href="{{ item.url }}">■ {{ nav_label }}</a>
+      <a href="{{ item.url }}">{{ site.data.ui.navigation.item_prefix }} {{ nav_label }}</a>
       {% endfor %}
     </nav>
   </section>

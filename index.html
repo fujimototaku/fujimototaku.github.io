@@ -60,7 +60,7 @@ home: true
         <h2>{{ site.data.ui.home.profile_heading }}</h2>
         <div class="profile-box">
           <div class="profile-img">
-            <img src="{{ site.data.home.profile.image }}" alt="{{ site.data.home.profile.name }}の近影">
+            <img src="{{ site.data.home.profile.image }}" alt="{{ site.data.home.profile.name }}{{ site.data.ui.home.profile_image_alt_suffix }}">
           </div>
           <div class="profile-txt">
             <div class="profile-name">{{ site.data.home.profile.name }}</div>
@@ -128,14 +128,14 @@ home: true
 
       {% if site.data.home.observatory.enabled %}
       <section class="panel">
-        <h2>━━ {{ site.data.home.observatory.title }} ━━</h2>
+        <h2>{{ site.data.ui.home.section_prefix }} {{ site.data.home.observatory.title }} {{ site.data.ui.home.section_suffix }}</h2>
         <p><a href="{{ site.data.home.observatory.url }}" target="_blank" rel="noopener">{{ site.data.home.observatory.caption }}</a></p>
       </section>
       {% endif %}
 
       <section class="panel utility-box">
         <div class="utility-chip">
-          {{ site.data.ui.home.updated_label }}：{{ site.data.home.updated_at | date: "%Y年%-m月%-d日 %H:%M" }}<br>
+          {{ site.data.ui.home.updated_label }}：{{ site.data.home.updated_at | date: site.data.ui.home.updated_at_format }}<br>
           {{ site.data.ui.home.alive_label }} <span id="update-timer">{{ site.data.ui.home.loading_text }}</span>
         </div>
         <div class="search-box">
