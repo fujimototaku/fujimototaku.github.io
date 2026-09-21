@@ -277,6 +277,9 @@ content:
             label: トップページの固定文言
             type: object
             fields:
+              - name: menu_label
+                label: トップページのメニュー名
+                type: string
               - name: profile_heading
                 label: 管理人欄見出し
                 type: string
