@@ -1,5 +1,6 @@
-title: アプリ
-intro: つくったもの置き場です。
+title: つくったアプリ
+intro: つくったものアプリです。
 empty_text: まだありません。
 launch_label: ▶ 起動する
-items: []
+items:
+  - {}
