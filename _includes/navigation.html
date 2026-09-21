@@ -3,7 +3,19 @@
     <h2>{{ site.data.ui.navigation.menu_title }}</h2>
     <nav>
       {% for item in site.data.ui.navigation.items %}
-      <a href="{{ item.url }}">{{ item.label }}</a>
+      {% assign nav_label = item.label %}
+      {% case item.url %}
+        {% when '/works/' %}{% assign nav_label = site.data.works.title %}
+        {% when '/info/' %}{% assign nav_label = site.data.activity.title %}
+        {% when '/diary/' %}{% assign nav_label = site.data.ui.diary.page_title %}
+        {% when '/shorts/' %}{% assign nav_label = site.data.shorts.title %}
+        {% when '/photos/' %}{% assign nav_label = site.data.photos.title %}
+        {% when '/movies/' %}{% assign nav_label = site.data.movies.title %}
+        {% when '/apps/' %}{% assign nav_label = site.data.apps.title %}
+        {% when '/time-machine/' %}{% assign nav_label = site.data.timeline.title %}
+        {% when '/contact/' %}{% assign nav_label = site.data.contact.title %}
+      {% endcase %}
+      <a href="{{ item.url }}">■ {{ nav_label }}</a>
       {% endfor %}
     </nav>
   </section>
