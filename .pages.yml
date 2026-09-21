@@ -416,86 +416,7 @@ content:
                 label: LIVE編集表示テンプレート
                 type: string
                 description: "%TITLE% が記事名に置き換わります"
-          - name: works
-            label: 作品ページの固定文言
-            type: object
-            fields:
-              - name: section_heading
-                label: 作品一覧見出し
-                type: string
-              - name: image_header
-                label: 写真列
-                type: string
-              - name: detail_header
-                label: 詳細列
-                type: string
-          - name: activity
-            label: 活動ページ
-            type: object
-            fields:
-              - name: detail_prefix
-                label: 内容の先頭記号
-                type: string
-          - name: diary
-            label: 日記ページ
-            type: object
-            fields:
-              - name: page_title
-                label: 日記一覧の見出し
-                type: string
-              - name: notice
-                label: 日記上部の注意書き
-                type: text
-              - name: empty_text
-                label: 記事がない時の文言
-                type: string
-              - name: back_label
-                label: 一覧へ戻る文言
-                type: string
           - name: photos
-            label: 写真ページ
-            type: object
-            fields:
-              - name: open_image_aria
-                label: 写真拡大リンクの説明
-                type: string
-              - name: default_alt
-                label: 写真の代替文言
-                type: string
-              - name: empty_text
-                label: 写真がない時の文言
-                type: string
-          - name: movies
-            label: 映画ページ
-            type: object
-            fields:
-              - name: no_image_text
-                label: 画像なし表示
-                type: string
-              - name: external_link_label
-                label: 外部リンク文言
-                type: string
-              - name: empty_text
-                label: 映画記録がない時の文言
-                type: string
-          - name: footer
-            label: フッター
-            type: object
-            fields:
-              - name: visitor_aria_label
-                label: 訪問数の読み上げ名
-                type: string
-              - name: visitor_label
-                label: 訪問数の前置き
-                type: string
-              - name: visitor_badge_label
-                label: 訪問数画像内ラベル
-                type: string
-              - name: visitor_alt
-                label: 訪問数画像の代替文言
-                type: string
-
-      - name: photos
         label: 写真
         type: file
         path: _data/photos.yml
@@ -629,6 +550,85 @@ content:
           - name: empty_text
             label: 投稿がない時の文言
             type: string
+
+      - name: works
+            label: 作品ページの固定文言
+            type: object
+            fields:
+              - name: section_heading
+                label: 作品一覧見出し
+                type: string
+              - name: image_header
+                label: 写真列
+                type: string
+              - name: detail_header
+                label: 詳細列
+                type: string
+          - name: activity
+            label: 活動ページ
+            type: object
+            fields:
+              - name: detail_prefix
+                label: 内容の先頭記号
+                type: string
+          - name: diary
+            label: 日記ページ
+            type: object
+            fields:
+              - name: page_title
+                label: 日記一覧の見出し
+                type: string
+              - name: notice
+                label: 日記上部の注意書き
+                type: text
+              - name: empty_text
+                label: 記事がない時の文言
+                type: string
+              - name: back_label
+                label: 一覧へ戻る文言
+                type: string
+          - name: photos
+            label: 写真ページ
+            type: object
+            fields:
+              - name: open_image_aria
+                label: 写真拡大リンクの説明
+                type: string
+              - name: default_alt
+                label: 写真の代替文言
+                type: string
+              - name: empty_text
+                label: 写真がない時の文言
+                type: string
+          - name: movies
+            label: 映画ページ
+            type: object
+            fields:
+              - name: no_image_text
+                label: 画像なし表示
+                type: string
+              - name: external_link_label
+                label: 外部リンク文言
+                type: string
+              - name: empty_text
+                label: 映画記録がない時の文言
+                type: string
+          - name: footer
+            label: フッター
+            type: object
+            fields:
+              - name: visitor_aria_label
+                label: 訪問数の読み上げ名
+                type: string
+              - name: visitor_label
+                label: 訪問数の前置き
+                type: string
+              - name: visitor_badge_label
+                label: 訪問数画像内ラベル
+                type: string
+              - name: visitor_alt
+                label: 訪問数画像の代替文言
+                type: string
 
       - name: works
         label: 作品・書店
@@ -933,3 +933,149 @@ content:
         required: true
 
   - name: shorts_page
+    label: ひとことページ設定
+    type: file
+    path: _data/shorts.yml
+    format: yaml
+    fields:
+      - name: title
+        label: ページ見出し
+        type: string
+        required: true
+      - name: intro
+        label: 説明
+        type: text
+      - name: empty_text
+        label: 何もない時の文言
+        type: string
+
+  - name: photos
+    label: 写真
+    type: file
+    path: _data/photos.yml
+    format: yaml
+    fields:
+      - name: title
+        label: ページ見出し
+        type: string
+        required: true
+      - name: intro
+        label: 説明
+        type: text
+      - name: items
+        label: 写真
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{caption}"
+        fields:
+          - name: image
+            label: 写真
+            type: image
+            required: true
+            options:
+              media: site_images
+          - name: caption
+            label: 一言
+            type: text
+          - name: place
+            label: 場所
+            type: string
+
+  - name: movies
+    label: 映画
+    type: file
+    path: _data/movies.yml
+    format: yaml
+    fields:
+      - name: title
+        label: ページ見出し
+        type: string
+        required: true
+      - name: intro
+        label: 説明
+        type: text
+      - name: items
+        label: 映画記録
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: 作品名
+            type: string
+            required: true
+          - name: year
+            label: 公開年
+            type: number
+          - name: image
+            label: ポスター・画像
+            type: image
+            options:
+              media: site_images
+          - name: review
+            label: 感想
+            type: text
+          - name: url
+            label: 外部リンク
+            type: string
+
+  - name: apps
+    label: アプリ
+    type: file
+    path: _data/apps.yml
+    format: yaml
+    fields:
+      - name: title
+        label: ページ見出し
+        type: string
+        required: true
+      - name: intro
+        label: 説明
+        type: text
+      - name: empty_text
+        label: 何もない時の文言
+        type: string
+      - name: launch_label
+        label: 起動リンクの文言
+        type: string
+      - name: items
+        label: アプリ
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: 名前
+            type: string
+            required: true
+          - name: description
+            label: 一言説明
+            type: text
+          - name: image
+            label: スクリーンショット
+            type: image
+            options:
+              media: site_images
+          - name: status
+            label: 状態
+            type: string
+            description: 公開 / 実験中 / 停止中 など。空欄でもOK
+          - name: url
+            label: 起動URL
+            type: string
+
+settings:
+  content:
+    merge: true
+  commit:
+    templates:
+      create: "追加: {filename}"
+      update: "更新: {filename}"
+      delete: "削除: {filename}"
+      rename: "改名: {oldPath} -> {newPath}"
