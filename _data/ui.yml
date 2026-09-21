@@ -27,6 +27,7 @@ navigation:
   external_prefix: ◇
   item_prefix: ■
 home:
+  menu_label: とっぷ
   profile_heading: ━━ 管理人 ━━
   section_prefix: ━━
   section_suffix: ━━
