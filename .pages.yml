@@ -270,12 +270,24 @@ content:
               - name: external_prefix
                 label: 外部リンク先頭記号
                 type: string
+              - name: item_prefix
+                label: メニュー項目先頭記号
+                type: string
           - name: home
             label: トップページの固定文言
             type: object
             fields:
               - name: profile_heading
                 label: 管理人欄見出し
+                type: string
+              - name: section_prefix
+                label: セクション見出し先頭記号
+                type: string
+              - name: section_suffix
+                label: セクション見出し末尾記号
+                type: string
+              - name: profile_image_alt_suffix
+                label: プロフィール写真の後ろに付ける文言
                 type: string
               - name: likes_label
                 label: 好きのラベル
@@ -300,6 +312,9 @@ content:
                 type: text
               - name: updated_label
                 label: 最終更新ラベル
+                type: string
+              - name: updated_at_format
+                label: 更新日時の表示形式
                 type: string
               - name: alive_label
                 label: 生存確認ラベル
