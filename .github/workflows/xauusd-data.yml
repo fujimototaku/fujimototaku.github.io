@@ -1,5 +1,8 @@
 name: Update XAUUSD data
 on:
+  push:
+    paths:
+      - ".github/workflows/xauusd-data.yml"
   workflow_dispatch:
   schedule:
     - cron: "17 * * * *"
