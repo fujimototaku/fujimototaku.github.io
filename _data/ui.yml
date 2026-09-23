@@ -99,7 +99,3 @@ movies:
   external_link_label: 外部ページを見る →
   empty_text: まだ映画の記録はありません。
 footer:
-  visitor_aria_label: だいたいこれくらい来た
-  visitor_label: たぶんこれくらい来た：
-  visitor_badge_label: たぶん
-  visitor_alt: だいたい来た人数
